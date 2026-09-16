@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN Mehendi | Online Store</title>
+    
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SN Mehendi">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Background Image with Low Opacity Effect */
+        body { 
+            background: #000000; 
+            color: #ffffff; 
+            padding-bottom: 50px; 
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.40; 
+            z-index: -1;
+        }
+        
+        header { 
+            background: rgba(0, 0, 0, 0.85); 
+            color: white; 
+            padding: 30px 20px 20px 20px; 
+            text-align: center; 
+            border-bottom: 1px solid #222222; 
+        }
+        
+
+        .logo-img { 
+            width: 160px; 
+            height: 160px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: none !important; 
+            outline: none !important;
+            box-shadow: none !important;
+            display: block; 
+            margin: 0 auto 12px auto; 
+            background: transparent; 
+        }
+
+        header h1 { font-size: 22px; margin-bottom: 4px; color: #ffffff; letter-spacing: 1px; font-weight: 700; text-transform: uppercase; }
+        header p { font-size: 12px; color: #aaaaaa; letter-spacing: 0.5px; }
+
+        /* Artist Bio Card */
+        .artist-bio {
+            background: rgba(13, 13, 13, 0.9);
+            border: 1px solid #222222;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin: 15px auto 0 auto;
+            text-align: center;
+            max-width: 600px;
+        }
+        .artist-bio h2 {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .artist-bio p {
+            font-size: 11px;
+            color: #999999;
+            line-height: 1.4;
+        }
+
+        .container { max-width: 600px; margin: 15px auto; padding: 0 15px; }
+        
+        /* Larger Section Title for Select Items */
+        .section-title { 
+            font-size: 16px; 
+            color: #ffffff; 
+            margin-bottom: 12px; 
+            font-weight: 700; 
+            border-left: 3px solid #ffffff; 
+            padding-left: 8px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Product Card */
+        .product-card { 
+            background: rgba(13, 13, 13, 0.9); 
+            padding: 20px 18px; 
+            border-radius: 6px; 
+            margin-bottom: 12px; 
+            border: 1px solid #222222; 
+        }
+        .product-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Larger Product Info Text */
+        .product-info h3 { font-size: 18px; color: #ffffff; font-weight: 700; }
+        .product-info p { font-size: 13px; color: #bbbbbb; margin-top: 6px; line-height: 1.4; }
+
+        .qty-control { display: flex; align-items: center; gap: 8px; }
+        .qty-btn { width: 34px; height: 34px; background: #ffffff; color: #000000; font-weight: bold; border: none; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; }
+        .qty-btn:active { opacity: 0.8; }
+        
+        .qty-input { 
+            width: 48px; 
+            height: 34px; 
+            background: #000000; 
+            border: 1px solid #444444; 
+            color: #ffffff; 
+            font-size: 16px; 
+            font-weight: bold; 
+            text-align: center; 
+            border-radius: 4px; 
+        }
+        .qty-input:focus { border-color: #ffffff; outline: none; }
+
+        /* Form Card */
+        .form-card { 
+            background: rgba(13, 13, 13, 0.9); 
+            padding: 20px; 
+            border-radius: 6px; 
+            margin-top: 20px; 
+            border: 1px solid #222222; 
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: #cccccc; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px; background: #000000; border: 1px solid #333333; color: #ffffff; border-radius: 4px; font-size: 14px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #ffffff; outline: none; }
+
+        /* Bank Details Box Style */
+        .bank-details-box {
+            background: rgba(5, 5, 5, 0.95);
+            border: 1px solid #333333;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+        .bank-details-box p {
+            font-size: 12px;
+            color: #cccccc;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .copy-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        .copy-btn:hover { opacity: 0.9; }
+
+        /* Store Information Section */
+        .info-card {
+            background: rgba(13, 13, 13, 0.9);
+            border: 1px solid #222222;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-card li {
+            font-size: 12px;
+            color: #999999;
+            margin-bottom: 6px;
+            padding-left: 15px;
+            position: relative;
+            line-height: 1.4;
+        }
+        .info-card li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+
+        /* Bill Summary Card */
+        .bill-card { 
+            background: rgba(13, 13, 13, 0.9); 
+            border: 1px solid #222222; 
+            padding: 18px; 
+            border-radius: 6px; 
+            margin-top: 20px; 
+        }
+        .bill-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #aaaaaa; }
+        .bill-row.total { font-weight: bold; font-size: 16px; color: #ffffff; border-top: 1px solid #222222; padding-top: 10px; margin-top: 10px; }
+
+        /* WhatsApp Order Button */
+        .order-btn { 
+            width: 100%; 
+            background: #25D366; 
+            color: #ffffff; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-size: 14px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
+        .order-btn:hover { background: #20ba5a; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.jpg" alt="SN Mehendi Logo" class="logo-img">
+        <h1>SN Mehendi</h1>
+        <p>100% Natural — Deep Stain — Signature Fragrance</p>
+    </header>
+
+    <!-- Professional Mehendi Artist Bio Section -->
+    <div class="container" style="margin-bottom: 0;">
+        <div class="artist-bio">
+            <h2>Mrs. Nisfa Suhaib</h2>
+            <p>Professional Mehendi Artist & NVQ Level 4 Certified Makeup Artist. Crafting 100% natural, chemical-free bridal cones with rich stains and signature fragrances for your special occasions.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div class="section-title">Select Items</div>
+
+        <div class="product-card">
+            <div class="product-content">
+                <div class="product-info">
+                    <h3>Bridal Cone</h3>
+                    <p>Rs. 390 / piece</p>
+                </div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                    <input type="number" id="qty-item1" class="qty-input" value="0" min="0" oninput="onQtyInputChanged()">
+                    <button class="qty-btn" onclick="changeQty(1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <div class="section-title" style="margin-bottom: 15px;">Delivery Details</div>
+            
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="custName" placeholder="Enter your name" maxlength="50">
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="custPhone" placeholder="Enter mobile number (e.g. 0771234567)" maxlength="15">
+            </div>
+
+            <div class="form-group">
+                <label>Select District</label>
+                <select id="districtSelect" onchange="onDistrictChange()">
+                    <option value="">-- Select District --</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Gampaha">Gampaha</option>
+                    <option value="Kalutara">Kalutara</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Matale">Matale</option>
+                    <option value="Nuwara Eliya">Nuwara Eliya</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Matara">Matara</option>
+                    <option value="Hambantota">Hambantota</option>
+                    <option value="Jaffna">Jaffna</option>
+                    <option value="Kilinochchi">Kilinochchi</option>
+                    <option value="Mannar">Mannar</option>
+                    <option value="Vavuniya">Vavuniya</option>
+                    <option value="Mullaitivu">Mullaitivu</option>
+                    <option value="Batticaloa">Batticaloa</option>
+                    <option value="Ampara">Ampara</option>
+                    <option value="Trincomalee">Trincomalee</option>
+                    <option value="Kurunegala">Kurunegala</option>
+                    <option value="Puttalam">Puttalam</option>
+                    <option value="Anuradhapura">Anuradhapura</option>
+                    <option value="Polonnaruwa">Polonnaruwa</option>
+                    <option value="Badulla">Badulla</option>
+                    <option value="Monaragala">Monaragala</option>
+                    <option value="Ratnapura">Ratnapura</option>
+                    <option value="Kegalle">Kegalle</option>
+                    <option value="Store Pickup">Store Pickup</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Area</label>
+                <select id="areaSelect" onchange="updateDeliveryFee()">
+                    <option value="">-- First Select District --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Method</label>
+                <select id="paymentMethod" onchange="toggleBankDetails()">
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="Cash on Delivery" id="codOption">Cash on Delivery (COD)</option>
+                </select>
+
+                <div id="bankDetailsBox" class="bank-details-box">
+                    <p><strong>Bank:</strong> Commercial Bank<br>
+                    <strong>Account Name:</strong> A. N. M. Suhaib<br>
+                    <strong>Account Number:</strong> 8015862293<br>
+                    <strong>Branch:</strong> Maradana</p>
+                    <button type="button" class="copy-btn" onclick="copyBankDetails()">📋 Copy Bank Details</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Special Note (Optional)</label>
+                <textarea id="custNote" rows="2" placeholder="Any specific instructions..." maxlength="150"></textarea>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="section-title" style="margin-bottom: 10px; font-size: 13px;">Important Information</div>
+            <ul>
+                <li>Freshly handmade cones prepared with 100% natural ingredients.</li>
+                <li>Store in normal fridge cool (below freezer) for long-lasting quality.</li>
+                <li>Delivery takes 2 to 4 working days based on your location.</li>
+            </ul>
+        </div>
+
+        <div class="bill-card">
+            <div class="section-title" style="margin-bottom: 10px; font-size: 14px;">Order Summary</div>
+            <div class="bill-row">
+                <span>Items Total:</span>
+                <span id="itemsTotalDisplay">Rs. 0</span>
+            </div>
+            <div class="bill-row">
+                <span>Delivery Charge:</span>
+                <span>Rs. <span id="deliveryFee">300</span></span>
+            </div>
+            <div class="bill-row total">
+                <span>Final Total:</span>
+                <span id="finalTotalDisplay">Rs. 300</span>
+            </div>
+        </div>
+
+        <button class="order-btn" onclick="sendWhatsAppOrder()">
+            <span>💬</span> Place Order via WhatsApp
+        </button>
+
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered!'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+
+        const pricePerCone = 390;
+
+        const districtData = {
+            "Colombo": {
+                fee: 300,
+                areas: [
+                    "Colombo 1 to 15",
+                    "Dehiwala / Mount Lavinia",
+                    "Moratuwa",
+                    "Kotte / Battaramulla",
+                    "Maharagama / Nugegoda",
+                    "Homagama / Kottawa",
+                    "Malabe / Athurugiriya",
+                    "Kolonnawa / Wellampitiya",
+                    "Hanwella / Avissawella"
+                ]
+            },
+            "Gampaha": {
+                fee: 450,
+                areas: [
+                    "Gampaha Town",
+                    "Negombo",
+                    "Wattala / Ja-Ela",
+                    "Kandana / Ragama",
+                    "Minuwangoda",
+                    "Kelaniya / Biyagama",
+                    "Divulapitiya / Mirigama",
+                    "Ja-Ela Suburbs"
+                ]
+            },
+            "Kalutara": {
+                fee: 450,
+                areas: [
+                    "Kalutara Town",
+                    "Panadura",
+                    "Beruwala / Aluthgama",
+                    "Mathugama",
+                    "Bandaragama",
+                    "Wadduwa",
+                    "Horana"
+                ]
+            },
+            "Kandy": {
+                fee: 650,
+                areas: [
+                    "Kandy City",
+                    "Peradeniya / Gampola",
+                    "Katugastota / Akurana",
+                    "Nawalapitiya / Wattegama",
+                    "Kundasale / Digana",
+                    "Kadugannawa"
+                ]
+            },
+            "Matale": {
+                fee: 650,
+                areas: [
+                    "Matale City",
+                    "Dambulla / Sigiriya",
+                    "Galewela / Rattota",
+                    "Ukuwela"
+                ]
+            },
+            "Nuwara Eliya": {
+                fee: 650,
+                areas: [
+                    "Nuwara Eliya City",
+                    "Hatton / Talawakelle",
+                    "Ginigathhena / Ragala",
+                    "Walapane / Kotmale"
+                ]
+            },
+            "Galle": {
+                fee: 650,
+                areas: [
+                    "Galle City",
+                    "Ambalangoda / Hikkaduwa",
+                    "Elpitiya / Baddegama",
+                    "Bentota / Induruwa",
+                    "Ahangama / Habaraduwa"
+                ]
+            },
+            "Matara": {
+                fee: 650,
+                areas: [
+                    "Matara City",
+                    "Weligama / Akuressa",
+                    "Hakmana / Kamburupitiya",
+                    "Deniyaya / Dikwella"
+                ]
+            },
+            "Hambantota": {
+                fee: 650,
+                areas: [
+                    "Hambantota Town",
+                    "Tangalle",
+                    "Beliatta / Ambalantota",
+                    "Tissamaharama / Kataragama"
+                ]
+            },
+            "Jaffna": {
+                fee: 650,
+                areas: [
+                    "Jaffna City",
+                    "Nallur / Chunnakam",
+                    "Point Pedro / Valvettithurai",
+                    "Kankesanthurai / Chavakachcheri",
+                    "Kayts / Karainagar",
+                    "Tellippalai / Kopay"
+                ]
+            },
+            "Kilinochchi": {
+                fee: 650,
+                areas: [
+                    "Kilinochchi Town",
+                    "Pallai / Paranthan",
+                    "Poonakary / Kandawalai"
+                ]
+            },
+            "Mannar": {
+                fee: 650,
+                areas: [
+                    "Mannar Island / Town",
+                    "Madhu / Pesalai",
+                    "Nanattan / Murunkan"
+                ]
+            },
+            "Vavuniya": {
+                fee: 650,
+                areas: [
+                    "Vavuniya Town",
+                    "Omanthai / Cheddikulam",
+                    "Nedunkeni"
+                ]
+            },
+            "Mullaitivu": {
+                fee: 650,
+                areas: [
+                    "Mullaitivu Town",
+                    "Puthukudiyiruppu / Oddusuddan",
+                    "Thunukkai / Maritimepattu"
+                ]
+            },
+            "Batticaloa": {
+                fee: 650,
+                areas: [
+                    "Batticaloa Town",
+                    "Kattankudy / Eravur",
+                    "Kalkudah / Chenkalady",
+                    "Vakarai / Kiran"
+                ]
+            },
+            "Ampara": {
+                fee: 650,
+                areas: [
+                    "Ampara Town",
+                    "Kalmunai / Akkaraipattu",
+                    "Sainthamaruthu / Sammanthurai",
+                    "Padiyathalawa / Maha Oya"
+                ]
+            },
+            "Trincomalee": {
+                fee: 650,
+                areas: [
+                    "Trincomalee Town",
+                    "Kinniya / Mutur",
+                    "Nilaveli / Kantalai",
+                    "Seruwila / Thampalakamam"
+                ]
+            },
+            "Kurunegala": {
+                fee: 650,
+                areas: [
+                    "Kurunegala Town",
+                    "Kuliyapitiya / Narammala",
+                    "Nikaweratiya / Pannala",
+                    "Maho / Giriulla"
+                ]
+            },
+            "Puttalam": {
+                fee: 650,
+                areas: [
+                    "Puttalam Town",
+                    "Chilaw / Wennappuwa",
+                    "Marawila / Dankotuwa",
+                    "Madampe / Kalpitiya"
+                ]
+            },
+            "Anuradhapura": {
+                fee: 650,
+                areas: [
+                    "Anuradhapura City",
+                    "Kappachchi / Kekirawa",
+                    "Medawachchiya / Thambuttegama",
+                    "Eppawala / Horowpothana"
+                ]
+            },
+            "Polonnaruwa": {
+                fee: 650,
+                areas: [
+                    "Polonnaruwa Town",
+                    "Kaduruwela / Hingurakgoda",
+                    "Medirigiriya / Welikanda"
+                ]
+            },
+            "Badulla": {
+                fee: 650,
+                areas: [
+                    "Badulla Town",
+                    "Bandarawela / Diyatalawa",
+                    "Haputale / Welimada",
+                    "Mahiyanganaya / Passara"
+                ]
+            },
+            "Monaragala": {
+                fee: 650,
+                areas: [
+                    "Monaragala Town",
+                    "Wellawaya / Buttala",
+                    "Kataragama border / Bibile",
+                    "Siyambalanduwa"
+                ]
+            },
+            "Ratnapura": {
+                fee: 650,
+                areas: [
+                    "Ratnapura Town",
+                    "Embilipitiya / Balangoda",
+                    "Pelmadulla / Eheliyagoda",
+                    "Kuruwita / Kahawatta"
+                ]
+            },
+            "Kegalle": {
+                fee: 650,
+                areas: [
+                    "Kegalle Town",
+                    "Warakapola / Mawanella",
+                    "Rambukkana / Ruwanwella",
+                    "Yatiyantota / Deraniyagala"
+                ]
+            },
+            "Store Pickup": {
+                fee: 0,
+                areas: [
+                    "Store Pickup (Free)"
+                ]
+            }
+        };
+
+        function getQty() {
+            let val = parseInt(document.getElementById('qty-item1').value);
+            return isNaN(val) || val < 0 ? 0 : val;
+        }
+
+        function changeQty(change) {
+            let currentQty = getQty();
+            let newQty = currentQty + change;
+            if (newQty < 0) newQty = 0;
+            
+            document.getElementById('qty-item1').value = newQty;
+            calculateBill();
+        }
+
+        function onQtyInputChanged() {
+            calculateBill();
+        }
+
+        function onDistrictChange() {
+            let districtSelect = document.getElementById('districtSelect').value;
+            let areaSelect = document.getElementById('areaSelect');
+            let paymentMethod = document.getElementById('paymentMethod');
+            let codOption = document.getElementById('codOption');
+
+            areaSelect.innerHTML = '<option value="">-- Select Area --</option>';
+
+            if (districtSelect && districtData[districtSelect]) {
+                let areas = districtData[districtSelect].areas;
+                areas.forEach(area => {
+                    let opt = document.createElement('option');
+                    opt.value = area;
+                    opt.textContent = area;
+                    areaSelect.appendChild(opt);
+                });
+            } else {
+                areaSelect.innerHTML = '<option value="">-- First Select District --</option>';
+            }
+
+            if (districtSelect === "Colombo" || districtSelect === "Store Pickup") {
+                codOption.style.display = "block";
+            } else {
+                codOption.style.display = "none";
+                if (paymentMethod.value === "Cash on Delivery") {
+                    paymentMethod.value = "Bank Transfer";
+                }
+            }
+
+            toggleBankDetails();
+            updateDeliveryFee();
+        }
+
+        function updateDeliveryFee() {
+            let districtSelect = document.getElementById('districtSelect').value;
+            let deliveryFeeSpan = document.getElementById('deliveryFee');
+            
+            let fee = 0;
+            if (districtSelect && districtData[districtSelect]) {
+                fee = districtData[districtSelect].fee;
+            }
+
+            deliveryFeeSpan.innerText = fee;
+            calculateBill();
+        }
+
+        function toggleBankDetails() {
+            let paymentMethod = document.getElementById('paymentMethod').value;
+            let bankBox = document.getElementById('bankDetailsBox');
+
+            if (paymentMethod === "Bank Transfer") {
+                bankBox.style.display = "block";
+            } else {
+                bankBox.style.display = "none";
+            }
+        }
+
+        function copyBankDetails() {
+            let bankText = "Bank: Commercial Bank\nAccount Name: A. N. M. Suhaib\nAccount Number: 8015862293\nBranch: Maradana";
+            navigator.clipboard.writeText(bankText).then(() => {
+                alert("Bank details copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy bank details.");
+            });
+        }
+
+        function calculateBill() {
+            let coneQty = getQty();
+            let isBulk = (coneQty >= 10);
+            let deliveryFee = parseInt(document.getElementById('deliveryFee').innerText);
+
+            if (coneQty === 0) {
+                deliveryFee = 0;
+            }
+
+            let itemsTotalDisplay = document.getElementById('itemsTotalDisplay');
+            let finalTotalDisplay = document.getElementById('finalTotalDisplay');
+
+            if (isBulk) {
+                itemsTotalDisplay.innerText = "Special Bulk Pricing";
+                finalTotalDisplay.innerText = "Discuss on WhatsApp";
+            } else {
+                let itemTotal = coneQty * pricePerCone;
+                let finalTotal = itemTotal + deliveryFee;
+                itemsTotalDisplay.innerText = "Rs. " + itemTotal;
+                finalTotalDisplay.innerText = "Rs. " + finalTotal;
+            }
+        }
+
+        function sanitizeInput(str) {
+            let temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
+        function sendWhatsAppOrder() {
+            let rawName = document.getElementById('custName').value.trim();
+            let rawPhone = document.getElementById('custPhone').value.trim();
+            let rawNote = document.getElementById('custNote').value.trim();
+            
+            let districtSelect = document.getElementById('districtSelect').value;
+            let areaSelect = document.getElementById('areaSelect').value;
+            let paymentType = document.getElementById('paymentMethod').value;
+
+            let coneQty = getQty();
+            let isBulk = (coneQty >= 10);
+            let deliveryFee = parseInt(document.getElementById('deliveryFee').innerText);
+
+            if (!rawName || !rawPhone) {
+                alert("Please enter your name and phone number.");
+                return;
+            }
+
+            if (!districtSelect) {
+                alert("Please select your district!");
+                return;
+            }
+
+            if (!areaSelect) {
+                alert("Please select your area!");
+                return;
+            }
+
+            let phoneRegex = /^[0-9+\s-]{9,15}$/;
+            if (!phoneRegex.test(rawPhone)) {
+                alert("Please enter a valid phone number!");
+                return;
+            }
+
+            if (coneQty === 0) {
+                alert("Please select at least one Bridal Cone!");
+                return;
+            }
+
+            let name = sanitizeInput(rawName);
+            let phone = sanitizeInput(rawPhone);
+            let note = sanitizeInput(rawNote);
+
+            let sellerWhatsAppNumber = "94717577083"; 
+
+            let message = `SN MEHENDI ORDER\n\n` +
+                          `Name: ${name}\n` +
+                          `Phone: ${phone}\n` +
+                          `District: ${districtSelect}\n` +
+                          `Area: ${areaSelect}\n` +
+                          `Payment: ${paymentType}\n`;
+
+            if (note) {
+                message += `Note: ${note}\n`;
+            }
+
+            message += `\nItems:\n` +
+                       `- Bridal Cone (x${coneQty})\n\n` +
+                       `-------------------\n`;
+
+            if (isBulk) {
+                message += `Items Total: Special Price (Bulk Order)\n`;
+                message += `Delivery Fee: Rs. ${deliveryFee}\n`;
+                message += `Final Total: Discuss on WhatsApp\n`;
+                message += `-------------------\nPlease confirm my order!`;
+            } else {
+                let itemTotal = coneQty * pricePerCone;
+                let finalTotal = itemTotal + deliveryFee;
+                message += `Items Total: Rs. ${itemTotal}\n`;
+                message += `Delivery Fee: Rs. ${deliveryFee}\n`;
+                message += `Final Total: Rs. ${finalTotal}\n`;
+                message += `-------------------\nPlease confirm my order!`;
+            }
+
+            let encodedMessage = encodeURIComponent(message);
+            let whatsappUrl = `https://wa.me/${sellerWhatsAppNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

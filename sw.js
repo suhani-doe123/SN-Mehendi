@@ -1,47 +1,41 @@
-const CACHE_NAME = 'sn-mehendi-v1';
-const assetsToCache = [
-  'index.html',
-  'manifest.json',
-  'logo.jpg',
-  'logo-512.png',
-  'logo-192.png',
-  'background.jpg'
+const CACHE_NAME = 'sn-mehendi-v2';
+const APP_ROOT = './';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './logo.jpg',
+  './logo-192.png',
+  './logo-512.png',
+  './background.jpg'
 ];
 
-// Install Service Worker and cache files
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(assetsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
   );
 });
 
-// Fetch assets from cache when offline
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return cached version if found, otherwise fetch from network
-        return response || fetch(event.request);
-      })
-  );
-});
-
-// Activate and clean up old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
+    caches.keys().then(keys => Promise.all(
+      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+    )).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
+      return fetch(event.request).then(response => {
+        if (response && response.ok && new URL(event.request.url).origin === self.location.origin) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        }
+        return response;
+      }).catch(() => caches.match('./index.html'));
     })
   );
 });

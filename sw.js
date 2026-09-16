@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sn-mehendi-v2';
+const CACHE_NAME = 'sn-mehendi-v2.0.1';
 const APP_ROOT = './';
 const ASSETS = [
   './',

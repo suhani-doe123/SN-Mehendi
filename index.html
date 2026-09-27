@@ -8,9 +8,12 @@
     <!-- PWA Manifest Link -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ff6600">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="SN Mehendi">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="SN Mehendi">
+    <link rel="apple-touch-icon" href="logo-192.png">
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -236,6 +239,20 @@
             transition: background 0.2s;
         }
         .order-btn:hover { background: #20ba5a; }
+        .install-card {
+            background: rgba(13,13,13,0.94);
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 14px 16px;
+            margin: 15px auto 0;
+            max-width: 600px;
+            display: none;
+        }
+        .install-card strong { color: #fff; }
+        .install-card p { color: #bbb; font-size: 12px; line-height: 1.5; margin: 5px 0 10px; }
+        .install-btn { background:#ff6600; color:#fff; border:0; border-radius:5px; padding:10px 14px; font-weight:700; cursor:pointer; }
+        .ios-steps { display:none; }
+        .ios-steps b { color:#fff; }
     </style>
 </head>
 <body>
@@ -245,6 +262,15 @@
         <h1>SN Mehendi</h1>
         <p>100% Natural — Deep Stain — Signature Fragrance</p>
     </header>
+
+    <div class="install-card" id="installCard">
+        <strong id="installTitle">Install SN Mehendi</strong>
+        <p id="installText">Install this app on your phone for quick access.</p>
+        <button class="install-btn" id="installButton" type="button">Install App</button>
+        <div class="ios-steps" id="iosSteps">
+            <p><b>iPhone:</b> Open this website in <b>Safari</b>, tap the <b>Share</b> button, choose <b>Add to Home Screen</b>, then tap <b>Add</b>.</p>
+        </div>
+    </div>
 
     <!-- Professional Mehendi Artist Bio Section -->
     <div class="container" style="margin-bottom: 0;">
@@ -379,12 +405,59 @@
     </div>
 
     <script>
+        let deferredInstallPrompt = null;
+        const installCard = document.getElementById('installCard');
+        const installButton = document.getElementById('installButton');
+        const installTitle = document.getElementById('installTitle');
+        const installText = document.getElementById('installText');
+        const iosSteps = document.getElementById('iosSteps');
+
+        // Register the service worker with an explicit scope for GitHub Pages / sub-path hosting.
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js', {scope: './'})
-                    .then(reg => console.log('Service Worker registered!'))
-                    .catch(err => console.log('Service Worker registration failed: ', err));
+            window.addEventListener('load', async () => {
+                try {
+                    const swUrl = new URL('sw.js', window.location.href);
+                    await navigator.serviceWorker.register(swUrl.pathname, { scope: './' });
+                    console.log('SN Mehendi Service Worker registered');
+                } catch (err) {
+                    console.error('Service Worker registration failed:', err);
+                }
             });
+        }
+
+        // Android/Chrome install prompt.
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+            deferredInstallPrompt = event;
+            installCard.style.display = 'block';
+            installTitle.textContent = 'Install SN Mehendi App';
+            installText.textContent = 'Install the app directly on your Android phone for quick access.';
+            installButton.style.display = 'inline-block';
+            iosSteps.style.display = 'none';
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (!deferredInstallPrompt) return;
+            deferredInstallPrompt.prompt();
+            await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+            installCard.style.display = 'none';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            deferredInstallPrompt = null;
+            installCard.style.display = 'none';
+        });
+
+        // iPhone/iPad: show Safari Add to Home Screen guidance.
+        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        if (isIOS && !isStandalone) {
+            installCard.style.display = 'block';
+            installTitle.textContent = 'Install SN Mehendi on iPhone';
+            installText.textContent = 'For the full app-style experience, add this website to your Home Screen.';
+            installButton.style.display = 'none';
+            iosSteps.style.display = 'block';
         }
 
         const pricePerCone = 390;
@@ -673,13 +746,13 @@
                 areaSelect.innerHTML = '<option value="">-- First Select District --</option>';
             }
 
+            // COD is available for every Colombo area. Bank Transfer remains available everywhere.
+            // Store Pickup also keeps COD available. Other districts use Bank Transfer only.
             if (districtSelect === "Colombo" || districtSelect === "Store Pickup") {
                 codOption.style.display = "block";
             } else {
                 codOption.style.display = "none";
-                if (paymentMethod.value === "Cash on Delivery") {
-                    paymentMethod.value = "Bank Transfer";
-                }
+                paymentMethod.value = "Bank Transfer";
             }
 
             toggleBankDetails();
@@ -791,7 +864,7 @@
             let phone = sanitizeInput(rawPhone);
             let note = sanitizeInput(rawNote);
 
-            let sellerWhatsAppNumber = "94717577083"; 
+            let sellerWhatsAppNumber = "94766650460"; 
 
             let message = `SN MEHENDI ORDER\n\n` +
                           `Name: ${name}\n` +

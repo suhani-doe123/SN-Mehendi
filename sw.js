@@ -1,18 +1,14 @@
-const CACHE_NAME = 'sn-mehendi-v2.0.1';
-const APP_ROOT = './';
-const ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
-  './logo.jpg',
-  './logo-192.png',
-  './logo-512.png',
-  './background.jpg'
+const CACHE_NAME = 'sn-mehendi-v3';
+const APP_SHELL = [
+  './', './index.html', './manifest.json', './logo.jpg',
+  './logo-192.png', './logo-512.png', './background.jpg'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -30,12 +26,14 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        if (response && response.ok && new URL(event.request.url).origin === self.location.origin) {
-          const copy = response.clone();
+        const copy = response.clone();
+        if (response.ok && new URL(event.request.url).origin === self.location.origin) {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
         }
         return response;
-      }).catch(() => caches.match('./index.html'));
+      }).catch(() => {
+        if (event.request.mode === 'navigate') return caches.match('./index.html');
+      });
     })
   );
 });

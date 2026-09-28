@@ -7,13 +7,12 @@
     
     <!-- PWA Manifest Link -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ff6600">
+    <meta name="theme-color" content="#000000">
+    <link rel="apple-touch-icon" href="logo-192.png">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="SN Mehendi">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="SN Mehendi">
-    <link rel="apple-touch-icon" href="logo-192.png">
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -239,20 +238,25 @@
             transition: background 0.2s;
         }
         .order-btn:hover { background: #20ba5a; }
-        .install-card {
-            background: rgba(13,13,13,0.94);
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 14px 16px;
-            margin: 15px auto 0;
-            max-width: 600px;
-            display: none;
+
+        /* Smooth bottom-to-top entrance animation */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+            will-change: opacity, transform;
         }
-        .install-card strong { color: #fff; }
-        .install-card p { color: #bbb; font-size: 12px; line-height: 1.5; margin: 5px 0 10px; }
-        .install-btn { background:#ff6600; color:#fff; border:0; border-radius:5px; padding:10px 14px; font-weight:700; cursor:pointer; }
-        .ios-steps { display:none; }
-        .ios-steps b { color:#fff; }
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-up, .reveal-up.is-visible {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -263,28 +267,19 @@
         <p>100% Natural — Deep Stain — Signature Fragrance</p>
     </header>
 
-    <div class="install-card" id="installCard">
-        <strong id="installTitle">Install SN Mehendi</strong>
-        <p id="installText">Install this app on your phone for quick access.</p>
-        <button class="install-btn" id="installButton" type="button">Install App</button>
-        <div class="ios-steps" id="iosSteps">
-            <p><b>iPhone:</b> Open this website in <b>Safari</b>, tap the <b>Share</b> button, choose <b>Add to Home Screen</b>, then tap <b>Add</b>.</p>
-        </div>
-    </div>
-
     <!-- Professional Mehendi Artist Bio Section -->
-    <div class="container" style="margin-bottom: 0;">
+    <div class="container reveal-up" style="margin-bottom: 0;">
         <div class="artist-bio">
             <h2>Mrs. Nisfa Suhaib</h2>
             <p>Professional Mehendi Artist & NVQ Level 4 Certified Makeup Artist. Crafting 100% natural, chemical-free bridal cones with rich stains and signature fragrances for your special occasions.</p>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container reveal-up">
         
         <div class="section-title">Select Items</div>
 
-        <div class="product-card">
+        <div class="product-card reveal-up">
             <div class="product-content">
                 <div class="product-info">
                     <h3>Bridal Cone</h3>
@@ -298,7 +293,7 @@
             </div>
         </div>
 
-        <div class="form-card">
+        <div class="form-card reveal-up">
             <div class="section-title" style="margin-bottom: 15px;">Delivery Details</div>
             
             <div class="form-group">
@@ -373,7 +368,7 @@
             </div>
         </div>
 
-        <div class="info-card">
+        <div class="info-card reveal-up">
             <div class="section-title" style="margin-bottom: 10px; font-size: 13px;">Important Information</div>
             <ul>
                 <li>Freshly handmade cones prepared with 100% natural ingredients.</li>
@@ -382,7 +377,7 @@
             </ul>
         </div>
 
-        <div class="bill-card">
+        <div class="bill-card reveal-up">
             <div class="section-title" style="margin-bottom: 10px; font-size: 14px;">Order Summary</div>
             <div class="bill-row">
                 <span>Items Total:</span>
@@ -405,59 +400,37 @@
     </div>
 
     <script>
-        let deferredInstallPrompt = null;
-        const installCard = document.getElementById('installCard');
-        const installButton = document.getElementById('installButton');
-        const installTitle = document.getElementById('installTitle');
-        const installText = document.getElementById('installText');
-        const iosSteps = document.getElementById('iosSteps');
+        // Bottom-to-top reveal animation for Android, iOS and desktop browsers.
+        (function setupRevealAnimation() {
+            const items = document.querySelectorAll('.reveal-up');
+            if (!items.length) return;
 
-        // Register the service worker with an explicit scope for GitHub Pages / sub-path hosting.
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                items.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                items.forEach(el => observer.observe(el));
+            } else {
+                items.forEach(el => el.classList.add('is-visible'));
+            }
+        })();
+
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', async () => {
-                try {
-                    const swUrl = new URL('sw.js', window.location.href);
-                    await navigator.serviceWorker.register(swUrl.pathname, { scope: './' });
-                    console.log('SN Mehendi Service Worker registered');
-                } catch (err) {
-                    console.error('Service Worker registration failed:', err);
-                }
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered!'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
             });
-        }
-
-        // Android/Chrome install prompt.
-        window.addEventListener('beforeinstallprompt', (event) => {
-            event.preventDefault();
-            deferredInstallPrompt = event;
-            installCard.style.display = 'block';
-            installTitle.textContent = 'Install SN Mehendi App';
-            installText.textContent = 'Install the app directly on your Android phone for quick access.';
-            installButton.style.display = 'inline-block';
-            iosSteps.style.display = 'none';
-        });
-
-        installButton.addEventListener('click', async () => {
-            if (!deferredInstallPrompt) return;
-            deferredInstallPrompt.prompt();
-            await deferredInstallPrompt.userChoice;
-            deferredInstallPrompt = null;
-            installCard.style.display = 'none';
-        });
-
-        window.addEventListener('appinstalled', () => {
-            deferredInstallPrompt = null;
-            installCard.style.display = 'none';
-        });
-
-        // iPhone/iPad: show Safari Add to Home Screen guidance.
-        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-        if (isIOS && !isStandalone) {
-            installCard.style.display = 'block';
-            installTitle.textContent = 'Install SN Mehendi on iPhone';
-            installText.textContent = 'For the full app-style experience, add this website to your Home Screen.';
-            installButton.style.display = 'none';
-            iosSteps.style.display = 'block';
         }
 
         const pricePerCone = 390;
@@ -746,13 +719,13 @@
                 areaSelect.innerHTML = '<option value="">-- First Select District --</option>';
             }
 
-            // COD is available for every Colombo area. Bank Transfer remains available everywhere.
-            // Store Pickup also keeps COD available. Other districts use Bank Transfer only.
             if (districtSelect === "Colombo" || districtSelect === "Store Pickup") {
                 codOption.style.display = "block";
             } else {
                 codOption.style.display = "none";
-                paymentMethod.value = "Bank Transfer";
+                if (paymentMethod.value === "Cash on Delivery") {
+                    paymentMethod.value = "Bank Transfer";
+                }
             }
 
             toggleBankDetails();

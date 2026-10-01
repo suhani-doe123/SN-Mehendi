@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sn-mehendi-v1.01.3';
+const CACHE_NAME = 'sn-mehendi-v1.01.4';
 const APP_SHELL = [
   './',
   './index.html',

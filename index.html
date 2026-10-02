@@ -3,25 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<title>SN Mehendi | Online Store</title>
+
 <meta name="theme-color" content="#000000">
+<meta name="description" content="SN Mehendi - 100% Natural — Deep Stain — Signature Fragrance">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="SN Mehendi">
-<meta name="description" content="SN Mehendi | 100% Natural — Deep Stain — Signature Fragrance">
-
-<title>SN Mehendi | Online Store</title>
 
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="logo-192.png">
 
 <!-- DOMAIN LOCK -->
 <script>
-(()=>{const a=atob("c3VoYW5pLWRvZTEyMy5naXRodWIuaW8="),b=atob("L1NOLU1laGVuZGk="),h=location.hostname.toLowerCase(),p=location.pathname.replace(/\/+$/,"");if(h!==a||(p!==b&&p!==b+"/index.html")){document.documentElement.innerHTML='<head><title>Access Denied</title></head><body style="margin:0;background:#000;color:#fff;display:grid;place-items:center;height:100vh;font-family:Arial,sans-serif"><div style="text-align:center;padding:30px"><h2>Access Denied</h2><p>This SN Mehendi application is domain locked.</p></div></body>';throw new Error("DOMAIN_LOCK")}})();
+(function(){
+"use strict";
+
+var H=atob("c3VoYW5pLWRvZTEyMy5naXRodWIuaW8=");
+var P=atob("L1NOLU1laGVuZGk=");
+var h=location.hostname.toLowerCase();
+var p=location.pathname.replace(/\/+$/,"");
+
+if(h!==H || (p!==P && p!==P+"/index.html")){
+document.documentElement.innerHTML=
+'<head><title>Access Denied</title></head>'+
+'<body style="margin:0;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;font-family:Arial;text-align:center">'+
+'<div><h2>Access Denied</h2><p>This application is domain locked.</p></div></body>';
+throw new Error("DOMAIN_LOCK");
+}
+})();
 </script>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
@@ -29,22 +51,33 @@ background:#000 url("background.jpg") center/cover fixed no-repeat;
 color:#fff;
 min-height:100vh;
 }
-body:before{
+
+body::before{
 content:"";
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.82);
+background:rgba(0,0,0,.84);
 z-index:-1;
 }
-button,input,select{font:inherit}
-button{cursor:pointer}
-a{text-decoration:none;color:inherit}
+
+button,input,select{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
 
 header{
 position:sticky;
 top:0;
 z-index:1000;
-background:rgba(0,0,0,.94);
+background:rgba(0,0,0,.96);
 border-bottom:1px solid rgba(255,255,255,.12);
 backdrop-filter:blur(12px);
 }
@@ -53,10 +86,10 @@ backdrop-filter:blur(12px);
 height:70px;
 max-width:1180px;
 margin:auto;
+padding:8px 16px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:8px 16px;
 }
 
 .brand{
@@ -76,19 +109,35 @@ animation:coin 5s linear infinite;
 }
 
 @keyframes coin{
-0%,100%{transform:rotateY(0)}
-50%{transform:rotateY(180deg)}
+0%,100%{
+transform:rotateY(0deg);
+}
+50%{
+transform:rotateY(180deg);
+}
 }
 
-.brand span{font-size:17px}
+.brand span{
+font-size:17px;
+}
 
-.menu-btn,.verify-top{
-border:1px solid rgba(255,255,255,.22);
-background:#fff;
-color:#000;
+.nav-right{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.verify-top,
+.menu-btn{
+border:1px solid rgba(255,255,255,.25);
 border-radius:9px;
 padding:9px 12px;
 font-weight:700;
+}
+
+.verify-top{
+background:#fff;
+color:#000;
 }
 
 .menu-btn{
@@ -100,12 +149,12 @@ font-size:20px;
 .container{
 width:min(1180px,94%);
 margin:auto;
-padding:25px 0 70px;
+padding:25px 0 60px;
 }
 
 .hero{
 text-align:center;
-padding:28px 10px 18px;
+padding:25px 10px 20px;
 }
 
 .hero-logo{
@@ -113,18 +162,22 @@ width:105px;
 height:105px;
 border-radius:50%;
 object-fit:cover;
-box-shadow:0 0 35px rgba(255,255,255,.16);
+box-shadow:0 0 35px rgba(255,255,255,.18);
 animation:float 3s ease-in-out infinite;
 }
 
 @keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-7px)}
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-7px);
+}
 }
 
 .hero h1{
 margin:18px 0 8px;
-font-size:clamp(27px,7vw,48px);
+font-size:clamp(28px,7vw,48px);
 letter-spacing:2px;
 }
 
@@ -135,7 +188,7 @@ letter-spacing:1px;
 }
 
 .card{
-background:rgba(0,0,0,.82);
+background:rgba(0,0,0,.84);
 border:1px solid rgba(255,255,255,.14);
 border-radius:18px;
 padding:20px;
@@ -150,11 +203,13 @@ font-size:21px;
 
 .bio{
 text-align:center;
-line-height:1.7;
+line-height:1.75;
 color:#ddd;
 }
 
-.bio strong{color:#fff}
+.bio strong{
+color:#fff;
+}
 
 .product{
 display:grid;
@@ -167,6 +222,7 @@ align-items:center;
 width:100%;
 border-radius:16px;
 display:block;
+object-fit:contain;
 background:#111;
 }
 
@@ -184,7 +240,7 @@ margin:12px 0;
 .small{
 font-size:13px;
 color:#aaa;
-line-height:1.6;
+line-height:1.65;
 }
 
 .qty-row{
@@ -233,7 +289,8 @@ padding:0 12px;
 outline:none;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
 border-color:#fff;
 }
 
@@ -255,12 +312,19 @@ border:1px solid #444;
 border-radius:10px;
 padding:13px;
 background:#111;
+display:flex;
+align-items:center;
+gap:7px;
 }
 
 .pay-option input{
 width:auto;
 height:auto;
-margin-right:7px;
+margin:0;
+}
+
+.pay-option.disabled{
+opacity:.45;
 }
 
 .bank{
@@ -320,12 +384,14 @@ margin-top:18px;
 }
 
 .info{
-line-height:1.8;
+line-height:1.9;
 color:#ddd;
 font-size:14px;
 }
 
-.info strong{color:#fff}
+.info strong{
+color:#fff;
+}
 
 .verify-card{
 text-align:center;
@@ -343,7 +409,7 @@ font-weight:800;
 .overlay{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.82);
+background:rgba(0,0,0,.84);
 z-index:2000;
 display:none;
 align-items:center;
@@ -360,10 +426,46 @@ padding:22px;
 box-shadow:0 20px 70px #000;
 }
 
-.modal h2{margin-top:0}
+.modal h2{
+margin-top:0;
+}
 
 .close{
 float:right;
+background:none;
+border:0;
+color:#fff;
+font-size:25px;
+}
+
+.side{
+position:fixed;
+top:0;
+right:-310px;
+width:290px;
+height:100vh;
+background:#050505;
+border-left:1px solid #333;
+z-index:1800;
+padding:75px 20px 20px;
+transition:.3s ease;
+box-shadow:-20px 0 50px rgba(0,0,0,.5);
+}
+
+.side.open{
+right:0;
+}
+
+.side a{
+display:block;
+padding:16px 5px;
+border-bottom:1px solid #222;
+}
+
+.side-close{
+position:absolute;
+top:18px;
+right:18px;
 background:none;
 border:0;
 color:#fff;
@@ -396,38 +498,6 @@ padding:9px 12px;
 font-weight:700;
 }
 
-.side{
-position:fixed;
-top:0;
-right:-310px;
-width:290px;
-height:100vh;
-background:#050505;
-border-left:1px solid #333;
-z-index:1800;
-padding:75px 20px 20px;
-transition:.3s ease;
-box-shadow:-20px 0 50px rgba(0,0,0,.5);
-}
-
-.side.open{right:0}
-
-.side a{
-display:block;
-padding:15px 5px;
-border-bottom:1px solid #222;
-}
-
-.side-close{
-position:absolute;
-top:18px;
-right:18px;
-background:none;
-border:0;
-color:#fff;
-font-size:25px;
-}
-
 .footer{
 text-align:center;
 color:#888;
@@ -446,41 +516,63 @@ opacity:1;
 transform:translateY(0);
 }
 
+.cod-warning{
+display:none;
+margin-top:10px;
+padding:11px;
+border-radius:10px;
+background:#111;
+border:1px solid #444;
+color:#ddd;
+font-size:13px;
+line-height:1.5;
+}
+
 @media(max-width:700px){
+
 .product{
 grid-template-columns:1fr;
-gap:15px;
+gap:16px;
 }
+
 .delivery-grid{
 grid-template-columns:1fr;
 }
+
 .pay-options{
 grid-template-columns:1fr;
 }
+
 .container{
 padding-top:15px;
 }
+
 .nav{
 height:64px;
 }
+
 .brand span{
 font-size:14px;
 }
+
 .hero-logo{
 width:85px;
 height:85px;
 }
+
 .card{
 padding:16px;
 border-radius:15px;
 }
+
 }
 
 @media(min-width:701px){
+
 .product-img{
 max-height:430px;
-object-fit:contain;
 }
+
 }
 </style>
 </head>
@@ -489,66 +581,103 @@ object-fit:contain;
 
 <header>
 <div class="nav">
+
 <div class="brand">
 <img src="logo.jpg" alt="SN Mehendi">
 <span>SN MEHENDI</span>
 </div>
 
-<div style="display:flex;gap:8px">
+<div class="nav-right">
 <button class="verify-top" id="verifyTop">Verify</button>
 <button class="menu-btn" id="menuBtn">☰</button>
 </div>
+
 </div>
 </header>
 
-<div class="side" id="sideMenu">
+<nav class="side" id="sideMenu">
+
 <button class="side-close" id="sideClose">×</button>
+
 <a href="#about" data-close>About</a>
 <a href="#product" data-close>Product</a>
-<a href="#delivery" data-close>Delivery</a>
+<a href="#deliveryInfo" data-close>Delivery Information</a>
 <a href="#contact" data-close>Contact</a>
-</div>
+
+</nav>
 
 <main class="container">
 
 <section class="hero reveal">
-<img src="logo.jpg" class="hero-logo" alt="SN Mehendi Logo">
+
+<img src="logo.jpg"
+class="hero-logo"
+alt="SN Mehendi Logo">
+
 <h1>SN Mehendi</h1>
-<div class="tagline">100% Natural — Deep Stain — Signature Fragrance</div>
+
+<div class="tagline">
+100% Natural — Deep Stain — Signature Fragrance
+</div>
+
 </section>
 
 <section class="card bio reveal" id="about">
+
 <h2>About SN Mehendi</h2>
+
 <p>
 <strong>Mrs. Nisfa Suhaib</strong><br>
 Professional Mehendi Artist &amp; NVQ Level 4 Certified Makeup Artist
 </p>
+
 <p>
-Our mehendi cones are prepared using 100% natural, chemical-free ingredients,
-giving rich stains and signature fragrances for your special occasions.
+100% natural, chemical-free bridal cones prepared with rich stains and signature fragrances.
 </p>
+
 </section>
 
 <section class="card product reveal" id="product">
 
 <div>
-<img src="background.jpg" class="product-img" alt="SN Mehendi Bridal Cone">
+<img
+src="logo.jpg"
+class="product-img"
+alt="SN Mehendi Bridal Cone">
 </div>
 
 <div class="product-info">
+
 <h2>Bridal Cone</h2>
-<div class="small">Premium handmade natural mehendi cone</div>
-<div class="price">Rs. 390 / piece</div>
+
+<div class="small">
+Premium handmade natural mehendi cone
+</div>
+
+<div class="price">
+Rs. 390 / piece
+</div>
 
 <div class="qty-row">
+
 <button class="qty-btn" id="minus">−</button>
-<input id="qty" type="number" min="1" max="999" value="1">
+
+<input
+id="qty"
+type="number"
+min="1"
+max="999"
+value="1"
+inputmode="numeric">
+
 <button class="qty-btn" id="plus">+</button>
+
 </div>
 
 <div class="small">
 Freshly handmade cones prepared with 100% natural ingredients.
 </div>
+
 </div>
 
 </section>
@@ -558,28 +687,46 @@ Freshly handmade cones prepared with 100% natural ingredients.
 <h2>Place Your Order</h2>
 
 <label for="name">Name</label>
-<input id="name" type="text" placeholder="Enter your name" autocomplete="name">
+<input
+id="name"
+type="text"
+placeholder="Enter your name"
+autocomplete="name">
 
 <label for="phone">WhatsApp / Contact Number</label>
-<input id="phone" type="tel" placeholder="07XXXXXXXX">
+<input
+id="phone"
+type="tel"
+placeholder="07XXXXXXXX"
+autocomplete="tel">
 
 <label for="address">Delivery Address</label>
-<input id="address" type="text" placeholder="Enter your full address">
+<input
+id="address"
+type="text"
+placeholder="Enter your full address"
+autocomplete="street-address">
 
 <div class="delivery-grid">
 
 <div>
+
 <label for="district">District</label>
+
 <select id="district">
 <option value="">Select District</option>
 </select>
+
 </div>
 
 <div>
+
 <label for="area">Area / City</label>
+
 <select id="area">
-<option value="">Select area</option>
+<option value="">Select Area</option>
 </select>
+
 </div>
 
 </div>
@@ -588,29 +735,44 @@ Freshly handmade cones prepared with 100% natural ingredients.
 
 <div class="pay-options">
 
-<label class="pay-option">
-<input type="radio" name="payment" value="COD">
+<label class="pay-option" id="codOption">
+<input
+type="radio"
+name="payment"
+value="COD">
 Cash on Delivery
 </label>
 
 <label class="pay-option">
-<input type="radio" name="payment" value="BANK" checked>
+<input
+type="radio"
+name="payment"
+value="BANK"
+checked>
 Bank Transfer
 </label>
 
 </div>
 
+<div class="cod-warning" id="codWarning">
+Cash on Delivery is available only for Colombo.
+</div>
+
 <div class="bank" id="bankBox">
 
 <strong>Bank Transfer Details</strong><br>
+
 Bank: Commercial Bank<br>
 Account Name: A. N. M. Suhaib<br>
-Account Number: <span id="accountNumber">••••••••••</span><br>
+Account Number:
+<span id="accountNumber">••••••••••</span><br>
 Branch: Maradana
 
 <br><br>
 
-<button class="copy-btn" id="copyBank">Copy Account Number</button>
+<button class="copy-btn" id="copyBank">
+Copy Account Number
+</button>
 
 </div>
 
@@ -644,36 +806,74 @@ Order via WhatsApp
 
 </section>
 
-<section class="card reveal" id="delivery">
+<!-- DELIVERY INFORMATION IS ONLY IN MENU -->
+
+<section class="card reveal" id="deliveryInfo">
 
 <h2>Delivery Information</h2>
 
 <div class="info">
-<p><strong>Colombo:</strong> Rs. 300</p>
-<p><strong>Gampaha / Kalutara:</strong> Rs. 450</p>
-<p><strong>Other Districts:</strong> Rs. 650</p>
-<p><strong>Store Pickup:</strong> Free</p>
-<p>Delivery usually takes 2 to 4 working days based on your location.</p>
+
+<p>
+<strong>Colombo:</strong> Rs. 300
+</p>
+
+<p>
+<strong>Gampaha / Kalutara:</strong> Rs. 450
+</p>
+
+<p>
+<strong>Other Districts:</strong> Rs. 650
+</p>
+
+<p>
+<strong>Store Pickup:</strong> Free
+</p>
+
+<p>
+Delivery takes 2 to 4 working days based on your location.
+</p>
+
 </div>
 
 </section>
 
 <section class="card reveal">
 
-<h2>Important Information</h2>
+<h2>වැදගත් තොරතුරු</h2>
 
 <div class="info">
+
+<p>
+🌿 100% ස්වාභාවික අමුද්‍රව්‍ය භාවිතයෙන් නැවුම්ව අතින් සකස් කරන ලද මෙහෙන්දි කෝන් වේ.
+</p>
+
+<p>
+❄️ දිගු කාලයක් ගුණාත්මකභාවය පවත්වා ගැනීම සඳහා සාමාන්‍ය ශීතකරණයේ (Freezer එකට පහළින් ඇති කොටසෙහි) ගබඩා කරන්න.
+</p>
+
+<p>
+🚚 ඔබගේ ස්ථානය අනුව භාරදීමට වැඩ කරන දින 2–4ක් ගත වේ.
+</p>
+
+<hr style="border:0;border-top:1px solid #333;margin:18px 0">
+
+<p>
+<strong>Important Information</strong>
+</p>
+
 <p>
 Freshly handmade cones prepared with 100% natural ingredients.
 </p>
 
 <p>
-සාමාන්‍ය ශීතකරණத்தில், உறைவிப்பான் பகுதிக்கு கீழே உள்ள குளிர்ச்சியான பகுதியில் சேமித்து வைக்கவும்.
+Store in normal fridge cool (below freezer) for long-lasting quality.
 </p>
 
 <p>
 Delivery takes 2 to 4 working days based on your location.
 </p>
+
 </div>
 
 </section>
@@ -697,8 +897,15 @@ Verify Genuine Product
 <h2>Contact SN Mehendi</h2>
 
 <div class="info">
-<p>For orders and enquiries, contact us through WhatsApp.</p>
-<p>WhatsApp: +94 76 665 0460</p>
+
+<p>
+For orders and enquiries, contact us through WhatsApp.
+</p>
+
+<p>
+WhatsApp: +94 76 665 0460
+</p>
+
 </div>
 
 <button class="whatsapp" id="contactBtn">
@@ -713,7 +920,8 @@ Chat on WhatsApp
 
 </main>
 
-<!-- VERIFY MODAL -->
+<!-- VERIFICATION POPUP -->
+
 <div class="overlay" id="verifyOverlay">
 
 <div class="modal">
@@ -726,394 +934,805 @@ Chat on WhatsApp
 Enter the verification code received from SN Mehendi.
 </p>
 
-<label for="verifyCode">Verification Code</label>
-<input id="verifyCode" type="text" placeholder="Enter code">
+<label for="verifyCode">
+Verification Code
+</label>
+
+<input
+id="verifyCode"
+type="text"
+placeholder="Enter code"
+autocomplete="off">
 
 <button class="whatsapp" id="verifySubmit">
 Verify Product
 </button>
 
-<p id="verifyResult" class="small" style="margin-top:15px;text-align:center"></p>
+<p
+id="verifyResult"
+class="small"
+style="margin-top:15px;text-align:center">
+</p>
 
 </div>
+
 </div>
 
-<!-- INSTALL -->
+<!-- PWA INSTALL -->
+
 <div class="install" id="installBar">
+
 <div>
 <strong>Install SN Mehendi</strong><br>
-<span style="font-size:12px">Add the store to your home screen</span>
+<span style="font-size:12px">
+Add the store to your home screen
+</span>
 </div>
-<button id="installBtn">Install</button>
+
+<button id="installBtn">
+Install
+</button>
+
 </div>
 
 <script>
-(()=>{
+(function(){
 
 "use strict";
 
-/* OBFUSCATED CONSTANTS */
-const _0x={
- a:atob("OTQ3NjY2NTA0NjA="),
- b:atob("OTQ3MTc1NzcwODMz"),
- c:atob("ODAxNTg2MjI5Mw=="),
- d:atob("Q29tbWVyY2lhbCBCYW5r"),
- e:390,
- f:300,
- g:450,
- h:650
+/* ENCODED PRIVATE VALUES */
+
+var X={
+o:atob("OTQ3NjY2NTA0NjA="),
+v:atob("OTQ3MTc1NzcwODMz"),
+a:atob("ODAxNTg2MjI5Mw=="),
+p:390
 };
 
-const $=s=>document.querySelector(s);
-const $$=s=>document.querySelectorAll(s);
+var $=function(x){
+return document.querySelector(x);
+};
 
-const q=$("#qty");
-const district=$("#district");
-const area=$("#area");
-const payment=()=>document.querySelector('input[name="payment"]:checked')?.value||"BANK";
+var $$=function(x){
+return document.querySelectorAll(x);
+};
 
-const districts={
+var qty=$("#qty");
+var district=$("#district");
+var area=$("#area");
+
+var DATA={
 "Colombo":{
 fee:300,
-areas:["Colombo 01","Colombo 02","Colombo 03","Colombo 04","Colombo 05","Colombo 06","Colombo 07","Colombo 08","Colombo 09","Colombo 10","Colombo 11","Colombo 12","Colombo 13","Colombo 14","Colombo 15"]
+areas:[
+"Colombo 01",
+"Colombo 02",
+"Colombo 03",
+"Colombo 04",
+"Colombo 05",
+"Colombo 06",
+"Colombo 07",
+"Colombo 08",
+"Colombo 09",
+"Colombo 10",
+"Colombo 11",
+"Colombo 12",
+"Colombo 13",
+"Colombo 14",
+"Colombo 15"
+]
 },
+
 "Gampaha":{
 fee:450,
-areas:["Gampaha","Negombo","Wattala","Ja-Ela","Kadawatha","Kiribathgoda","Minuwangoda","Nittambuwa","Veyangoda","Kelaniya"]
+areas:[
+"Gampaha",
+"Negombo",
+"Wattala",
+"Ja-Ela",
+"Kadawatha",
+"Kiribathgoda",
+"Kelaniya",
+"Minuwangoda",
+"Nittambuwa",
+"Veyangoda"
+]
 },
+
 "Kalutara":{
 fee:450,
-areas:["Kalutara","Panadura","Beruwala","Aluthgama","Wadduwa","Horana","Matugama"]
+areas:[
+"Kalutara",
+"Panadura",
+"Beruwala",
+"Aluthgama",
+"Wadduwa",
+"Horana",
+"Matugama"
+]
 },
+
 "Kandy":{
 fee:650,
-areas:["Kandy","Peradeniya","Katugastota","Gampola","Nawalapitiya","Digana"]
+areas:[
+"Kandy",
+"Peradeniya",
+"Katugastota",
+"Gampola",
+"Nawalapitiya",
+"Digana"
+]
 },
+
 "Matale":{
 fee:650,
-areas:["Matale","Dambulla","Ukuwela","Rattota"]
+areas:[
+"Matale",
+"Dambulla",
+"Ukuwela",
+"Rattota"
+]
 },
+
 "Nuwara Eliya":{
 fee:650,
-areas:["Nuwara Eliya","Hatton","Talawakele","Ginigathhena"]
+areas:[
+"Nuwara Eliya",
+"Hatton",
+"Talawakele",
+"Ginigathhena"
+]
 },
+
 "Galle":{
 fee:650,
-areas:["Galle","Hikkaduwa","Ambalangoda","Elpitiya","Unawatuna"]
+areas:[
+"Galle",
+"Hikkaduwa",
+"Ambalangoda",
+"Elpitiya",
+"Unawatuna"
+]
 },
+
 "Matara":{
 fee:650,
-areas:["Matara","Weligama","Akuressa","Dikwella"]
+areas:[
+"Matara",
+"Weligama",
+"Akuressa",
+"Dikwella"
+]
 },
+
 "Hambantota":{
 fee:650,
-areas:["Hambantota","Tangalle","Tissamaharama","Beliatta"]
+areas:[
+"Hambantota",
+"Tangalle",
+"Tissamaharama",
+"Beliatta"
+]
 },
+
 "Jaffna":{
 fee:650,
-areas:["Jaffna","Chavakachcheri","Point Pedro","Nallur"]
+areas:[
+"Jaffna",
+"Chavakachcheri",
+"Point Pedro",
+"Nallur"
+]
 },
+
 "Kilinochchi":{
 fee:650,
-areas:["Kilinochchi","Pallai"]
+areas:[
+"Kilinochchi",
+"Pallai"
+]
 },
+
 "Mannar":{
 fee:650,
-areas:["Mannar","Madhu"]
+areas:[
+"Mannar",
+"Madhu"
+]
 },
+
 "Vavuniya":{
 fee:650,
-areas:["Vavuniya"]
+areas:[
+"Vavuniya"
+]
 },
+
 "Mullaitivu":{
 fee:650,
-areas:["Mullaitivu","Puthukkudiyiruppu"]
+areas:[
+"Mullaitivu",
+"Puthukkudiyiruppu"
+]
 },
+
 "Batticaloa":{
 fee:650,
-areas:["Batticaloa","Kattankudy","Eravur"]
+areas:[
+"Batticaloa",
+"Kattankudy",
+"Eravur"
+]
 },
+
 "Ampara":{
 fee:650,
-areas:["Ampara","Kalmunai","Akkaraipattu","Sainthamaruthu"]
+areas:[
+"Ampara",
+"Kalmunai",
+"Akkaraipattu",
+"Sainthamaruthu"
+]
 },
+
 "Trincomalee":{
 fee:650,
-areas:["Trincomalee","Kinniya","Kantale"]
+areas:[
+"Trincomalee",
+"Kinniya",
+"Kantale"
+]
 },
+
 "Kurunegala":{
 fee:650,
-areas:["Kurunegala","Kuliyapitiya","Narammala","Wariyapola"]
+areas:[
+"Kurunegala",
+"Kuliyapitiya",
+"Narammala",
+"Wariyapola"
+]
 },
+
 "Puttalam":{
 fee:650,
-areas:["Puttalam","Chilaw","Wennappuwa","Dankotuwa"]
+areas:[
+"Puttalam",
+"Chilaw",
+"Wennappuwa",
+"Dankotuwa"
+]
 },
+
 "Anuradhapura":{
 fee:650,
-areas:["Anuradhapura","Kekirawa","Medawachchiya"]
+areas:[
+"Anuradhapura",
+"Kekirawa",
+"Medawachchiya"
+]
 },
+
 "Polonnaruwa":{
 fee:650,
-areas:["Polonnaruwa","Kaduruwela","Hingurakgoda"]
+areas:[
+"Polonnaruwa",
+"Kaduruwela",
+"Hingurakgoda"
+]
 },
+
 "Badulla":{
 fee:650,
-areas:["Badulla","Bandarawela","Haputale","Welimada"]
+areas:[
+"Badulla",
+"Bandarawela",
+"Haputale",
+"Welimada"
+]
 },
+
 "Monaragala":{
 fee:650,
-areas:["Monaragala","Wellawaya","Bibile"]
+areas:[
+"Monaragala",
+"Wellawaya",
+"Bibile"
+]
 },
+
 "Ratnapura":{
 fee:650,
-areas:["Ratnapura","Balangoda","Embilipitiya","Pelmadulla"]
+areas:[
+"Ratnapura",
+"Balangoda",
+"Embilipitiya",
+"Pelmadulla"
+]
 },
+
 "Kegalle":{
 fee:650,
-areas:["Kegalle","Mawanella","Warakapola","Rambukkana"]
+areas:[
+"Kegalle",
+"Mawanella",
+"Warakapola",
+"Rambukkana"
+]
 },
+
 "Store Pickup":{
 fee:0,
-areas:["Store Pickup"]
+areas:[
+"Store Pickup"
+]
 }
 };
 
-/* POPULATE DISTRICTS */
-Object.keys(districts).forEach(x=>{
-const o=document.createElement("option");
+/* DISTRICTS */
+
+Object.keys(DATA).forEach(function(x){
+
+var o=document.createElement("option");
+
 o.value=x;
 o.textContent=x;
+
 district.appendChild(o);
+
 });
 
 /* QUANTITY */
-function setQty(v){
-v=Math.max(1,Math.min(999,parseInt(v)||1));
-q.value=v;
-calc();
+
+function setQty(n){
+
+n=parseInt(n)||1;
+
+if(n<1)n=1;
+if(n>999)n=999;
+
+qty.value=n;
+
+calculate();
+
 }
 
-$("#minus").addEventListener("click",()=>setQty(+q.value-1));
-$("#plus").addEventListener("click",()=>setQty(+q.value+1));
-q.addEventListener("input",()=>setQty(q.value));
+$("#minus").addEventListener("click",function(){
+setQty((parseInt(qty.value)||1)-1);
+});
+
+$("#plus").addEventListener("click",function(){
+setQty((parseInt(qty.value)||1)+1);
+});
+
+qty.addEventListener("input",function(){
+setQty(qty.value);
+});
 
 /* AREA */
-district.addEventListener("change",()=>{
-area.innerHTML='<option value="">Select area</option>';
 
-const d=districts[district.value];
+district.addEventListener("change",function(){
+
+area.innerHTML='<option value="">Select Area</option>';
+
+var d=DATA[district.value];
 
 if(d){
-d.areas.forEach(x=>{
-const o=document.createElement("option");
+
+d.areas.forEach(function(x){
+
+var o=document.createElement("option");
+
 o.value=x;
 o.textContent=x;
+
 area.appendChild(o);
+
 });
+
 }
 
-updatePayment();
-calc();
+paymentUpdate();
+calculate();
+
 });
 
 /* PAYMENT */
-$$('input[name="payment"]').forEach(x=>{
-x.addEventListener("change",updatePayment);
+
+$$('input[name="payment"]').forEach(function(r){
+
+r.addEventListener("change",function(){
+
+if(this.value==="COD"){
+
+var d=district.value;
+
+if(d!=="Colombo"){
+
+alert("Cash on Delivery is available only for Colombo.");
+
+document.querySelector(
+'input[name="payment"][value="BANK"]'
+).checked=true;
+
+}
+
+}
+
+paymentUpdate();
+
 });
 
-function updatePayment(){
-
-const d=district.value;
-const cod=d==="Colombo"||d==="Store Pickup";
-
-$$('input[name="payment"]').forEach(x=>{
-if(x.value==="COD"){
-x.disabled=!cod;
-if(!cod&&x.checked){
-document.querySelector('input[name="payment"][value="BANK"]').checked=true;
-}
-}
 });
 
-$("#bankBox").style.display=payment()==="BANK"?"block":"none";
+/* PAYMENT DISPLAY */
+
+function paymentUpdate(){
+
+var d=district.value;
+
+var codAllowed=
+d==="Colombo" ||
+d==="Store Pickup";
+
+var cod=document.querySelector(
+'input[name="payment"][value="COD"]'
+);
+
+var codBox=$("#codOption");
+var warning=$("#codWarning");
+
+cod.disabled=!codAllowed;
+
+if(!codAllowed){
+
+codBox.classList.add("disabled");
+
+warning.style.display="block";
+warning.textContent=
+"Cash on Delivery is available only for Colombo.";
+
+if(cod.checked){
+
+document.querySelector(
+'input[name="payment"][value="BANK"]'
+).checked=true;
+
 }
 
-function calc(){
+}else{
 
-const n=parseInt(q.value)||1;
-const d=districts[district.value];
+codBox.classList.remove("disabled");
+warning.style.display="none";
 
-let fee=d?d.fee:300;
-
-if(n>=10){
-/* bulk quantity still uses normal delivery fee */
 }
+
+var selected=
+document.querySelector(
+'input[name="payment"]:checked'
+);
+
+$("#bankBox").style.display=
+selected && selected.value==="BANK"
+?"block":"none";
+
+}
+
+/* BILL */
+
+function calculate(){
+
+var n=parseInt(qty.value)||1;
+
+var d=DATA[district.value];
+
+var fee=d?d.fee:300;
+
+var productTotal=n*X.p;
+
+var total=productTotal+fee;
 
 $("#billQty").textContent=n;
-$("#billProduct").textContent="Rs. "+(n*_0x.e).toLocaleString();
-$("#deliveryPrice").textContent="Rs. "+fee.toLocaleString();
-$("#totalPrice").textContent="Rs. "+(n*_0x.e+fee).toLocaleString();
+
+$("#billProduct").textContent=
+"Rs. "+productTotal.toLocaleString();
+
+$("#deliveryPrice").textContent=
+"Rs. "+fee.toLocaleString();
+
+$("#totalPrice").textContent=
+"Rs. "+total.toLocaleString();
+
 }
 
-/* BANK ACCOUNT - hidden until required */
-let accountVisible=false;
+/* BANK COPY */
 
-$("#copyBank").addEventListener("click",async()=>{
-
-const account=_0x.c;
+$("#copyBank").addEventListener("click",async function(){
 
 try{
-await navigator.clipboard.writeText(account);
-$("#copyBank").textContent="Copied ✓";
-setTimeout(()=>$("#copyBank").textContent="Copy Account Number",1800);
+
+await navigator.clipboard.writeText(X.a);
+
+this.textContent="Copied ✓";
+
+var b=this;
+
+setTimeout(function(){
+b.textContent="Copy Account Number";
+},1800);
+
 }catch(e){
-prompt("Copy account number:",account);
+
+prompt(
+"Copy account number:",
+X.a
+);
+
 }
 
 });
 
-/* ORDER */
+/* SANITIZE */
+
 function clean(v){
+
 return String(v||"")
 .replace(/[<>]/g,"")
 .trim();
+
 }
 
-$("#orderBtn").addEventListener("click",()=>{
+/* WHATSAPP ORDER */
 
-const n=clean($("#name").value);
-const ph=clean($("#phone").value);
-const ad=clean($("#address").value);
-const d=clean(district.value);
-const ar=clean(area.value);
-const pm=payment();
-const qty=parseInt(q.value)||1;
+$("#orderBtn").addEventListener("click",function(){
 
-if(!n||!ph||!ad||!d||!ar){
+var name=clean($("#name").value);
+var phone=clean($("#phone").value);
+var address=clean($("#address").value);
+var d=clean(district.value);
+var ar=clean(area.value);
+
+var selected=
+document.querySelector(
+'input[name="payment"]:checked'
+);
+
+var pm=selected?selected.value:"BANK";
+
+var n=parseInt(qty.value)||1;
+
+if(!name||!phone||!address||!d||!ar){
+
 alert("Please fill all required details.");
+
 return;
+
 }
 
-if(pm==="COD"&&d!=="Colombo"&&d!=="Store Pickup"){
-alert("Cash on Delivery is available only for Colombo and Store Pickup.");
+if(pm==="COD" && d!=="Colombo" && d!=="Store Pickup"){
+
+alert("Cash on Delivery is available only for Colombo.");
+
 return;
+
 }
 
-const fee=districts[d]?.fee??300;
-const total=qty*_0x.e+fee;
+var fee=DATA[d]?DATA[d].fee:300;
 
-const msg=
-"SN Mehendi Order%0A%0A"+
-"Name: "+encodeURIComponent(n)+"%0A"+
-"Phone: "+encodeURIComponent(ph)+"%0A"+
-"Address: "+encodeURIComponent(ad)+"%0A"+
-"District: "+encodeURIComponent(d)+"%0A"+
-"Area: "+encodeURIComponent(ar)+"%0A"+
-"Product: Bridal Cone%0A"+
-"Quantity: "+qty+"%0A"+
-"Product Total: Rs. "+(qty*_0x.e).toLocaleString()+"%0A"+
-"Delivery: Rs. "+fee.toLocaleString()+"%0A"+
-"Payment: "+encodeURIComponent(pm==="COD"?"Cash on Delivery":"Bank Transfer")+"%0A"+
+var productTotal=n*X.p;
+var total=productTotal+fee;
+
+var message=
+"SN Mehendi Order\n\n"+
+"Name: "+name+"\n"+
+"Phone: "+phone+"\n"+
+"Address: "+address+"\n"+
+"District: "+d+"\n"+
+"Area: "+ar+"\n"+
+"Product: Bridal Cone\n"+
+"Quantity: "+n+"\n"+
+"Product Total: Rs. "+productTotal.toLocaleString()+"\n"+
+"Delivery: Rs. "+fee.toLocaleString()+"\n"+
+"Payment: "+
+(pm==="COD"?
+"Cash on Delivery":
+"Bank Transfer")+
+"\n"+
 "Total: Rs. "+total.toLocaleString();
 
-location.href="https://wa.me/"+_0x.a+"?text="+msg;
+location.href=
+"https://wa.me/"+
+X.o+
+"?text="+
+encodeURIComponent(message);
 
 });
 
-/* VERIFY MODAL */
+/* VERIFICATION */
+
 function openVerify(){
+
 $("#verifyOverlay").style.display="flex";
-$("#verifyResult").textContent="";
+
 $("#verifyCode").value="";
+$("#verifyResult").textContent="";
+
 }
 
-$("#verifyBtn").addEventListener("click",openVerify);
-$("#verifyTop").addEventListener("click",openVerify);
+$("#verifyBtn").addEventListener(
+"click",
+openVerify
+);
 
-$("#verifyClose").addEventListener("click",()=>{
+$("#verifyTop").addEventListener(
+"click",
+openVerify
+);
+
+$("#verifyClose").addEventListener(
+"click",
+function(){
+
 $("#verifyOverlay").style.display="none";
+
 });
 
-$("#verifyOverlay").addEventListener("click",e=>{
-if(e.target===$("#verifyOverlay")){
-$("#verifyOverlay").style.display="none";
+$("#verifyOverlay").addEventListener(
+"click",
+function(e){
+
+if(e.target===this){
+
+this.style.display="none";
+
 }
+
 });
 
-/* PRODUCT VERIFICATION */
-$("#verifySubmit").addEventListener("click",()=>{
+$("#verifySubmit").addEventListener(
+"click",
+function(){
 
-const code=clean($("#verifyCode").value)
+var code=clean(
+$("#verifyCode").value
+)
 .toUpperCase()
 .replace(/\s+/g,"");
 
 if(!code){
-$("#verifyResult").textContent="Please enter your verification code.";
+
+$("#verifyResult").textContent=
+"Please enter your verification code.";
+
 return;
+
 }
 
-/*
- Verification is owner-assisted.
- The entered code is sent to the official
- verification WhatsApp number.
-*/
-const msg=
-"SN Mehendi Product Verification Request%0A%0A"+
-"Verification Code: "+encodeURIComponent(code);
+var message=
+"SN Mehendi Product Verification Request\n\n"+
+"Verification Code: "+
+code;
 
-location.href="https://wa.me/"+_0x.b+"?text="+msg;
+location.href=
+"https://wa.me/"+
+X.v+
+"?text="+
+encodeURIComponent(message);
 
 });
 
 /* CONTACT */
-$("#contactBtn").addEventListener("click",()=>{
-location.href="https://wa.me/"+_0x.a;
+
+$("#contactBtn").addEventListener(
+"click",
+function(){
+
+location.href=
+"https://wa.me/"+X.o;
+
 });
 
 /* SIDE MENU */
-$("#menuBtn").addEventListener("click",()=>{
+
+$("#menuBtn").addEventListener(
+"click",
+function(){
+
 $("#sideMenu").classList.add("open");
+
 });
 
-$("#sideClose").addEventListener("click",()=>{
+$("#sideClose").addEventListener(
+"click",
+function(){
+
 $("#sideMenu").classList.remove("open");
+
 });
 
-$$("[data-close]").forEach(x=>{
-x.addEventListener("click",()=>{
+$$("[data-close]").forEach(function(x){
+
+x.addEventListener(
+"click",
+function(){
+
 $("#sideMenu").classList.remove("open");
-});
+
 });
 
-/* REVEAL ANIMATION */
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(e=>{
-if(e.isIntersecting)e.target.classList.add("show");
 });
-},{threshold:.08});
 
-$$(".reveal").forEach(x=>observer.observe(x));
+/* SCROLL ANIMATION */
+
+if("IntersectionObserver" in window){
+
+var observer=new IntersectionObserver(
+function(entries){
+
+entries.forEach(function(e){
+
+if(e.isIntersecting){
+
+e.target.classList.add("show");
+
+}
+
+});
+
+},
+{threshold:.08}
+);
+
+$$(".reveal").forEach(function(x){
+observer.observe(x);
+});
+
+}else{
+
+$$(".reveal").forEach(function(x){
+x.classList.add("show");
+});
+
+}
 
 /* SERVICE WORKER */
+
 if("serviceWorker" in navigator){
-window.addEventListener("load",()=>{
-navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+window.addEventListener(
+"load",
+function(){
+
+navigator.serviceWorker
+.register("sw.js")
+.catch(function(){});
+
 });
+
 }
 
 /* PWA INSTALL */
-let deferredPrompt=null;
 
-window.addEventListener("beforeinstallprompt",e=>{
+var deferredPrompt=null;
+
+window.addEventListener(
+"beforeinstallprompt",
+function(e){
+
 e.preventDefault();
+
 deferredPrompt=e;
+
 $("#installBar").style.display="flex";
+
 });
 
-$("#installBtn").addEventListener("click",async()=>{
+$("#installBtn").addEventListener(
+"click",
+async function(){
 
 if(deferredPrompt){
+
 deferredPrompt.prompt();
 
 try{
@@ -1121,26 +1740,35 @@ await deferredPrompt.userChoice;
 }catch(e){}
 
 deferredPrompt=null;
+
 $("#installBar").style.display="none";
 
 }else{
-alert("For iPhone: tap Share → Add to Home Screen.");
+
+alert(
+"Android: use the browser menu and select Install App or Add to Home Screen.\n\n"+
+"iPhone: tap Share and select Add to Home Screen."
+);
+
 }
 
 });
 
-window.addEventListener("appinstalled",()=>{
+window.addEventListener(
+"appinstalled",
+function(){
+
 $("#installBar").style.display="none";
+
 });
 
-/* INITIAL STATE */
-district.value="";
-area.innerHTML='<option value="">Select area</option>';
-updatePayment();
-calc();
+/* INITIAL */
+
+paymentUpdate();
+calculate();
 
 })();
 </script>
 
 </body>
-    </html>
+</html>

@@ -211,19 +211,10 @@ color:#ddd;
 color:#fff;
 }
 
-.product{
-display:grid;
-grid-template-columns:minmax(220px,380px) 1fr;
-gap:28px;
-align-items:center;
-}
+/* PRODUCT - NO PRODUCT IMAGE */
 
-.product-img{
-width:100%;
-border-radius:16px;
+.product{
 display:block;
-object-fit:contain;
-background:#111;
 }
 
 .product-info h2{
@@ -530,11 +521,6 @@ line-height:1.5;
 
 @media(max-width:700px){
 
-.product{
-grid-template-columns:1fr;
-gap:16px;
-}
-
 .delivery-grid{
 grid-template-columns:1fr;
 }
@@ -566,14 +552,6 @@ border-radius:15px;
 }
 
 }
-
-@media(min-width:701px){
-
-.product-img{
-max-height:430px;
-}
-
-}
 </style>
 </head>
 
@@ -595,13 +573,15 @@ max-height:430px;
 </div>
 </header>
 
+<!-- SIDE MENU -->
+
 <nav class="side" id="sideMenu">
 
 <button class="side-close" id="sideClose">×</button>
 
 <a href="#about" data-close>About</a>
 <a href="#product" data-close>Product</a>
-<a href="#deliveryInfo" data-close>Delivery Information</a>
+<a href="#" id="deliveryMenu">Delivery Information</a>
 <a href="#contact" data-close>Contact</a>
 
 </nav>
@@ -637,14 +617,9 @@ Professional Mehendi Artist &amp; NVQ Level 4 Certified Makeup Artist
 
 </section>
 
-<section class="card product reveal" id="product">
+<!-- PRODUCT - NO IMAGE -->
 
-<div>
-<img
-src="logo.jpg"
-class="product-img"
-alt="SN Mehendi Bridal Cone">
-</div>
+<section class="card product reveal" id="product">
 
 <div class="product-info">
 
@@ -806,37 +781,7 @@ Order via WhatsApp
 
 </section>
 
-<!-- DELIVERY INFORMATION IS ONLY IN MENU -->
-
-<section class="card reveal" id="deliveryInfo">
-
-<h2>Delivery Information</h2>
-
-<div class="info">
-
-<p>
-<strong>Colombo:</strong> Rs. 300
-</p>
-
-<p>
-<strong>Gampaha / Kalutara:</strong> Rs. 450
-</p>
-
-<p>
-<strong>Other Districts:</strong> Rs. 650
-</p>
-
-<p>
-<strong>Store Pickup:</strong> Free
-</p>
-
-<p>
-Delivery takes 2 to 4 working days based on your location.
-</p>
-
-</div>
-
-</section>
+<!-- IMPORTANT INFORMATION -->
 
 <section class="card reveal">
 
@@ -877,6 +822,8 @@ Delivery takes 2 to 4 working days based on your location.
 </div>
 
 </section>
+
+<!-- PRODUCT VERIFICATION -->
 
 <section class="card verify-card reveal">
 
@@ -919,6 +866,44 @@ Chat on WhatsApp
 </div>
 
 </main>
+
+<!-- DELIVERY INFORMATION POPUP -->
+
+<div class="overlay" id="deliveryOverlay">
+
+<div class="modal">
+
+<button class="close" id="deliveryClose">×</button>
+
+<h2>Delivery Information</h2>
+
+<div class="info">
+
+<p>
+<strong>Colombo:</strong> Rs. 300
+</p>
+
+<p>
+<strong>Gampaha / Kalutara:</strong> Rs. 450
+</p>
+
+<p>
+<strong>Other Districts:</strong> Rs. 650
+</p>
+
+<p>
+<strong>Store Pickup:</strong> Free
+</p>
+
+<p>
+Delivery takes 2 to 4 working days based on your location.
+</p>
+
+</div>
+
+</div>
+
+</div>
 
 <!-- VERIFICATION POPUP -->
 
@@ -980,12 +965,18 @@ Install
 
 "use strict";
 
-/* ENCODED PRIVATE VALUES */
+/* ENCODED VALUES */
 
 var X={
+/* 94766650460 */
 o:atob("OTQ3NjY2NTA0NjA="),
-v:atob("OTQ3MTc1NzcwODMz"),
+
+/* 94717577083 - CORRECT */
+v:atob("OTQ3MTc1NzcwODMA"),
+
+/* 8015862293 */
 a:atob("ODAxNTg2MjI5Mw=="),
+
 p:390
 };
 
@@ -1002,6 +993,7 @@ var district=$("#district");
 var area=$("#area");
 
 var DATA={
+
 "Colombo":{
 fee:300,
 areas:[
@@ -1267,6 +1259,7 @@ areas:[
 "Store Pickup"
 ]
 }
+
 };
 
 /* DISTRICTS */
@@ -1371,9 +1364,8 @@ function paymentUpdate(){
 
 var d=district.value;
 
-var codAllowed=
-d==="Colombo" ||
-d==="Store Pickup";
+/* COD ONLY FOR COLOMBO */
+var codAllowed=d==="Colombo";
 
 var cod=document.querySelector(
 'input[name="payment"][value="COD"]'
@@ -1509,7 +1501,9 @@ return;
 
 }
 
-if(pm==="COD" && d!=="Colombo" && d!=="Store Pickup"){
+/* COD ONLY COLOMBO */
+
+if(pm==="COD" && d!=="Colombo"){
 
 alert("Cash on Delivery is available only for Colombo.");
 
@@ -1621,14 +1615,47 @@ encodeURIComponent(message);
 
 });
 
+/* DELIVERY MENU */
+
+$("#deliveryMenu").addEventListener(
+"click",
+function(e){
+
+e.preventDefault();
+
+$("#sideMenu").classList.remove("open");
+
+$("#deliveryOverlay").style.display="flex";
+
+});
+
+$("#deliveryClose").addEventListener(
+"click",
+function(){
+
+$("#deliveryOverlay").style.display="none";
+
+});
+
+$("#deliveryOverlay").addEventListener(
+"click",
+function(e){
+
+if(e.target===this){
+
+this.style.display="none";
+
+}
+
+});
+
 /* CONTACT */
 
 $("#contactBtn").addEventListener(
 "click",
 function(){
 
-location.href=
-"https://wa.me/"+X.o;
+location.href="https://wa.me/"+X.o;
 
 });
 
@@ -1771,4 +1798,4 @@ calculate();
 </script>
 
 </body>
-</html>
+  </html>

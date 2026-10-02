@@ -128,11 +128,13 @@ gap:8px;
 }
 
 .verify-top,
+.install-guide-top,
 .menu-btn{
 border:1px solid rgba(255,255,255,.25);
 border-radius:9px;
-padding:9px 12px;
+padding:8px 10px;
 font-weight:700;
+font-size:13px;
 }
 
 .verify-top{
@@ -140,10 +142,16 @@ background:#fff;
 color:#000;
 }
 
+.install-guide-top{
+background:transparent;
+color:#fff;
+}
+
 .menu-btn{
 background:#000;
 color:#fff;
 font-size:20px;
+padding:6px 12px;
 }
 
 .container{
@@ -566,6 +574,7 @@ border-radius:15px;
 </div>
 
 <div class="nav-right">
+<button class="install-guide-top" id="installGuideTop">App Install</button>
 <button class="verify-top" id="verifyTop">Verify</button>
 <button class="menu-btn" id="menuBtn">☰</button>
 </div>
@@ -582,6 +591,7 @@ border-radius:15px;
 <a href="#about" data-close>About</a>
 <a href="#product" data-close>Product</a>
 <a href="#" id="deliveryMenu">Delivery Information</a>
+<a href="#" id="installGuideMenu">How to Install App</a>
 <a href="#contact" data-close>Contact</a>
 
 </nav>
@@ -897,6 +907,34 @@ Chat on WhatsApp
 
 <p>
 Delivery takes 2 to 4 working days based on your location.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- INSTALL GUIDE POPUP -->
+
+<div class="overlay" id="installGuideOverlay">
+
+<div class="modal">
+
+<button class="close" id="installGuideClose">×</button>
+
+<h2>How to Install App</h2>
+
+<div class="info" style="line-height:1.8">
+
+<p style="margin-bottom:15px;">
+<strong>📱 Android (Chrome):</strong><br>
+Tap <strong>⋮ (3 dots)</strong> menu &rarr; Select <strong>"Install App"</strong> or <strong>"Add to Home Screen"</strong>.
+</p>
+
+<p>
+<strong>📱 iPhone (Safari):</strong><br>
+Tap <strong>Share icon (&uarr;)</strong> &rarr; Scroll down &amp; select <strong>"Add to Home Screen"</strong>.
 </p>
 
 </div>
@@ -1671,6 +1709,27 @@ this.style.display="none";
 
 });
 
+/* INSTALL GUIDE POPUP */
+
+function openInstallGuide(e){
+if(e) e.preventDefault();
+$("#sideMenu").classList.remove("open");
+$("#installGuideOverlay").style.display="flex";
+}
+
+$("#installGuideTop").addEventListener("click", openInstallGuide);
+$("#installGuideMenu").addEventListener("click", openInstallGuide);
+
+$("#installGuideClose").addEventListener("click", function(){
+$("#installGuideOverlay").style.display="none";
+});
+
+$("#installGuideOverlay").addEventListener("click", function(e){
+if(e.target===this){
+this.style.display="none";
+}
+});
+
 /* CONTACT */
 
 $("#contactBtn").addEventListener(
@@ -1687,7 +1746,7 @@ $("#menuBtn").addEventListener(
 "click",
 function(){
 
-$("#sideMenu").classList.open();
+$("#sideMenu").classList.add("open");
 
 });
 
@@ -1794,10 +1853,7 @@ $("#installBar").style.display="none";
 
 }else{
 
-alert(
-"Android: use the browser menu and select Install App or Add to Home Screen.\n\n"+
-"iPhone: tap Share and select Add to Home Screen."
-);
+openInstallGuide();
 
 }
 

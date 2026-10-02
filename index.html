@@ -20,8 +20,8 @@
 (function(){
 "use strict";
 
-var H=atob("c3VoYW5pLWRvZTEyMy5naXRodWIuaW8=");
-var P=atob("L1NOLU1laGVuZGk=");
+var H="suhani-doe123.github.io";
+var P="/SN-Mehendi";
 var h=location.hostname.toLowerCase();
 var p=location.pathname.replace(/\/+$/,"");
 
@@ -965,17 +965,15 @@ Install
 
 "use strict";
 
-/* ENCODED VALUES */
-
 var X={
-/* 94766650460 - Discussion Number */
-o:atob("OTQ3NjY2NTA0NjA="),
+/* Orders & Bulk Discussion */
+o:"94766650460",
 
-/* 94717577083 - Verification Number */
-v:atob("OTQ3MTc1NzcwODMA"),
+/* Verification */
+v:"94717577083",
 
-/* 8015862293 */
-a:atob("ODAxNTg2MjI5Mw=="),
+/* Bank Account Number */
+a:"8015862293",
 
 p:390
 };
@@ -1261,6 +1259,17 @@ areas:[
 }
 
 };
+
+/* HELPER FOR WHATSAPP JUMP */
+function openWhatsApp(phone, text){
+var waUrl = "whatsapp://send?phone=" + phone + "&text=" + encodeURIComponent(text);
+var fallbackUrl = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text);
+
+window.location.href = waUrl;
+setTimeout(function(){
+window.location.href = fallbackUrl;
+}, 500);
+}
 
 /* DISTRICTS */
 
@@ -1555,8 +1564,7 @@ message=
 "Total: Rs. "+total.toLocaleString();
 }
 
-var url="https://api.whatsapp.com/send?phone="+X.o+"&text="+encodeURIComponent(message);
-window.open(url,"_blank");
+openWhatsApp(X.o, message);
 
 });
 
@@ -1625,8 +1633,7 @@ var message=
 "Verification Code: "+
 code;
 
-var url="https://api.whatsapp.com/send?phone="+X.v+"&text="+encodeURIComponent(message);
-window.open(url,"_blank");
+openWhatsApp(X.v, message);
 
 });
 
@@ -1670,8 +1677,7 @@ $("#contactBtn").addEventListener(
 "click",
 function(){
 
-var url="https://api.whatsapp.com/send?phone="+X.o;
-window.open(url,"_blank");
+openWhatsApp(X.o, "Hello SN Mehendi, I have an enquiry.");
 
 });
 
@@ -1681,7 +1687,7 @@ $("#menuBtn").addEventListener(
 "click",
 function(){
 
-$("#sideMenu").classList.add("open");
+$("#sideMenu").classList.open();
 
 });
 

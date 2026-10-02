@@ -1555,11 +1555,8 @@ message=
 "Total: Rs. "+total.toLocaleString();
 }
 
-location.href=
-"https://wa.me/"+
-X.o+
-"?text="+
-encodeURIComponent(message);
+var url="https://api.whatsapp.com/send?phone="+X.o+"&text="+encodeURIComponent(message);
+window.open(url,"_blank");
 
 });
 
@@ -1628,11 +1625,8 @@ var message=
 "Verification Code: "+
 code;
 
-location.href=
-"https://wa.me/"+
-X.v+
-"?text="+
-encodeURIComponent(message);
+var url="https://api.whatsapp.com/send?phone="+X.v+"&text="+encodeURIComponent(message);
+window.open(url,"_blank");
 
 });
 
@@ -1676,7 +1670,8 @@ $("#contactBtn").addEventListener(
 "click",
 function(){
 
-location.href="https://wa.me/"+X.o;
+var url="https://api.whatsapp.com/send?phone="+X.o;
+window.open(url,"_blank");
 
 });
 

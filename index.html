@@ -968,10 +968,10 @@ Install
 /* ENCODED VALUES */
 
 var X={
-/* 94766650460 */
+/* 94766650460 - Discussion Number */
 o:atob("OTQ3NjY2NTA0NjA="),
 
-/* 94717577083 - CORRECT */
+/* 94717577083 - Verification Number */
 v:atob("OTQ3MTc1NzcwODMA"),
 
 /* 8015862293 */
@@ -1426,14 +1426,20 @@ var total=productTotal+fee;
 
 $("#billQty").textContent=n;
 
-$("#billProduct").textContent=
-"Rs. "+productTotal.toLocaleString();
+var orderBtn=$("#orderBtn");
+
+if(n>10){
+$("#billProduct").textContent="Price discuss on WhatsApp";
+$("#totalPrice").textContent="Price discuss on WhatsApp";
+orderBtn.textContent="Discuss Price on WhatsApp";
+}else{
+$("#billProduct").textContent="Rs. "+productTotal.toLocaleString();
+$("#totalPrice").textContent="Rs. "+total.toLocaleString();
+orderBtn.textContent="Order via WhatsApp";
+}
 
 $("#deliveryPrice").textContent=
 "Rs. "+fee.toLocaleString();
-
-$("#totalPrice").textContent=
-"Rs. "+total.toLocaleString();
 
 }
 
@@ -1516,7 +1522,21 @@ var fee=DATA[d]?DATA[d].fee:300;
 var productTotal=n*X.p;
 var total=productTotal+fee;
 
-var message=
+var message="";
+
+if(n>10){
+message=
+"SN Mehendi Bulk Order Request\n\n"+
+"Name: "+name+"\n"+
+"Phone: "+phone+"\n"+
+"Address: "+address+"\n"+
+"District: "+d+"\n"+
+"Area: "+ar+"\n"+
+"Product: Bridal Cone\n"+
+"Quantity: "+n+" Cones\n"+
+"Note: I want to discuss price for bulk order.";
+}else{
+message=
 "SN Mehendi Order\n\n"+
 "Name: "+name+"\n"+
 "Phone: "+phone+"\n"+
@@ -1533,6 +1553,7 @@ var message=
 "Bank Transfer")+
 "\n"+
 "Total: Rs. "+total.toLocaleString();
+}
 
 location.href=
 "https://wa.me/"+
@@ -1798,4 +1819,4 @@ calculate();
 </script>
 
 </body>
-  </html>
+</html>

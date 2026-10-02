@@ -213,8 +213,6 @@ color:#ddd;
 color:#fff;
 }
 
-/* PRODUCT - NO PRODUCT IMAGE */
-
 .product{
 display:block;
 }
@@ -620,8 +618,6 @@ Professional Mehendi Artist &amp; NVQ Level 4 Certified Makeup Artist
 
 </section>
 
-<!-- PRODUCT - NO IMAGE -->
-
 <section class="card product reveal" id="product">
 
 <div class="product-info">
@@ -797,7 +793,7 @@ Order via WhatsApp
 </p>
 
 <p>
-❄️ දිගු කාලයක් ගුණාත්මකභාවය පවත්වා ගැනීම සඳහා සාමාන්‍‍ය ශීතකරණයේ (Freezer එකට පහළින් ඇති කොටසෙහි) ගබඩා කරන්න.
+❄️ දිගු කාලයක් ගුණාත්මකභාවය පවත්වා ගැනීම සඳහා සාමාන්‍ය ශීතකරණයේ (Freezer එකට පහළින් ඇති කොටසෙහි) ගබඩා කරන්න.
 </p>
 
 <p>
@@ -997,15 +993,9 @@ Install
 "use strict";
 
 var X={
-/* Orders & Bulk Discussion */
 o:"94766650460",
-
-/* Verification */
 v:"94717577083",
-
-/* Bank Account Number */
 a:"8015862293",
-
 p:390
 };
 
@@ -1021,26 +1011,56 @@ var qty=$("#qty");
 var district=$("#district");
 var area=$("#area");
 
+/* ACCURATE SRI LANKA DISTRICT & CITIES MAPPING */
 var DATA={
 
 "Colombo":{
 fee:300,
 areas:[
-"Colombo 01",
-"Colombo 02",
-"Colombo 03",
-"Colombo 04",
-"Colombo 05",
-"Colombo 06",
-"Colombo 07",
-"Colombo 08",
-"Colombo 09",
-"Colombo 10",
-"Colombo 11",
-"Colombo 12",
-"Colombo 13",
-"Colombo 14",
-"Colombo 15"
+"Colombo 01 (Fort)",
+"Colombo 02 (Slave Island)",
+"Colombo 03 (Kollupitiya)",
+"Colombo 04 (Bambalapitiya)",
+"Colombo 05 (Narahenpita / Havelock)",
+"Colombo 06 (Wellawatte)",
+"Colombo 07 (Cinnamon Gardens)",
+"Colombo 08 (Borella)",
+"Colombo 09 (Dematagoda)",
+"Colombo 10 (Maradana)",
+"Colombo 11 (Pettah)",
+"Colombo 12 (Hultsdorf)",
+"Colombo 13 (Kotahena)",
+"Colombo 14 (Grandpass)",
+"Colombo 15 (Modara / Mutwal)",
+"Angoda",
+"Athurugiriya",
+"Avissawella",
+"Battaramulla",
+"Boralesgamuwa",
+"Dehiwala",
+"Hanwella",
+"Homagama",
+"Kaduwela",
+"Kahathuduwa",
+"Kesbewa",
+"Kohuwala",
+"Kolonnawa",
+"Kottawa",
+"Kotte (Sri Jayawardenepura)",
+"Maharagama",
+"Malabe",
+"Moratuwa",
+"Mount Lavinia",
+"Nawala",
+"Nugegoda",
+"Padukka",
+"Pannipitiya",
+"Piliyandala",
+"Rajagiriya",
+"Ranala",
+"Ratmalana",
+"Talawatugoda",
+"Wellampitiya"
 ]
 },
 
@@ -1048,15 +1068,26 @@ areas:[
 fee:450,
 areas:[
 "Gampaha",
-"Negombo",
-"Wattala",
+"Attanagalla",
+"Biyagama",
+"Delgoda",
+"Divulapitiya",
+"Dompe",
+"Ganemulla",
 "Ja-Ela",
 "Kadawatha",
-"Kiribathgoda",
+"Kandana",
+"Katunayake",
 "Kelaniya",
+"Kiribathgoda",
 "Minuwangoda",
+"Mirigama",
+"Negombo",
 "Nittambuwa",
-"Veyangoda"
+"Ragama",
+"Seeduwa",
+"Veyangoda",
+"Wattala"
 ]
 },
 
@@ -1064,12 +1095,19 @@ areas:[
 fee:450,
 areas:[
 "Kalutara",
-"Panadura",
-"Beruwala",
+"Agalawatta",
 "Aluthgama",
-"Wadduwa",
+"Bandaragama",
+"Beruwala",
+"Bulathsinhala",
+"Dodangoda",
 "Horana",
-"Matugama"
+"Ingiriya",
+"Mathugama",
+"Panadura",
+"Payagala",
+"Wadduwa",
+"Walallavita"
 ]
 },
 
@@ -1077,11 +1115,22 @@ areas:[
 fee:650,
 areas:[
 "Kandy",
-"Peradeniya",
-"Katugastota",
+"Akurana",
+"Alawatugoda",
+"Ampitiya",
+"Digana",
 "Gampola",
+"Hasalaka",
+"Kadugannawa",
+"Katugastota",
+"Kundasale",
+"Madawala",
 "Nawalapitiya",
-"Digana"
+"Peradeniya",
+"Pilimathalawa",
+"Pallekele",
+"Teldeniya",
+"Wattegama"
 ]
 },
 
@@ -1090,8 +1139,13 @@ fee:650,
 areas:[
 "Matale",
 "Dambulla",
+"Galewela",
+"Kaikawala",
+"Palapathwela",
+"Rattota",
+"Sigiriya",
 "Ukuwela",
-"Rattota"
+"Yatawatta"
 ]
 },
 
@@ -1099,9 +1153,20 @@ areas:[
 fee:650,
 areas:[
 "Nuwara Eliya",
+"Agarapathana",
+"Ambewela",
+"Bogawantalawa",
+"Ginigathhena",
 "Hatton",
+"Kotagala",
+"Labukele",
+"Maskeliya",
+"Nanu Oya",
+"Pundaluoya",
+"Ragala",
+"Ramboda",
 "Talawakele",
-"Ginigathhena"
+"Walapane"
 ]
 },
 
@@ -1109,9 +1174,20 @@ areas:[
 fee:650,
 areas:[
 "Galle",
-"Hikkaduwa",
+"Ahangama",
+"Ahungalla",
 "Ambalangoda",
+"Baddegama",
+"Bentota",
 "Elpitiya",
+"Habaraduwa",
+"Hikkaduwa",
+"Karapitiya",
+"Koggala",
+"Mapalagama",
+"Nagoda",
+"Thawalama",
+"Udugama",
 "Unawatuna"
 ]
 },
@@ -1120,9 +1196,18 @@ areas:[
 fee:650,
 areas:[
 "Matara",
-"Weligama",
 "Akuressa",
-"Dikwella"
+"Deniyaya",
+"Dickwella",
+"Hakmana",
+"Kamburupitiya",
+"Kekanadurra",
+"Kamburugamuwa",
+"KOTAPOLA",
+"Mirissa",
+"Thihagoda",
+"Weligama",
+"Wellerukana"
 ]
 },
 
@@ -1130,9 +1215,15 @@ areas:[
 fee:650,
 areas:[
 "Hambantota",
+"Ambalantota",
+"Beliatta",
+"Katuwana",
+"Lunugamvehera",
+"Middeniya",
 "Tangalle",
 "Tissamaharama",
-"Beliatta"
+"Walasmulla",
+"Weeraketiya"
 ]
 },
 
@@ -1140,9 +1231,18 @@ areas:[
 fee:650,
 areas:[
 "Jaffna",
+"Chankanai",
 "Chavakachcheri",
+"Chunnakam",
+"Delft",
+"Karainagar",
+"Kayts",
+"Kopay",
+"Manipay",
+"Nallur",
 "Point Pedro",
-"Nallur"
+"Tellippalai",
+"Valvettithurai"
 ]
 },
 
@@ -1150,7 +1250,10 @@ areas:[
 fee:650,
 areas:[
 "Kilinochchi",
-"Pallai"
+"Akkarayan",
+"Kandanavalai",
+"Pallai",
+"Poonakary"
 ]
 },
 
@@ -1158,14 +1261,22 @@ areas:[
 fee:650,
 areas:[
 "Mannar",
-"Madhu"
+"Adampan",
+"Madhu",
+"Murunkan",
+"Nanaddan",
+"Thalaimannar"
 ]
 },
 
 "Vavuniya":{
 fee:650,
 areas:[
-"Vavuniya"
+"Vavuniya",
+"Cheddikulam",
+"Kanagarayankulam",
+"Nedunkeni",
+"Omanthai"
 ]
 },
 
@@ -1173,7 +1284,11 @@ areas:[
 fee:650,
 areas:[
 "Mullaitivu",
-"Puthukkudiyiruppu"
+"Mallavi",
+"Mulliyawalai",
+"Oddusuddan",
+"Puthukkudiyiruppu",
+"Thunukkai"
 ]
 },
 
@@ -1181,8 +1296,14 @@ areas:[
 fee:650,
 areas:[
 "Batticaloa",
+"Chenkalady",
+"Eravur",
+"Kaluwanchikudy",
 "Kattankudy",
-"Eravur"
+"Kokkadichcholai",
+"Oddamavadi",
+"Valaichchenai",
+"Vakarai"
 ]
 },
 
@@ -1190,9 +1311,20 @@ areas:[
 fee:650,
 areas:[
 "Ampara",
-"Kalmunai",
 "Akkaraipattu",
-"Sainthamaruthu"
+"Addalaichenai",
+"Alayadivembu",
+"Damana",
+"Dehiattakandiya",
+"Kalmunai",
+"Karaitivu",
+"Mahanagapura",
+"Ninthavur",
+"Oluvil",
+"Pottuvil",
+"Sainthamaruthu",
+"Sammanthurai",
+"Uhana"
 ]
 },
 
@@ -1200,8 +1332,15 @@ areas:[
 fee:650,
 areas:[
 "Trincomalee",
+"Gomarankadawala",
+"Kantale",
 "Kinniya",
-"Kantale"
+"Kuchchaveli",
+"Muttur",
+"Padavi Sri Pura",
+"Pulmoddai",
+"Sampur",
+"Thampalakamam"
 ]
 },
 
@@ -1209,8 +1348,19 @@ areas:[
 fee:650,
 areas:[
 "Kurunegala",
+"Alawwa",
+"Bingiriya",
+"Galgamuwa",
+"Giriulla",
+"Hettipola",
+"Ibbagamuwa",
 "Kuliyapitiya",
+"Maho",
+"Mawathagama",
 "Narammala",
+"Nikaweratiya",
+"Pannala",
+"Polgahawela",
 "Wariyapola"
 ]
 },
@@ -1219,9 +1369,15 @@ areas:[
 fee:650,
 areas:[
 "Puttalam",
+"Anamaduwa",
 "Chilaw",
-"Wennappuwa",
-"Dankotuwa"
+"Dankotuwa",
+"Kalpitiya",
+"Mahawewa",
+"Marawila",
+"Mundel",
+"Nattandiya",
+"Wennappuwa"
 ]
 },
 
@@ -1229,8 +1385,20 @@ areas:[
 fee:650,
 areas:[
 "Anuradhapura",
+"Bulnewa",
+"Eppawala",
+"Galenbindunuwewa",
+"Galnewa",
+"Habarana",
+"Kahatagasdigiliya",
 "Kekirawa",
-"Medawachchiya"
+"Madatugama",
+"Medawachchiya",
+"Mihintale",
+"Nochchiyagama",
+"Padaviya",
+"Talawa",
+"Thambuttegama"
 ]
 },
 
@@ -1238,8 +1406,15 @@ areas:[
 fee:650,
 areas:[
 "Polonnaruwa",
+"Dimbulagala",
+"Elahera",
+"Hingurakgoda",
+"Jayanthipura",
 "Kaduruwela",
-"Hingurakgoda"
+"Lankapura",
+"Medirigiriya",
+"Minneriya",
+"Welikanda"
 ]
 },
 
@@ -1248,7 +1423,14 @@ fee:650,
 areas:[
 "Badulla",
 "Bandarawela",
+"Diyatalawa",
+"Ella",
+"Haldummulla",
+"Hali-Ela",
 "Haputale",
+"Kandaketiya",
+"Mahiyanganaya",
+"Passara",
 "Welimada"
 ]
 },
@@ -1257,8 +1439,14 @@ areas:[
 fee:650,
 areas:[
 "Monaragala",
-"Wellawaya",
-"Bibile"
+"Badalkumbura",
+"Bibile",
+"Buttala",
+"Kataragama",
+"Madulla",
+"Siyambalanduwa",
+"Tanamalwila",
+"Wellawaya"
 ]
 },
 
@@ -1266,9 +1454,17 @@ areas:[
 fee:650,
 areas:[
 "Ratnapura",
+"Ayagama",
 "Balangoda",
+"Eheliyagoda",
 "Embilipitiya",
-"Pelmadulla"
+"Godakawela",
+"Kahawatta",
+"Kuruwita",
+"Nivitigala",
+"Opanayaka",
+"Pelmadulla",
+"Rakwana"
 ]
 },
 
@@ -1276,9 +1472,18 @@ areas:[
 fee:650,
 areas:[
 "Kegalle",
+"Dehiowita",
+"Deraniyagala",
+"Galigamuwa",
+"Hemmathagama",
+"Karawanella",
+"Kitulgala",
 "Mawanella",
+"Rambukkana",
+"Ruwanwella",
+"Thoolhiriya",
 "Warakapola",
-"Rambukkana"
+"Yatiyanthota"
 ]
 },
 
@@ -1291,7 +1496,6 @@ areas:[
 
 };
 
-/* HELPER FOR WHATSAPP JUMP */
 function openWhatsApp(phone, text){
 var waUrl = "whatsapp://send?phone=" + phone + "&text=" + encodeURIComponent(text);
 var fallbackUrl = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text);
@@ -1302,32 +1506,19 @@ window.location.href = fallbackUrl;
 }, 500);
 }
 
-/* DISTRICTS */
-
 Object.keys(DATA).forEach(function(x){
-
 var o=document.createElement("option");
-
 o.value=x;
 o.textContent=x;
-
 district.appendChild(o);
-
 });
 
-/* QUANTITY */
-
 function setQty(n){
-
 n=parseInt(n)||1;
-
 if(n<1)n=1;
 if(n>999)n=999;
-
 qty.value=n;
-
 calculate();
-
 }
 
 $("#minus").addEventListener("click",function(){
@@ -1342,130 +1533,67 @@ qty.addEventListener("input",function(){
 setQty(qty.value);
 });
 
-/* AREA */
-
 district.addEventListener("change",function(){
-
 area.innerHTML='<option value="">Select Area</option>';
-
 var d=DATA[district.value];
-
 if(d){
-
 d.areas.forEach(function(x){
-
 var o=document.createElement("option");
-
 o.value=x;
 o.textContent=x;
-
 area.appendChild(o);
-
 });
-
 }
-
 paymentUpdate();
 calculate();
-
 });
-
-/* PAYMENT */
 
 $$('input[name="payment"]').forEach(function(r){
-
 r.addEventListener("change",function(){
-
 if(this.value==="COD"){
-
 var d=district.value;
-
 if(d!=="Colombo"){
-
 alert("Cash on Delivery is available only for Colombo.");
-
-document.querySelector(
-'input[name="payment"][value="BANK"]'
-).checked=true;
-
+document.querySelector('input[name="payment"][value="BANK"]').checked=true;
 }
-
 }
-
 paymentUpdate();
-
 });
-
 });
-
-/* PAYMENT DISPLAY */
 
 function paymentUpdate(){
-
 var d=district.value;
-
-/* COD ONLY FOR COLOMBO */
 var codAllowed=d==="Colombo";
-
-var cod=document.querySelector(
-'input[name="payment"][value="COD"]'
-);
-
+var cod=document.querySelector('input[name="payment"][value="COD"]');
 var codBox=$("#codOption");
 var warning=$("#codWarning");
 
 cod.disabled=!codAllowed;
 
 if(!codAllowed){
-
 codBox.classList.add("disabled");
-
 warning.style.display="block";
-warning.textContent=
-"Cash on Delivery is available only for Colombo.";
-
+warning.textContent="Cash on Delivery is available only for Colombo.";
 if(cod.checked){
-
-document.querySelector(
-'input[name="payment"][value="BANK"]'
-).checked=true;
-
+document.querySelector('input[name="payment"][value="BANK"]').checked=true;
 }
-
 }else{
-
 codBox.classList.remove("disabled");
 warning.style.display="none";
-
 }
 
-var selected=
-document.querySelector(
-'input[name="payment"]:checked'
-);
-
-$("#bankBox").style.display=
-selected && selected.value==="BANK"
-?"block":"none";
-
+var selected=document.querySelector('input[name="payment"]:checked');
+$("#bankBox").style.display=selected && selected.value==="BANK"?"block":"none";
 }
-
-/* BILL */
 
 function calculate(){
-
 var n=parseInt(qty.value)||1;
-
 var d=DATA[district.value];
-
 var fee=d?d.fee:300;
-
 var productTotal=n*X.p;
-
 var total=productTotal+fee;
 
 $("#billQty").textContent=n;
-
 var orderBtn=$("#orderBtn");
 
 if(n>10){
@@ -1478,90 +1606,50 @@ $("#totalPrice").textContent="Rs. "+total.toLocaleString();
 orderBtn.textContent="Order via WhatsApp";
 }
 
-$("#deliveryPrice").textContent=
-"Rs. "+fee.toLocaleString();
-
+$("#deliveryPrice").textContent="Rs. "+fee.toLocaleString();
 }
 
-/* BANK COPY */
-
 $("#copyBank").addEventListener("click",async function(){
-
 try{
-
 await navigator.clipboard.writeText(X.a);
-
 this.textContent="Copied ✓";
-
 var b=this;
-
 setTimeout(function(){
 b.textContent="Copy Account Number";
 },1800);
-
 }catch(e){
-
-prompt(
-"Copy account number:",
-X.a
-);
-
+prompt("Copy account number:",X.a);
 }
-
 });
 
-/* SANITIZE */
-
 function clean(v){
-
-return String(v||"")
-.replace(/[<>]/g,"")
-.trim();
-
+return String(v||"").replace(/[<>]/g,"").trim();
 }
 
-/* WHATSAPP ORDER */
-
 $("#orderBtn").addEventListener("click",function(){
-
 var name=clean($("#name").value);
 var phone=clean($("#phone").value);
 var address=clean($("#address").value);
 var d=clean(district.value);
 var ar=clean(area.value);
 
-var selected=
-document.querySelector(
-'input[name="payment"]:checked'
-);
-
+var selected=document.querySelector('input[name="payment"]:checked');
 var pm=selected?selected.value:"BANK";
-
 var n=parseInt(qty.value)||1;
 
 if(!name||!phone||!address||!d||!ar){
-
 alert("Please fill all required details.");
-
 return;
-
 }
 
-/* COD ONLY COLOMBO */
-
 if(pm==="COD" && d!=="Colombo"){
-
 alert("Cash on Delivery is available only for Colombo.");
-
 return;
-
 }
 
 var fee=DATA[d]?DATA[d].fee:300;
-
 var productTotal=n*X.p;
 var total=productTotal+fee;
-
 var message="";
 
 if(n>10){
@@ -1587,122 +1675,57 @@ message=
 "Quantity: "+n+"\n"+
 "Product Total: Rs. "+productTotal.toLocaleString()+"\n"+
 "Delivery: Rs. "+fee.toLocaleString()+"\n"+
-"Payment: "+
-(pm==="COD"?
-"Cash on Delivery":
-"Bank Transfer")+
-"\n"+
+"Payment: "+(pm==="COD"?"Cash on Delivery":"Bank Transfer")+"\n"+
 "Total: Rs. "+total.toLocaleString();
 }
 
 openWhatsApp(X.o, message);
-
 });
-
-/* VERIFICATION */
 
 function openVerify(){
-
 $("#verifyOverlay").style.display="flex";
-
 $("#verifyCode").value="";
 $("#verifyResult").textContent="";
-
 }
 
-$("#verifyBtn").addEventListener(
-"click",
-openVerify
-);
+$("#verifyBtn").addEventListener("click",openVerify);
+$("#verifyTop").addEventListener("click",openVerify);
 
-$("#verifyTop").addEventListener(
-"click",
-openVerify
-);
-
-$("#verifyClose").addEventListener(
-"click",
-function(){
-
+$("#verifyClose").addEventListener("click",function(){
 $("#verifyOverlay").style.display="none";
-
 });
 
-$("#verifyOverlay").addEventListener(
-"click",
-function(e){
-
+$("#verifyOverlay").addEventListener("click",function(e){
 if(e.target===this){
-
 this.style.display="none";
-
 }
-
 });
 
-$("#verifySubmit").addEventListener(
-"click",
-function(){
-
-var code=clean(
-$("#verifyCode").value
-)
-.toUpperCase()
-.replace(/\s+/g,"");
-
+$("#verifySubmit").addEventListener("click",function(){
+var code=clean($("#verifyCode").value).toUpperCase().replace(/\s+/g,"");
 if(!code){
-
-$("#verifyResult").textContent=
-"Please enter your verification code.";
-
+$("#verifyResult").textContent="Please enter your verification code.";
 return;
-
 }
-
-var message=
-"SN Mehendi Product Verification Request\n\n"+
-"Verification Code: "+
-code;
-
+var message="SN Mehendi Product Verification Request\n\nVerification Code: "+code;
 openWhatsApp(X.v, message);
-
 });
 
-/* DELIVERY MENU */
-
-$("#deliveryMenu").addEventListener(
-"click",
-function(e){
-
+$("#deliveryMenu").addEventListener("click",function(e){
 e.preventDefault();
-
 $("#sideMenu").classList.remove("open");
-
 $("#deliveryOverlay").style.display="flex";
-
 });
 
-$("#deliveryClose").addEventListener(
-"click",
-function(){
-
+$("#deliveryClose").addEventListener("click",function(){
 $("#deliveryOverlay").style.display="none";
-
 });
 
-$("#deliveryOverlay").addEventListener(
-"click",
-function(e){
-
+$("#deliveryOverlay").addEventListener("click",function(e){
 if(e.target===this){
-
 this.style.display="none";
-
 }
-
 });
-
-/* INSTALL GUIDE POPUP */
 
 function openInstallGuide(e){
 if(e) e.preventDefault();
@@ -1711,7 +1734,6 @@ $("#installGuideOverlay").style.display="flex";
 }
 
 $("#installGuideMenu").addEventListener("click", openInstallGuide);
-
 $("#installGuideClose").addEventListener("click", function(){
 $("#installGuideOverlay").style.display="none";
 });
@@ -1722,144 +1744,71 @@ this.style.display="none";
 }
 });
 
-/* CONTACT */
-
-$("#contactBtn").addEventListener(
-"click",
-function(){
-
+$("#contactBtn").addEventListener("click",function(){
 openWhatsApp(X.o, "Hello SN Mehendi, I have an enquiry.");
-
 });
 
-/* SIDE MENU */
-
-$("#menuBtn").addEventListener(
-"click",
-function(){
-
+$("#menuBtn").addEventListener("click",function(){
 $("#sideMenu").classList.add("open");
-
 });
 
-$("#sideClose").addEventListener(
-"click",
-function(){
-
+$("#sideClose").addEventListener("click",function(){
 $("#sideMenu").classList.remove("open");
-
 });
 
 $$("[data-close]").forEach(function(x){
-
-x.addEventListener(
-"click",
-function(){
-
+x.addEventListener("click",function(){
 $("#sideMenu").classList.remove("open");
-
 });
-
 });
-
-/* SCROLL ANIMATION */
 
 if("IntersectionObserver" in window){
-
-var observer=new IntersectionObserver(
-function(entries){
-
+var observer=new IntersectionObserver(function(entries){
 entries.forEach(function(e){
-
 if(e.isIntersecting){
-
 e.target.classList.add("show");
-
 }
-
 });
-
-},
-{threshold:.08}
-);
+},{threshold:.08});
 
 $$(".reveal").forEach(function(x){
 observer.observe(x);
 });
-
 }else{
-
 $$(".reveal").forEach(function(x){
 x.classList.add("show");
 });
-
 }
-
-/* SERVICE WORKER */
 
 if("serviceWorker" in navigator){
-
-window.addEventListener(
-"load",
-function(){
-
-navigator.serviceWorker
-.register("sw.js")
-.catch(function(){});
-
+window.addEventListener("load",function(){
+navigator.serviceWorker.register("sw.js").catch(function(){});
 });
-
 }
 
-/* PWA INSTALL */
-
 var deferredPrompt=null;
-
-window.addEventListener(
-"beforeinstallprompt",
-function(e){
-
+window.addEventListener("beforeinstallprompt",function(e){
 e.preventDefault();
-
 deferredPrompt=e;
-
 $("#installBar").style.display="flex";
-
 });
 
-$("#installBtn").addEventListener(
-"click",
-async function(){
-
+$("#installBtn").addEventListener("click",async function(){
 if(deferredPrompt){
-
 deferredPrompt.prompt();
-
 try{
 await deferredPrompt.userChoice;
 }catch(e){}
-
 deferredPrompt=null;
-
 $("#installBar").style.display="none";
-
 }else{
-
 openInstallGuide();
-
 }
-
 });
 
-window.addEventListener(
-"appinstalled",
-function(){
-
+window.addEventListener("appinstalled",function(){
 $("#installBar").style.display="none";
-
 });
-
-/* INITIAL */
 
 paymentUpdate();
 calculate();

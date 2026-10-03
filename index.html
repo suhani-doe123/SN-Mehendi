@@ -35,6 +35,15 @@ throw new Error("DOMAIN_LOCK");
 })();
 </script>
 
+<!-- CATCH CHROME INSTALL EVENT EARLY -->
+<script>
+window.__bip=null;
+window.addEventListener("beforeinstallprompt",function(e){
+e.preventDefault();
+window.__bip=e;
+});
+</script>
+
 <style>
 *{
 box-sizing:border-box;
@@ -1580,7 +1589,15 @@ $("#plus").addEventListener("click",function(){
 setQty((parseInt(qty.value)||1)+1);
 });
 
+/* Allow deleting the number and typing a new one (e.g. 200) */
 qty.addEventListener("input",function(){
+var v=String(qty.value).replace(/\D/g,"").slice(0,3);
+if(v!==""&&parseInt(v,10)>999)v="999";
+if(qty.value!==v)qty.value=v;
+calculate();
+});
+
+qty.addEventListener("blur",function(){
 setQty(qty.value);
 });
 
@@ -1836,37 +1853,29 @@ var overlay=$("#installPopup");
 var intro=$("#installIntro");
 var stepsBox=$("#installSteps");
 var nowBtn=$("#installNowBtn");
-var deferredPrompt=null;
+var deferredPrompt=window.__bip||null;
+
+var shareSvg='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
 
 function list(items){
 return '<ul class="install-steps"><li>'+items.join("</li><li>")+'</li></ul>';
 }
 
 function render(){
-var steps=[];
 nowBtn.style.display="none";
+stepsBox.innerHTML="";
 
 if(isIOS){
 intro.textContent="Add SN Mehendi to your Home Screen for quick and easy ordering.";
-steps=[
-"Tap the <strong>Share</strong> icon (square with an arrow)",
+stepsBox.innerHTML=list([
+"Tap the <strong>Share</strong> button "+shareSvg+" in your browser",
 "Scroll down and tap <strong>Add to Home Screen</strong>",
-"Tap <strong>Add</strong> at the top right"
-];
+"Tap <strong>Add</strong>"
+]);
 }else{
-intro.textContent="Install SN Mehendi on your phone for quick and easy ordering.";
-if(deferredPrompt){
+intro.textContent="Tap the button below to install SN Mehendi on your phone.";
 nowBtn.style.display="block";
-}else{
-steps=[
-"Tap the <strong>⋮ (3 dots)</strong> menu at the top right of Chrome",
-"Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>",
-"Tap <strong>Install</strong>"
-];
 }
-}
-
-stepsBox.innerHTML=steps.length?list(steps):"";
 }
 
 function closePopup(){
@@ -1876,17 +1885,25 @@ overlay.style.display="none";
 window.addEventListener("beforeinstallprompt",function(e){
 e.preventDefault();
 deferredPrompt=e;
-render();
 });
 
 nowBtn.addEventListener("click",async function(){
-if(!deferredPrompt)return;
+if(deferredPrompt){
 deferredPrompt.prompt();
 try{
 await deferredPrompt.userChoice;
 }catch(err){}
 deferredPrompt=null;
 closePopup();
+}else{
+nowBtn.style.display="none";
+intro.textContent="Follow these steps to install the app:";
+stepsBox.innerHTML=list([
+"Tap the <strong>⋮ (3 dots)</strong> menu at the top right of Chrome",
+"Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>",
+"Tap <strong>Install</strong>"
+]);
+}
 });
 
 $("#installPopupClose").addEventListener("click",closePopup);
@@ -1912,4 +1929,4 @@ calculate();
 </script>
 
 </body>
-  </html>
+                             </html>

@@ -463,32 +463,6 @@ color:#fff;
 font-size:25px;
 }
 
-.install{
-position:fixed;
-left:12px;
-right:12px;
-bottom:12px;
-z-index:1500;
-background:#fff;
-color:#000;
-border-radius:14px;
-padding:12px 14px;
-display:none;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-box-shadow:0 10px 35px #000;
-}
-
-.install button{
-border:0;
-background:#000;
-color:#fff;
-border-radius:8px;
-padding:9px 12px;
-font-weight:700;
-}
-
 .footer{
 text-align:center;
 color:#888;
@@ -571,6 +545,77 @@ color:#fff;
 font-weight:800;
 font-size:15px;
 }
+
+/* INSTALL POPUP */
+.install-modal{
+text-align:center;
+max-height:90vh;
+overflow-y:auto;
+}
+
+.install-logo{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+display:block;
+margin:0 auto 12px;
+box-shadow:0 0 25px rgba(255,255,255,.18);
+}
+
+.install-modal h2{
+margin:0 0 8px;
+}
+
+.install-steps{
+list-style:none;
+counter-reset:s;
+margin:16px 0 4px;
+padding:0;
+text-align:left;
+}
+
+.install-steps li{
+counter-increment:s;
+position:relative;
+padding:10px 10px 10px 44px;
+margin-bottom:8px;
+background:#111;
+border:1px solid #333;
+border-radius:10px;
+font-size:14px;
+line-height:1.5;
+color:#ddd;
+}
+
+.install-steps li::before{
+content:counter(s);
+position:absolute;
+left:10px;
+top:50%;
+transform:translateY(-50%);
+width:24px;
+height:24px;
+border-radius:50%;
+background:#fff;
+color:#000;
+font-weight:800;
+font-size:13px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.later-btn{
+width:100%;
+margin-top:10px;
+background:none;
+border:1px solid #444;
+color:#ccc;
+border-radius:12px;
+padding:12px;
+font-weight:700;
+}
 </style>
 </head>
 
@@ -601,7 +646,6 @@ font-size:15px;
 <a href="#about" data-close>About</a>
 <a href="#product" data-close>Product</a>
 <a href="#" id="deliveryMenu">Delivery Information</a>
-<a href="#" id="installGuideMenu">How to Install App</a>
 <a href="#contact" data-close>Contact</a>
 
 </nav>
@@ -928,34 +972,6 @@ Delivery takes 2 to 4 working days based on your location.
 
 </div>
 
-<!-- INSTALL GUIDE POPUP -->
-
-<div class="overlay" id="installGuideOverlay">
-
-<div class="modal">
-
-<button class="close" id="installGuideClose">×</button>
-
-<h2>How to Install App</h2>
-
-<div class="info" style="line-height:1.8">
-
-<p style="margin-bottom:15px;">
-<strong>📱 Android (Chrome):</strong><br>
-Tap <strong>⋮ (3 dots)</strong> menu &rarr; Select <strong>"Install App"</strong> or <strong>"Add to Home Screen"</strong>.
-</p>
-
-<p>
-<strong>📱 iPhone (Safari):</strong><br>
-Tap <strong>Share icon (&uarr;)</strong> &rarr; Scroll down &amp; select <strong>"Add to Home Screen"</strong>.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
 <!-- VERIFICATION POPUP -->
 
 <div class="overlay" id="verifyOverlay">
@@ -994,20 +1010,31 @@ style="margin-top:15px;text-align:center">
 
 </div>
 
-<!-- PWA INSTALL -->
+<!-- INSTALL APP POPUP (auto) -->
 
-<div class="install" id="installBar">
+<div class="overlay" id="installPopup">
 
-<div>
-<strong>Install SN Mehendi</strong><br>
-<span style="font-size:12px">
-Add the store to your home screen
-</span>
-</div>
+<div class="modal install-modal">
 
-<button id="installBtn">
-Install
+<button class="close" id="installPopupClose">×</button>
+
+<img src="logo.jpg" class="install-logo" alt="SN Mehendi">
+
+<h2>Install SN Mehendi App</h2>
+
+<p class="small" id="installIntro"></p>
+
+<div id="installSteps"></div>
+
+<button class="whatsapp" id="installNowBtn" style="display:none">
+Install App
 </button>
+
+<button class="later-btn" id="installLater">
+Maybe Later
+</button>
+
+</div>
 
 </div>
 
@@ -1751,23 +1778,6 @@ this.style.display="none";
 }
 });
 
-function openInstallGuide(e){
-if(e) e.preventDefault();
-$("#sideMenu").classList.remove("open");
-$("#installGuideOverlay").style.display="flex";
-}
-
-$("#installGuideMenu").addEventListener("click", openInstallGuide);
-$("#installGuideClose").addEventListener("click", function(){
-$("#installGuideOverlay").style.display="none";
-});
-
-$("#installGuideOverlay").addEventListener("click", function(e){
-if(e.target===this){
-this.style.display="none";
-}
-});
-
 $("#contactBtn").addEventListener("click",function(){
 openWhatsApp(X.o, "Hello SN Mehendi, I have an enquiry.");
 });
@@ -1810,29 +1820,90 @@ navigator.serviceWorker.register("sw.js").catch(function(){});
 });
 }
 
+/* AUTO INSTALL POPUP (Android + iPhone) - shows as soon as the link opens */
+(function(){
+
+var ua=navigator.userAgent||"";
+
+var standalone=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;
+if(standalone)return;
+
+var isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+var isAndroid=/android/i.test(ua);
+if(!isIOS&&!isAndroid)return;
+
+var overlay=$("#installPopup");
+var intro=$("#installIntro");
+var stepsBox=$("#installSteps");
+var nowBtn=$("#installNowBtn");
 var deferredPrompt=null;
+
+function list(items){
+return '<ul class="install-steps"><li>'+items.join("</li><li>")+'</li></ul>';
+}
+
+function render(){
+var steps=[];
+nowBtn.style.display="none";
+
+if(isIOS){
+intro.textContent="Add SN Mehendi to your Home Screen for quick and easy ordering.";
+steps=[
+"Tap the <strong>Share</strong> icon (square with an arrow)",
+"Scroll down and tap <strong>Add to Home Screen</strong>",
+"Tap <strong>Add</strong> at the top right"
+];
+}else{
+intro.textContent="Install SN Mehendi on your phone for quick and easy ordering.";
+if(deferredPrompt){
+nowBtn.style.display="block";
+}else{
+steps=[
+"Tap the <strong>⋮ (3 dots)</strong> menu at the top right of Chrome",
+"Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>",
+"Tap <strong>Install</strong>"
+];
+}
+}
+
+stepsBox.innerHTML=steps.length?list(steps):"";
+}
+
+function closePopup(){
+overlay.style.display="none";
+}
+
 window.addEventListener("beforeinstallprompt",function(e){
 e.preventDefault();
 deferredPrompt=e;
-$("#installBar").style.display="flex";
+render();
 });
 
-$("#installBtn").addEventListener("click",async function(){
-if(deferredPrompt){
+nowBtn.addEventListener("click",async function(){
+if(!deferredPrompt)return;
 deferredPrompt.prompt();
 try{
 await deferredPrompt.userChoice;
-}catch(e){}
+}catch(err){}
 deferredPrompt=null;
-$("#installBar").style.display="none";
-}else{
-openInstallGuide();
+closePopup();
+});
+
+$("#installPopupClose").addEventListener("click",closePopup);
+$("#installLater").addEventListener("click",closePopup);
+
+overlay.addEventListener("click",function(e){
+if(e.target===this){
+closePopup();
 }
 });
 
-window.addEventListener("appinstalled",function(){
-$("#installBar").style.display="none";
-});
+window.addEventListener("appinstalled",closePopup);
+
+render();
+overlay.style.display="flex";
+
+})();
 
 paymentUpdate();
 calculate();
@@ -1841,4 +1912,4 @@ calculate();
 </script>
 
 </body>
-</html>
+  </html>

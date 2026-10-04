@@ -45,13 +45,9 @@ throw new Error("DOMAIN_LOCK");
 window.__bip=null;
 
 window.addEventListener("beforeinstallprompt",function(e){
-
 e.preventDefault();
-
 window.__bip=e;
-
 window.dispatchEvent(new Event("sn-install-ready"));
-
 });
 </script>
 
@@ -261,6 +257,12 @@ background:#111;
 color:#fff;
 border-radius:10px;
 font-size:22px;
+transition:transform .15s ease,background .15s ease;
+}
+
+.qty-btn:active{
+transform:scale(.92);
+background:#222;
 }
 
 #qty{
@@ -291,16 +293,37 @@ background:#111;
 color:#fff;
 padding:0 12px;
 outline:none;
+transition:border-color .2s ease,box-shadow .2s ease;
 }
 
 input:focus,
 select:focus{
 border-color:#fff;
+box-shadow:0 0 0 2px rgba(255,255,255,.06);
 }
 
-/* =====================================================
-   SEARCHABLE DISTRICT / AREA
-   ===================================================== */
+/* Validation */
+.field-error{
+border-color:#ff3030 !important;
+box-shadow:0 0 0 2px rgba(255,30,30,.10) !important;
+}
+
+.field-ok{
+border-color:#777 !important;
+}
+
+.validation-message{
+display:none;
+margin-top:6px;
+font-size:12px;
+color:#ff6b6b;
+}
+
+.validation-message.show{
+display:block;
+}
+
+/* SEARCHABLE DISTRICT / AREA */
 
 .search-select{
 position:relative;
@@ -474,6 +497,12 @@ font-weight:800;
 padding:15px;
 font-size:16px;
 margin-top:18px;
+transition:transform .15s ease,opacity .2s ease;
+}
+
+.whatsapp:active{
+transform:scale(.98);
+opacity:.88;
 }
 
 .info{
@@ -612,12 +641,14 @@ background:#111;
 color:#fff;
 font-weight:800;
 font-size:13px;
+transition:transform .15s ease;
 }
 
-/* =====================================================
-   SINHALA → ENGLISH IMPORTANT INFORMATION
-   MOVING RED BORDER
-   ===================================================== */
+.social-btn:active{
+transform:scale(.97);
+}
+
+/* IMPORTANT INFORMATION */
 
 .language-info{
 position:relative;
@@ -676,6 +707,30 @@ background:#333;
 margin:16px 0;
 }
 
+/* BACK TO TOP */
+
+.back-top{
+position:fixed;
+right:18px;
+bottom:18px;
+width:44px;
+height:44px;
+border-radius:50%;
+border:1px solid #555;
+background:#111;
+color:#fff;
+font-size:20px;
+z-index:1200;
+display:none;
+align-items:center;
+justify-content:center;
+box-shadow:0 8px 25px rgba(0,0,0,.5);
+}
+
+.back-top.show{
+display:flex;
+}
+
 @media(prefers-reduced-motion:reduce){
 
 .language-info::before{
@@ -686,6 +741,15 @@ animation:none;
 transition:none;
 }
 
+html{
+scroll-behavior:auto;
+}
+
+.qty-btn,
+.whatsapp,
+.social-btn{
+transition:none;
+}
 }
 
 /* INSTALL POPUP */
@@ -799,6 +863,10 @@ padding:16px;
 border-radius:15px;
 }
 
+.social-row{
+grid-template-columns:1fr;
+}
+
 }
 </style>
 </head>
@@ -862,7 +930,7 @@ alt="SN Mehendi Logo">
 
 <p>
 <strong>Mrs. Nisfa Suhaib</strong><br>
-Professional Mehendi Artist &amp; NVQ Level 4 Certified Beautician & Professional Makeup Artist
+Professional Mehendi Artist &amp; NVQ Level 4 Certified Beautician &amp; Professional Makeup Artist
 </p>
 
 <p>
@@ -914,26 +982,40 @@ Freshly handmade cones prepared with 100% natural ingredients.
 <h2>Place Your Order</h2>
 
 <label for="name">Name</label>
-<input id="name"
+<input
+id="name"
 type="text"
 placeholder="Enter your name"
 autocomplete="name">
 
+<div class="validation-message" id="nameError">
+Please enter your name.
+</div>
+
 <label for="phone">WhatsApp / Contact Number</label>
-<input id="phone"
+<input
+id="phone"
 type="tel"
 placeholder="07XXXXXXXX"
-autocomplete="tel">
+autocomplete="tel"
+inputmode="tel">
+
+<div class="validation-message" id="phoneError">
+Please enter a valid Sri Lankan mobile number.
+</div>
 
 <label for="address">Delivery Address</label>
-<input id="address"
+<input
+id="address"
 type="text"
 placeholder="Enter your full address"
 autocomplete="street-address">
 
-<div class="delivery-grid">
+<div class="validation-message" id="addressError">
+Please enter your delivery address.
+</div>
 
-<!-- DISTRICT SEARCH -->
+<div class="delivery-grid">
 
 <div>
 
@@ -952,18 +1034,13 @@ aria-label="Search District">
 
 <span class="search-arrow">⌄</span>
 
-<div
-class="search-options"
-id="districtOptions">
-</div>
+<div class="search-options" id="districtOptions"></div>
 
 </div>
 
 <div class="selected-location" id="districtSelected"></div>
 
 </div>
-
-<!-- AREA SEARCH -->
 
 <div>
 
@@ -983,10 +1060,7 @@ disabled>
 
 <span class="search-arrow">⌄</span>
 
-<div
-class="search-options"
-id="areaOptions">
-</div>
+<div class="search-options" id="areaOptions"></div>
 
 </div>
 
@@ -996,7 +1070,6 @@ id="areaOptions">
 
 </div>
 
-<!-- Hidden values used by existing order logic -->
 <input type="hidden" id="district">
 <input type="hidden" id="area">
 
@@ -1005,19 +1078,12 @@ id="areaOptions">
 <div class="pay-options">
 
 <label class="pay-option" id="codOption">
-<input
-type="radio"
-name="payment"
-value="COD">
+<input type="radio" name="payment" value="COD">
 Cash on Delivery
 </label>
 
 <label class="pay-option">
-<input
-type="radio"
-name="payment"
-value="BANK"
-checked>
+<input type="radio" name="payment" value="BANK" checked>
 Bank Transfer
 </label>
 
@@ -1074,8 +1140,6 @@ Order via WhatsApp
 </button>
 
 </section>
-
-<!-- SINHALA / ENGLISH INFORMATION -->
 
 <section class="card reveal">
 
@@ -1184,10 +1248,14 @@ rel="noopener">
 </section>
 
 <div class="footer">
-© SN Mehendi by Suhani Developer— All Rights Reserved
+© SN Mehendi by Suhani Developer — All Rights Reserved
 </div>
 
 </main>
+
+<button class="back-top" id="backTop" aria-label="Back to top">
+↑
+</button>
 
 <!-- DELIVERY POPUP -->
 
@@ -1195,9 +1263,7 @@ rel="noopener">
 
 <div class="modal">
 
-<button class="close" id="deliveryClose">
-×
-</button>
+<button class="close" id="deliveryClose">×</button>
 
 <h2>Delivery Information</h2>
 
@@ -1224,9 +1290,7 @@ Delivery takes 2 to 4 working days based on your location.
 
 <div class="modal">
 
-<button class="close" id="verifyClose">
-×
-</button>
+<button class="close" id="verifyClose">×</button>
 
 <h2>Verify Genuine SN Mehendi</h2>
 
@@ -1245,11 +1309,10 @@ placeholder="Enter code"
 autocomplete="off">
 
 <button class="whatsapp" id="verifySubmit">
-Verify SN Mehendi 
+Verify SN Mehendi
 </button>
 
-<p
-id="verifyResult"
+<p id="verifyResult"
 class="small"
 style="margin-top:15px;text-align:center">
 </p>
@@ -1264,9 +1327,7 @@ style="margin-top:15px;text-align:center">
 
 <div class="modal install-modal">
 
-<button class="close" id="installPopupClose">
-×
-</button>
+<button class="close" id="installPopupClose">×</button>
 
 <img
 src="/SN-Mehendi/logo-192.png"
@@ -1303,7 +1364,6 @@ Install the app for faster access to SN Mehendi online ordering.
 </div>
 
 <script>
-
 (function(){
 
 "use strict";
@@ -1337,6 +1397,10 @@ var areaOptions=$("#areaOptions");
 var districtSelected=$("#districtSelected");
 var areaSelected=$("#areaSelected");
 
+/* =====================================================
+   DISTRICT / AREA DATA
+   ===================================================== */
+
 var DATA={
 
 "Colombo":{
@@ -1357,35 +1421,14 @@ areas:[
 "Colombo 13 (Kotahena)",
 "Colombo 14 (Grandpass)",
 "Colombo 15 (Modara / Mutwal)",
-"Angoda",
-"Athurugiriya",
-"Avissawella",
-"Battaramulla",
-"Boralesgamuwa",
-"Dehiwala",
-"Hanwella",
-"Homagama",
-"Kaduwela",
-"Kahathuduwa",
-"Kesbewa",
-"Kohuwala",
-"Kolonnawa",
-"Kottawa",
-"Kotte (Sri Jayawardenepura)",
-"Maharagama",
-"Malabe",
-"Moratuwa",
-"Mount Lavinia",
-"Nawala",
-"Nugegoda",
-"Padukka",
-"Pannipitiya",
-"Piliyandala",
-"Rajagiriya",
-"Ranala",
-"Ratmalana",
-"Talawatugoda",
-"Wellampitiya"
+"Angoda","Athurugiriya","Avissawella","Battaramulla",
+"Boralesgamuwa","Dehiwala","Hanwella","Homagama",
+"Kaduwela","Kahathuduwa","Kesbewa","Kohuwala",
+"Kolonnawa","Kottawa","Kotte (Sri Jayawardenepura)",
+"Maharagama","Malabe","Moratuwa","Mount Lavinia",
+"Nawala","Nugegoda","Padukka","Pannipitiya",
+"Piliyandala","Rajagiriya","Ranala","Ratmalana",
+"Talawatugoda","Wellampitiya"
 ]
 },
 
@@ -1619,15 +1662,13 @@ areas:["Store Pickup"]
 };
 
 /* =====================================================
-   SEARCHABLE DISTRICT
+   SEARCH
    ===================================================== */
 
 var districtNames=Object.keys(DATA);
 
 function normalizeSearch(value){
-return String(value||"")
-.toLowerCase()
-.trim();
+return String(value||"").toLowerCase().trim();
 }
 
 function renderDistrictOptions(query){
@@ -1641,10 +1682,7 @@ return name.toLowerCase().indexOf(q)!==-1;
 });
 
 if(!matches.length){
-
-districtOptions.innerHTML=
-'<div class="search-empty">No district found</div>';
-
+districtOptions.innerHTML='<div class="search-empty">No district found</div>';
 return;
 }
 
@@ -1656,9 +1694,7 @@ item.className="search-option";
 item.textContent=name;
 
 item.addEventListener("click",function(){
-
 selectDistrict(name);
-
 });
 
 districtOptions.appendChild(item);
@@ -1672,11 +1708,9 @@ function selectDistrict(name){
 if(!DATA[name])return;
 
 districtValue.value=name;
-
 districtSearch.value=name;
 
-districtSelected.textContent=
-"Selected: "+name;
+districtSelected.textContent="Selected: "+name;
 
 districtOptions.classList.remove("open");
 
@@ -1691,6 +1725,7 @@ renderAreaOptions("");
 
 paymentUpdate();
 calculate();
+saveForm();
 
 }
 
@@ -1711,9 +1746,7 @@ return;
 var q=normalizeSearch(query);
 
 var matches=d.areas.filter(function(name){
-
 return name.toLowerCase().indexOf(q)!==-1;
-
 });
 
 if(!matches.length){
@@ -1732,9 +1765,7 @@ item.className="search-option";
 item.textContent=name;
 
 item.addEventListener("click",function(){
-
 selectArea(name);
-
 });
 
 areaOptions.appendChild(item);
@@ -1746,52 +1777,36 @@ areaOptions.appendChild(item);
 function selectArea(name){
 
 areaValue.value=name;
-
 areaSearch.value=name;
-
-areaSelected.textContent=
-"Selected: "+name;
+areaSelected.textContent="Selected: "+name;
 
 areaOptions.classList.remove("open");
 
 calculate();
+saveForm();
 
 }
 
-/* District open/search */
-
 districtSearch.addEventListener("focus",function(){
-
 renderDistrictOptions(this.value);
-
 districtOptions.classList.add("open");
-
 });
 
 districtSearch.addEventListener("input",function(){
-
 renderDistrictOptions(this.value);
-
 districtOptions.classList.add("open");
-
 });
 
 districtSearch.addEventListener("click",function(){
-
 renderDistrictOptions(this.value);
-
 districtOptions.classList.add("open");
-
 });
-
-/* Area open/search */
 
 areaSearch.addEventListener("focus",function(){
 
 if(areaSearch.disabled)return;
 
 renderAreaOptions(this.value);
-
 areaOptions.classList.add("open");
 
 });
@@ -1801,7 +1816,6 @@ areaSearch.addEventListener("input",function(){
 if(areaSearch.disabled)return;
 
 renderAreaOptions(this.value);
-
 areaOptions.classList.add("open");
 
 });
@@ -1811,12 +1825,9 @@ areaSearch.addEventListener("click",function(){
 if(areaSearch.disabled)return;
 
 renderAreaOptions(this.value);
-
 areaOptions.classList.add("open");
 
 });
-
-/* Prevent invalid free typing */
 
 districtSearch.addEventListener("blur",function(){
 
@@ -1826,9 +1837,7 @@ if(
 districtValue.value &&
 districtSearch.value!==districtValue.value
 ){
-
 districtSearch.value=districtValue.value;
-
 }
 
 districtOptions.classList.remove("open");
@@ -1845,9 +1854,7 @@ if(
 areaValue.value &&
 areaSearch.value!==areaValue.value
 ){
-
 areaSearch.value=areaValue.value;
-
 }
 
 areaOptions.classList.remove("open");
@@ -1855,8 +1862,6 @@ areaOptions.classList.remove("open");
 },180);
 
 });
-
-/* Close dropdowns outside */
 
 document.addEventListener("click",function(e){
 
@@ -1867,6 +1872,246 @@ districtOptions.classList.remove("open");
 if(!$("#areaBox").contains(e.target)){
 areaOptions.classList.remove("open");
 }
+
+});
+
+/* =====================================================
+   PHONE VALIDATION
+   ===================================================== */
+
+/*
+Accepts common Sri Lankan mobile formats:
+0766650460
+076 665 0460
++94766650460
+94766650460
+*/
+
+function normalizePhone(value){
+
+var v=String(value||"").trim();
+
+v=v.replace(/[^\d+]/g,"");
+
+if(v.indexOf("+94")===0){
+v=v.substring(3);
+}else if(v.indexOf("94")===0 && v.length===11){
+v=v.substring(2);
+}
+
+v=v.replace(/\D/g,"");
+
+if(v.charAt(0)==="0"){
+v=v.substring(1);
+}
+
+return v;
+}
+
+function isValidSriLankanMobile(value){
+
+var n=normalizePhone(value);
+
+return /^[7][0-9]{8}$/.test(n);
+}
+
+function formatSriLankanPhone(value){
+
+var n=normalizePhone(value);
+
+if(!/^[7][0-9]{8}$/.test(n)){
+return "";
+}
+
+return "0"+n;
+}
+
+function showFieldError(input,error,message){
+
+input.classList.add("field-error");
+input.classList.remove("field-ok");
+
+if(error){
+
+error.textContent=message;
+error.classList.add("show");
+
+}
+
+}
+
+function clearFieldError(input,error){
+
+input.classList.remove("field-error");
+input.classList.add("field-ok");
+
+if(error){
+error.classList.remove("show");
+}
+
+}
+
+$("#phone").addEventListener("input",function(){
+
+var raw=this.value;
+
+if(isValidSriLankanMobile(raw)){
+
+clearFieldError(this,$("#phoneError"));
+
+}else{
+
+if(raw.trim()){
+showFieldError(
+this,
+$("#phoneError"),
+"Please enter a valid Sri Lankan mobile number."
+);
+}else{
+$("#phoneError").classList.remove("show");
+this.classList.remove("field-error");
+}
+
+}
+
+saveForm();
+
+});
+
+$("#phone").addEventListener("blur",function(){
+
+if(!this.value.trim())return;
+
+if(isValidSriLankanMobile(this.value)){
+
+this.value=formatSriLankanPhone(this.value);
+
+clearFieldError(this,$("#phoneError"));
+
+}else{
+
+showFieldError(
+this,
+$("#phoneError"),
+"Example: 0766650460"
+);
+
+}
+
+saveForm();
+
+});
+
+/* =====================================================
+   FORM AUTO SAVE
+   ===================================================== */
+
+var STORAGE_KEY="sn_mehendi_order_v2";
+
+function saveForm(){
+
+try{
+
+var selected=document.querySelector(
+'input[name="payment"]:checked'
+);
+
+var data={
+name:$("#name").value,
+phone:$("#phone").value,
+address:$("#address").value,
+district:districtValue.value,
+area:areaValue.value,
+qty:qty.value,
+payment:selected?selected.value:"BANK"
+};
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(data)
+);
+
+}catch(e){
+
+console.log("Form save unavailable:",e);
+
+}
+
+}
+
+function restoreForm(){
+
+try{
+
+var raw=localStorage.getItem(STORAGE_KEY);
+
+if(!raw)return;
+
+var data=JSON.parse(raw);
+
+if(!data)return;
+
+if(data.name)$("#name").value=data.name;
+if(data.phone)$("#phone").value=data.phone;
+if(data.address)$("#address").value=data.address;
+
+if(data.qty){
+setQty(data.qty);
+}
+
+if(data.district && DATA[data.district]){
+
+districtValue.value=data.district;
+districtSearch.value=data.district;
+districtSelected.textContent=
+"Selected: "+data.district;
+
+areaSearch.disabled=false;
+areaSearch.placeholder="Search Area / City...";
+
+}
+
+if(
+data.area &&
+districtValue.value &&
+DATA[districtValue.value].areas.indexOf(data.area)!==-1
+){
+
+areaValue.value=data.area;
+areaSearch.value=data.area;
+areaSelected.textContent="Selected: "+data.area;
+
+}
+
+if(data.payment==="COD" && data.district==="Colombo"){
+
+document.querySelector(
+'input[name="payment"][value="COD"]'
+).checked=true;
+
+}else{
+
+document.querySelector(
+'input[name="payment"][value="BANK"]'
+).checked=true;
+
+}
+
+paymentUpdate();
+calculate();
+
+}catch(e){
+
+console.log("Form restore unavailable:",e);
+
+}
+
+}
+
+["name","phone","address"].forEach(function(id){
+
+$("#"+id).addEventListener("input",saveForm);
+$("#"+id).addEventListener("change",saveForm);
 
 });
 
@@ -1910,6 +2155,7 @@ if(n>999)n=999;
 qty.value=n;
 
 calculate();
+saveForm();
 
 }
 
@@ -1940,13 +2186,12 @@ qty.value=v;
 }
 
 calculate();
+saveForm();
 
 });
 
 qty.addEventListener("blur",function(){
-
 setQty(qty.value);
-
 });
 
 /* =====================================================
@@ -1976,6 +2221,7 @@ document.querySelector(
 }
 
 paymentUpdate();
+saveForm();
 
 });
 
@@ -1992,7 +2238,6 @@ var cod=document.querySelector(
 );
 
 var codBox=$("#codOption");
-
 var warning=$("#codWarning");
 
 cod.disabled=!codAllowed;
@@ -2017,13 +2262,11 @@ document.querySelector(
 }else{
 
 codBox.classList.remove("disabled");
-
 warning.style.display="none";
 
 }
 
-var selected=
-document.querySelector(
+var selected=document.querySelector(
 'input[name="payment"]:checked'
 );
 
@@ -2084,36 +2327,94 @@ $("#deliveryPrice").textContent=
 }
 
 /* =====================================================
-   COPY BANK
+   ORDER VALIDATION
    ===================================================== */
 
-$("#copyBank").addEventListener("click",async function(){
+function validateOrder(){
 
-try{
+var valid=true;
 
-await navigator.clipboard.writeText(X.a);
+var name=clean($("#name").value);
+var phone=clean($("#phone").value);
+var address=clean($("#address").value);
 
-this.textContent="Copied ✓";
+if(!name){
 
-var b=this;
+showFieldError(
+$("#name"),
+$("#nameError"),
+"Please enter your name."
+);
 
-setTimeout(function(){
+valid=false;
 
-b.textContent="Copy Account Number";
+}else{
 
-},1800);
-
-}catch(e){
-
-prompt("Copy account number:",X.a);
+clearFieldError($("#name"),$("#nameError"));
 
 }
 
-});
+if(!phone){
 
-/* =====================================================
-   ORDER
-   ===================================================== */
+showFieldError(
+$("#phone"),
+$("#phoneError"),
+"Please enter your WhatsApp / contact number."
+);
+
+valid=false;
+
+}else if(!isValidSriLankanMobile(phone)){
+
+showFieldError(
+$("#phone"),
+$("#phoneError"),
+"Please enter a valid Sri Lankan mobile number. Example: 0766650460"
+);
+
+valid=false;
+
+}else{
+
+clearFieldError($("#phone"),$("#phoneError"));
+
+}
+
+if(!address){
+
+showFieldError(
+$("#address"),
+$("#addressError"),
+"Please enter your delivery address."
+);
+
+valid=false;
+
+}else{
+
+clearFieldError($("#address"),$("#addressError"));
+
+}
+
+if(!districtValue.value){
+
+alert("Please select your district.");
+
+valid=false;
+
+}
+
+if(!areaValue.value){
+
+alert("Please select your area / city.");
+
+valid=false;
+
+}
+
+return valid;
+
+}
 
 function clean(v){
 
@@ -2125,29 +2426,22 @@ return String(v||"")
 
 $("#orderBtn").addEventListener("click",function(){
 
+if(!validateOrder())return;
+
 var name=clean($("#name").value);
-var phone=clean($("#phone").value);
+var phone=formatSriLankanPhone($("#phone").value);
 var address=clean($("#address").value);
 
 var d=clean(districtValue.value);
 var ar=clean(areaValue.value);
 
-var selected=
-document.querySelector(
+var selected=document.querySelector(
 'input[name="payment"]:checked'
 );
 
 var pm=selected?selected.value:"BANK";
 
 var n=parseInt(qty.value)||1;
-
-if(!name||!phone||!address||!d||!ar){
-
-alert("Please fill all required details.");
-
-return;
-
-}
 
 if(pm==="COD" && d!=="Colombo"){
 
@@ -2207,6 +2501,32 @@ openWhatsApp(X.o,message);
 });
 
 /* =====================================================
+   COPY BANK
+   ===================================================== */
+
+$("#copyBank").addEventListener("click",async function(){
+
+try{
+
+await navigator.clipboard.writeText(X.a);
+
+this.textContent="Copied ✓";
+
+var b=this;
+
+setTimeout(function(){
+b.textContent="Copy Account Number";
+},1800);
+
+}catch(e){
+
+prompt("Copy account number:",X.a);
+
+}
+
+});
+
+/* =====================================================
    VERIFICATION
    ===================================================== */
 
@@ -2215,7 +2535,6 @@ function openVerify(){
 $("#verifyOverlay").style.display="flex";
 
 $("#verifyCode").value="";
-
 $("#verifyResult").textContent="";
 
 }
@@ -2224,17 +2543,13 @@ $("#verifyBtn").addEventListener("click",openVerify);
 $("#verifyTop").addEventListener("click",openVerify);
 
 $("#verifyClose").addEventListener("click",function(){
-
 $("#verifyOverlay").style.display="none";
-
 });
 
 $("#verifyOverlay").addEventListener("click",function(e){
 
 if(e.target===this){
-
 this.style.display="none";
-
 }
 
 });
@@ -2278,17 +2593,13 @@ $("#deliveryOverlay").style.display="flex";
 });
 
 $("#deliveryClose").addEventListener("click",function(){
-
 $("#deliveryOverlay").style.display="none";
-
 });
 
 $("#deliveryOverlay").addEventListener("click",function(e){
 
 if(e.target===this){
-
 this.style.display="none";
-
 }
 
 });
@@ -2311,23 +2622,42 @@ X.o,
    ===================================================== */
 
 $("#menuBtn").addEventListener("click",function(){
-
 $("#sideMenu").classList.add("open");
-
 });
 
 $("#sideClose").addEventListener("click",function(){
-
 $("#sideMenu").classList.remove("open");
-
 });
 
 $$("[data-close]").forEach(function(x){
 
 x.addEventListener("click",function(){
-
 $("#sideMenu").classList.remove("open");
+});
 
+});
+
+/* =====================================================
+   BACK TO TOP
+   ===================================================== */
+
+var backTop=$("#backTop");
+
+window.addEventListener("scroll",function(){
+
+if(window.scrollY>450){
+backTop.classList.add("show");
+}else{
+backTop.classList.remove("show");
+}
+
+},{passive:true});
+
+backTop.addEventListener("click",function(){
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
 });
 
 });
@@ -2344,9 +2674,7 @@ function(entries){
 entries.forEach(function(e){
 
 if(e.isIntersecting){
-
 e.target.classList.add("show");
-
 }
 
 });
@@ -2356,17 +2684,13 @@ e.target.classList.add("show");
 );
 
 $$(".reveal").forEach(function(x){
-
 observer.observe(x);
-
 });
 
 }else{
 
 $$(".reveal").forEach(function(x){
-
 x.classList.add("show");
-
 });
 
 }
@@ -2433,9 +2757,7 @@ navigator.maxTouchPoints>1
 }
 
 function isAndroid(){
-
 return /android/i.test(ua);
-
 }
 
 if(isStandalone())return;
@@ -2448,18 +2770,14 @@ function list(items){
 
 return '<ul class="install-steps">'+
 items.map(function(item){
-
 return "<li>"+item+"</li>";
-
 }).join("")+
 "</ul>";
 
 }
 
 function closePopup(){
-
 overlay.style.display="none";
-
 }
 
 function renderIOS(){
@@ -2491,34 +2809,26 @@ intro.textContent=
 if(deferredPrompt){
 
 installBtn.style.display="block";
-
 installBtn.textContent="Install App";
-
 stepsBox.innerHTML="";
 
 }else{
 
 installBtn.style.display="block";
-
 installBtn.textContent="Checking Install…";
 
 stepsBox.innerHTML=list([
-
 "Please wait a moment while Chrome checks whether SN Mehendi can be installed."
-
 ]);
-
-/*
-If Chrome does not provide beforeinstallprompt,
-we will automatically show manual instructions.
-*/
 
 setTimeout(function(){
 
-if(!deferredPrompt && overlay.style.display==="flex"){
+if(
+!deferredPrompt &&
+overlay.style.display==="flex"
+){
 
 installBtn.style.display="block";
-
 installBtn.textContent="Install App";
 
 stepsBox.innerHTML=list([
@@ -2543,20 +2853,10 @@ intro.textContent=
 }
 
 if(isIOS()){
-
 renderIOS();
-
 }else{
-
 renderAndroid();
-
 }
-
-/*
-Listen for the real browser install event.
-This is what allows Android Chrome to show
-the actual native installation dialog.
-*/
 
 window.addEventListener(
 "beforeinstallprompt",
@@ -2565,15 +2865,12 @@ function(e){
 e.preventDefault();
 
 deferredPrompt=e;
-
 window.__bip=e;
 
 if(isAndroid()){
 
 installBtn.style.display="block";
-
 installBtn.textContent="Install App";
-
 stepsBox.innerHTML="";
 
 intro.textContent=
@@ -2615,11 +2912,8 @@ deferredPrompt.prompt();
 var result=
 await deferredPrompt.userChoice;
 
-if(result &&
-result.outcome==="accepted"){
-
+if(result && result.outcome==="accepted"){
 closePopup();
-
 }
 
 }catch(error){
@@ -2659,9 +2953,7 @@ overlay.addEventListener(
 function(e){
 
 if(e.target===overlay){
-
 closePopup();
-
 }
 
 });
@@ -2681,11 +2973,14 @@ overlay.style.display="flex";
 
 })();
 
+/* INITIALIZE */
+
 paymentUpdate();
 calculate();
+restoreForm();
 
 })();
 </script>
 
 </body>
-</html>
+   </html>

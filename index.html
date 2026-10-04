@@ -8,12 +8,13 @@
 
 <meta name="theme-color" content="#000000">
 <meta name="description" content="SN Mehendi - 100% Natural — Deep Stain — Signature Fragrance">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="SN Mehendi">
 
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="logo-192.png">
+<link rel="manifest" href="/SN-Mehendi/manifest.json">
+<link rel="apple-touch-icon" href="/SN-Mehendi/logo-192.png">
 
 <!-- DOMAIN LOCK -->
 <script>
@@ -22,25 +23,35 @@
 
 var H="suhani-doe123.github.io";
 var P="/SN-Mehendi";
+
 var h=location.hostname.toLowerCase();
 var p=location.pathname.replace(/\/+$/,"");
 
 if(h!==H || (p!==P && p!==P+"/index.html")){
+
 document.documentElement.innerHTML=
 '<head><title>Access Denied</title></head>'+
 '<body style="margin:0;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;font-family:Arial;text-align:center">'+
 '<div><h2>Access Denied</h2><p>This application is domain locked.</p></div></body>';
+
 throw new Error("DOMAIN_LOCK");
+
 }
 })();
 </script>
 
-<!-- CATCH CHROME INSTALL EVENT EARLY -->
+<!-- PWA INSTALL EVENT -->
 <script>
 window.__bip=null;
+
 window.addEventListener("beforeinstallprompt",function(e){
+
 e.preventDefault();
+
 window.__bip=e;
+
+window.dispatchEvent(new Event("sn-install-ready"));
+
 });
 </script>
 
@@ -56,7 +67,7 @@ scroll-behavior:smooth;
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
-background:#000 url("background.jpg") center/cover fixed no-repeat;
+background:#000 url("/SN-Mehendi/background.jpg") center/cover fixed no-repeat;
 color:#fff;
 min-height:100vh;
 }
@@ -502,40 +513,6 @@ font-size:13px;
 line-height:1.5;
 }
 
-@media(max-width:700px){
-
-.delivery-grid{
-grid-template-columns:1fr;
-}
-
-.pay-options{
-grid-template-columns:1fr;
-}
-
-.container{
-padding-top:15px;
-}
-
-.nav{
-height:64px;
-}
-
-.brand span{
-font-size:14px;
-}
-
-.hero-logo{
-width:85px;
-height:85px;
-}
-
-.card{
-padding:16px;
-border-radius:15px;
-}
-
-}
-
 .social-row{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -556,6 +533,7 @@ font-size:13px;
 }
 
 /* INSTALL POPUP */
+
 .install-modal{
 text-align:center;
 max-height:90vh;
@@ -625,6 +603,47 @@ border-radius:12px;
 padding:12px;
 font-weight:700;
 }
+
+.install-note{
+margin-top:12px;
+font-size:12px;
+color:#888;
+line-height:1.5;
+}
+
+@media(max-width:700px){
+
+.delivery-grid{
+grid-template-columns:1fr;
+}
+
+.pay-options{
+grid-template-columns:1fr;
+}
+
+.container{
+padding-top:15px;
+}
+
+.nav{
+height:64px;
+}
+
+.brand span{
+font-size:14px;
+}
+
+.hero-logo{
+width:85px;
+height:85px;
+}
+
+.card{
+padding:16px;
+border-radius:15px;
+}
+
+}
 </style>
 </head>
 
@@ -634,23 +653,29 @@ font-weight:700;
 <div class="nav">
 
 <div class="brand">
-<img src="logo.jpg" alt="SN Mehendi">
+<img src="/SN-Mehendi/logo.jpg" alt="SN Mehendi">
 <span>SN MEHENDI</span>
 </div>
 
 <div class="nav-right">
-<button class="verify-top" id="verifyTop">Verify</button>
-<button class="menu-btn" id="menuBtn">☰</button>
-</div>
 
+<button class="verify-top" id="verifyTop">
+Verify
+</button>
+
+<button class="menu-btn" id="menuBtn">
+☰
+</button>
+
+</div>
 </div>
 </header>
 
-<!-- SIDE MENU -->
-
 <nav class="side" id="sideMenu">
 
-<button class="side-close" id="sideClose">×</button>
+<button class="side-close" id="sideClose">
+×
+</button>
 
 <a href="#about" data-close>About</a>
 <a href="#product" data-close>Product</a>
@@ -663,7 +688,7 @@ font-weight:700;
 
 <section class="hero reveal">
 
-<img src="logo.jpg"
+<img src="/SN-Mehendi/logo.jpg"
 class="hero-logo"
 alt="SN Mehendi Logo">
 
@@ -733,22 +758,19 @@ Freshly handmade cones prepared with 100% natural ingredients.
 <h2>Place Your Order</h2>
 
 <label for="name">Name</label>
-<input
-id="name"
+<input id="name"
 type="text"
 placeholder="Enter your name"
 autocomplete="name">
 
 <label for="phone">WhatsApp / Contact Number</label>
-<input
-id="phone"
+<input id="phone"
 type="tel"
 placeholder="07XXXXXXXX"
 autocomplete="tel">
 
 <label for="address">Delivery Address</label>
-<input
-id="address"
+<input id="address"
 type="text"
 placeholder="Enter your full address"
 autocomplete="street-address">
@@ -852,8 +874,6 @@ Order via WhatsApp
 
 </section>
 
-<!-- IMPORTANT INFORMATION -->
-
 <section class="card reveal">
 
 <h2>වැදගත් තොරතුරු</h2>
@@ -894,8 +914,6 @@ Delivery takes 2 to 4 working days based on your location.
 
 </section>
 
-<!-- PRODUCT VERIFICATION -->
-
 <section class="card verify-card reveal">
 
 <h2>Product Verification</h2>
@@ -931,9 +949,28 @@ Chat on WhatsApp
 </button>
 
 <div class="social-row">
-<a class="social-btn" href="https://www.facebook.com/share/1C6pxT56nK/" target="_blank" rel="noopener">📘 Facebook</a>
-<a class="social-btn" href="https://www.instagram.com/snmehendhi?stkn=MWpzbGpiMXVucmFwcw==" target="_blank" rel="noopener">📸 Instagram</a>
-<a class="social-btn" href="https://www.tiktok.com/@snmehendi?_r=1&amp;_t=ZS-9AH1LcSUOG4" target="_blank" rel="noopener">🎵 TikTok</a>
+
+<a class="social-btn"
+href="https://www.facebook.com/share/1C6pxT56nK/"
+target="_blank"
+rel="noopener">
+📘 Facebook
+</a>
+
+<a class="social-btn"
+href="https://www.instagram.com/snmehendhi?stkn=MWpzbGpiMXVucmFwcw=="
+target="_blank"
+rel="noopener">
+📸 Instagram
+</a>
+
+<a class="social-btn"
+href="https://www.tiktok.com/@snmehendi?_r=1&amp;_t=ZS-9AH1LcSUOG4"
+target="_blank"
+rel="noopener">
+🎵 TikTok
+</a>
+
 </div>
 
 </section>
@@ -944,33 +981,27 @@ Chat on WhatsApp
 
 </main>
 
-<!-- DELIVERY INFORMATION POPUP -->
+<!-- DELIVERY POPUP -->
 
 <div class="overlay" id="deliveryOverlay">
 
 <div class="modal">
 
-<button class="close" id="deliveryClose">×</button>
+<button class="close" id="deliveryClose">
+×
+</button>
 
 <h2>Delivery Information</h2>
 
 <div class="info">
 
-<p>
-<strong>Colombo:</strong> Rs. 300
-</p>
+<p><strong>Colombo:</strong> Rs. 300</p>
 
-<p>
-<strong>Gampaha / Kalutara:</strong> Rs. 450
-</p>
+<p><strong>Gampaha / Kalutara:</strong> Rs. 450</p>
 
-<p>
-<strong>Other Districts:</strong> Rs. 650
-</p>
+<p><strong>Other Districts:</strong> Rs. 650</p>
 
-<p>
-<strong>Store Pickup:</strong> Free
-</p>
+<p><strong>Store Pickup:</strong> Free</p>
 
 <p>
 Delivery takes 2 to 4 working days based on your location.
@@ -988,7 +1019,9 @@ Delivery takes 2 to 4 working days based on your location.
 
 <div class="modal">
 
-<button class="close" id="verifyClose">×</button>
+<button class="close" id="verifyClose">
+×
+</button>
 
 <h2>Verify Genuine Product</h2>
 
@@ -1020,35 +1053,52 @@ style="margin-top:15px;text-align:center">
 
 </div>
 
-<!-- INSTALL APP POPUP (auto) -->
+<!-- INSTALL APP POPUP -->
 
 <div class="overlay" id="installPopup">
 
 <div class="modal install-modal">
 
-<button class="close" id="installPopupClose">×</button>
+<button class="close" id="installPopupClose">
+×
+</button>
 
-<img src="logo.jpg" class="install-logo" alt="SN Mehendi">
+<img
+src="/SN-Mehendi/logo-192.png"
+class="install-logo"
+alt="SN Mehendi">
 
-<h2>Install SN Mehendi App</h2>
+<h2>
+Install SN Mehendi App
+</h2>
 
 <p class="small" id="installIntro"></p>
 
 <div id="installSteps"></div>
 
-<button class="whatsapp" id="installNowBtn" style="display:none">
+<button
+class="whatsapp"
+id="installNowBtn"
+style="display:none">
 Install App
 </button>
 
-<button class="later-btn" id="installLater">
+<button
+class="later-btn"
+id="installLater">
 Maybe Later
 </button>
+
+<div class="install-note">
+Install the app for faster access to SN Mehendi online ordering.
+</div>
 
 </div>
 
 </div>
 
 <script>
+
 (function(){
 
 "use strict";
@@ -1072,7 +1122,6 @@ var qty=$("#qty");
 var district=$("#district");
 var area=$("#area");
 
-/* ACCURATE SRI LANKA DISTRICT & CITIES MAPPING */
 var DATA={
 
 "Colombo":{
@@ -1128,600 +1177,533 @@ areas:[
 "Gampaha":{
 fee:450,
 areas:[
-"Gampaha",
-"Attanagalla",
-"Biyagama",
-"Delgoda",
-"Divulapitiya",
-"Dompe",
-"Ganemulla",
-"Ja-Ela",
-"Kadawatha",
-"Kandana",
-"Katunayake",
-"Kelaniya",
-"Kiribathgoda",
-"Minuwangoda",
-"Mirigama",
-"Negombo",
-"Nittambuwa",
-"Ragama",
-"Seeduwa",
-"Veyangoda",
-"Wattala"
+"Gampaha","Attanagalla","Biyagama","Delgoda",
+"Divulapitiya","Dompe","Ganemulla","Ja-Ela",
+"Kadawatha","Kandana","Katunayake","Kelaniya",
+"Kiribathgoda","Minuwangoda","Mirigama","Negombo",
+"Nittambuwa","Ragama","Seeduwa","Veyangoda","Wattala"
 ]
 },
 
 "Kalutara":{
 fee:450,
 areas:[
-"Kalutara",
-"Agalawatta",
-"Aluthgama",
-"Bandaragama",
-"Beruwala",
-"Bulathsinhala",
-"Dodangoda",
-"Horana",
-"Ingiriya",
-"Mathugama",
-"Panadura",
-"Payagala",
-"Wadduwa",
-"Walallavita"
+"Kalutara","Agalawatta","Aluthgama","Bandaragama",
+"Beruwala","Bulathsinhala","Dodangoda","Horana",
+"Ingiriya","Mathugama","Panadura","Payagala",
+"Wadduwa","Walallavita"
 ]
 },
 
 "Kandy":{
 fee:650,
 areas:[
-"Kandy",
-"Akurana",
-"Alawatugoda",
-"Ampitiya",
-"Digana",
-"Gampola",
-"Hasalaka",
-"Kadugannawa",
-"Katugastota",
-"Kundasale",
-"Madawala",
-"Nawalapitiya",
-"Peradeniya",
-"Pilimathalawa",
-"Pallekele",
-"Teldeniya",
-"Wattegama"
+"Kandy","Akurana","Alawatugoda","Ampitiya","Digana",
+"Gampola","Hasalaka","Kadugannawa","Katugastota",
+"Kundasale","Madawala","Nawalapitiya","Peradeniya",
+"Pilimathalawa","Pallekele","Teldeniya","Wattegama"
 ]
 },
 
 "Matale":{
 fee:650,
 areas:[
-"Matale",
-"Dambulla",
-"Galewela",
-"Kaikawala",
-"Palapathwela",
-"Rattota",
-"Sigiriya",
-"Ukuwela",
-"Yatawatta"
+"Matale","Dambulla","Galewela","Kaikawala",
+"Palapathwela","Rattota","Sigiriya","Ukuwela","Yatawatta"
 ]
 },
 
 "Nuwara Eliya":{
 fee:650,
 areas:[
-"Nuwara Eliya",
-"Agarapathana",
-"Ambewela",
-"Bogawantalawa",
-"Ginigathhena",
-"Hatton",
-"Kotagala",
-"Labukele",
-"Maskeliya",
-"Nanu Oya",
-"Pundaluoya",
-"Ragala",
-"Ramboda",
-"Talawakele",
-"Walapane"
+"Nuwara Eliya","Agarapathana","Ambewela",
+"Bogawantalawa","Ginigathhena","Hatton","Kotagala",
+"Labukele","Maskeliya","Nanu Oya","Pundaluoya",
+"Ragala","Ramboda","Talawakele","Walapane"
 ]
 },
 
 "Galle":{
 fee:650,
 areas:[
-"Galle",
-"Ahangama",
-"Ahungalla",
-"Ambalangoda",
-"Baddegama",
-"Bentota",
-"Elpitiya",
-"Habaraduwa",
-"Hikkaduwa",
-"Karapitiya",
-"Koggala",
-"Mapalagama",
-"Nagoda",
-"Thawalama",
-"Udugama",
-"Unawatuna"
+"Galle","Ahangama","Ahungalla","Ambalangoda",
+"Baddegama","Bentota","Elpitiya","Habaraduwa",
+"Hikkaduwa","Karapitiya","Koggala","Mapalagama",
+"Nagoda","Thawalama","Udugama","Unawatuna"
 ]
 },
 
 "Matara":{
 fee:650,
 areas:[
-"Matara",
-"Akuressa",
-"Deniyaya",
-"Dickwella",
-"Hakmana",
-"Kamburupitiya",
-"Kekanadurra",
-"Kamburugamuwa",
-"KOTAPOLA",
-"Mirissa",
-"Thihagoda",
-"Weligama",
-"Wellerukana"
+"Matara","Akuressa","Deniyaya","Dickwella",
+"Hakmana","Kamburupitiya","Kekanadurra",
+"Kamburugamuwa","KOTAPOLA","Mirissa",
+"Thihagoda","Weligama","Wellerukana"
 ]
 },
 
 "Hambantota":{
 fee:650,
 areas:[
-"Hambantota",
-"Ambalantota",
-"Beliatta",
-"Katuwana",
-"Lunugamvehera",
-"Middeniya",
-"Tangalle",
-"Tissamaharama",
-"Walasmulla",
-"Weeraketiya"
+"Hambantota","Ambalantota","Beliatta","Katuwana",
+"Lunugamvehera","Middeniya","Tangalle",
+"Tissamaharama","Walasmulla","Weeraketiya"
 ]
 },
 
 "Jaffna":{
 fee:650,
 areas:[
-"Jaffna",
-"Chankanai",
-"Chavakachcheri",
-"Chunnakam",
-"Delft",
-"Karainagar",
-"Kayts",
-"Kopay",
-"Manipay",
-"Nallur",
-"Point Pedro",
-"Tellippalai",
-"Valvettithurai"
+"Jaffna","Chankanai","Chavakachcheri","Chunnakam",
+"Delft","Karainagar","Kayts","Kopay","Manipay",
+"Nallur","Point Pedro","Tellippalai","Valvettithurai"
 ]
 },
 
 "Kilinochchi":{
 fee:650,
 areas:[
-"Kilinochchi",
-"Akkarayan",
-"Kandanavalai",
-"Pallai",
-"Poonakary"
+"Kilinochchi","Akkarayan","Kandanavalai",
+"Pallai","Poonakary"
 ]
 },
 
 "Mannar":{
 fee:650,
 areas:[
-"Mannar",
-"Adampan",
-"Madhu",
-"Murunkan",
-"Nanaddan",
-"Thalaimannar"
+"Mannar","Adampan","Madhu","Murunkan",
+"Nanaddan","Thalaimannar"
 ]
 },
 
 "Vavuniya":{
 fee:650,
 areas:[
-"Vavuniya",
-"Cheddikulam",
-"Kanagarayankulam",
-"Nedunkeni",
-"Omanthai"
+"Vavuniya","Cheddikulam","Kanagarayankulam",
+"Nedunkeni","Omanthai"
 ]
 },
 
 "Mullaitivu":{
 fee:650,
 areas:[
-"Mullaitivu",
-"Mallavi",
-"Mulliyawalai",
-"Oddusuddan",
-"Puthukkudiyiruppu",
-"Thunukkai"
+"Mullaitivu","Mallavi","Mulliyawalai",
+"Oddusuddan","Puthukkudiyiruppu","Thunukkai"
 ]
 },
 
 "Batticaloa":{
 fee:650,
 areas:[
-"Batticaloa",
-"Chenkalady",
-"Eravur",
-"Kaluwanchikudy",
-"Kattankudy",
-"Kokkadichcholai",
-"Oddamavadi",
-"Valaichchenai",
-"Vakarai"
+"Batticaloa","Chenkalady","Eravur","Kaluwanchikudy",
+"Kattankudy","Kokkadichcholai","Oddamavadi",
+"Valaichchenai","Vakarai"
 ]
 },
 
 "Ampara":{
 fee:650,
 areas:[
-"Ampara",
-"Akkaraipattu",
-"Addalaichenai",
-"Alayadivembu",
-"Damana",
-"Dehiattakandiya",
-"Kalmunai",
-"Karaitivu",
-"Mahanagapura",
-"Ninthavur",
-"Oluvil",
-"Pottuvil",
-"Sainthamaruthu",
-"Sammanthurai",
-"Uhana"
+"Ampara","Akkaraipattu","Addalaichenai","Alayadivembu",
+"Damana","Dehiattakandiya","Kalmunai","Karaitivu",
+"Mahanagapura","Ninthavur","Oluvil","Pottuvil",
+"Sainthamaruthu","Sammanthurai","Uhana"
 ]
 },
 
 "Trincomalee":{
 fee:650,
 areas:[
-"Trincomalee",
-"Gomarankadawala",
-"Kantale",
-"Kinniya",
-"Kuchchaveli",
-"Muttur",
-"Padavi Sri Pura",
-"Pulmoddai",
-"Sampur",
-"Thampalakamam"
+"Trincomalee","Gomarankadawala","Kantale","Kinniya",
+"Kuchchaveli","Muttur","Padavi Sri Pura",
+"Pulmoddai","Sampur","Thampalakamam"
 ]
 },
 
 "Kurunegala":{
 fee:650,
 areas:[
-"Kurunegala",
-"Alawwa",
-"Bingiriya",
-"Galgamuwa",
-"Giriulla",
-"Hettipola",
-"Ibbagamuwa",
-"Kuliyapitiya",
-"Maho",
-"Mawathagama",
-"Narammala",
-"Nikaweratiya",
-"Pannala",
-"Polgahawela",
-"Wariyapola"
+"Kurunegala","Alawwa","Bingiriya","Galgamuwa",
+"Giriulla","Hettipola","Ibbagamuwa","Kuliyapitiya",
+"Maho","Mawathagama","Narammala","Nikaweratiya",
+"Pannala","Polgahawela","Wariyapola"
 ]
 },
 
 "Puttalam":{
 fee:650,
 areas:[
-"Puttalam",
-"Anamaduwa",
-"Chilaw",
-"Dankotuwa",
-"Kalpitiya",
-"Mahawewa",
-"Marawila",
-"Mundel",
-"Nattandiya",
-"Wennappuwa"
+"Puttalam","Anamaduwa","Chilaw","Dankotuwa",
+"Kalpitiya","Mahawewa","Marawila","Mundel",
+"Nattandiya","Wennappuwa"
 ]
 },
 
 "Anuradhapura":{
 fee:650,
 areas:[
-"Anuradhapura",
-"Bulnewa",
-"Eppawala",
-"Galenbindunuwewa",
-"Galnewa",
-"Habarana",
-"Kahatagasdigiliya",
-"Kekirawa",
-"Madatugama",
-"Medawachchiya",
-"Mihintale",
-"Nochchiyagama",
-"Padaviya",
-"Talawa",
-"Thambuttegama"
+"Anuradhapura","Bulnewa","Eppawala","Galenbindunuwewa",
+"Galnewa","Habarana","Kahatagasdigiliya","Kekirawa",
+"Madatugama","Medawachchiya","Mihintale","Nochchiyagama",
+"Padaviya","Talawa","Thambuttegama"
 ]
 },
 
 "Polonnaruwa":{
 fee:650,
 areas:[
-"Polonnaruwa",
-"Dimbulagala",
-"Elahera",
-"Hingurakgoda",
-"Jayanthipura",
-"Kaduruwela",
-"Lankapura",
-"Medirigiriya",
-"Minneriya",
-"Welikanda"
+"Polonnaruwa","Dimbulagala","Elahera","Hingurakgoda",
+"Jayanthipura","Kaduruwela","Lankapura",
+"Medirigiriya","Minneriya","Welikanda"
 ]
 },
 
 "Badulla":{
 fee:650,
 areas:[
-"Badulla",
-"Bandarawela",
-"Diyatalawa",
-"Ella",
-"Haldummulla",
-"Hali-Ela",
-"Haputale",
-"Kandaketiya",
-"Mahiyanganaya",
-"Passara",
-"Welimada"
+"Badulla","Bandarawela","Diyatalawa","Ella",
+"Haldummulla","Hali-Ela","Haputale","Kandaketiya",
+"Mahiyanganaya","Passara","Welimada"
 ]
 },
 
 "Monaragala":{
 fee:650,
 areas:[
-"Monaragala",
-"Badalkumbura",
-"Bibile",
-"Buttala",
-"Kataragama",
-"Madulla",
-"Siyambalanduwa",
-"Tanamalwila",
-"Wellawaya"
+"Monaragala","Badalkumbura","Bibile","Buttala",
+"Kataragama","Madulla","Siyambalanduwa",
+"Tanamalwila","Wellawaya"
 ]
 },
 
 "Ratnapura":{
 fee:650,
 areas:[
-"Ratnapura",
-"Ayagama",
-"Balangoda",
-"Eheliyagoda",
-"Embilipitiya",
-"Godakawela",
-"Kahawatta",
-"Kuruwita",
-"Nivitigala",
-"Opanayaka",
-"Pelmadulla",
-"Rakwana"
+"Ratnapura","Ayagama","Balangoda","Eheliyagoda",
+"Embilipitiya","Godakawela","Kahawatta","Kuruwita",
+"Nivitigala","Opanayaka","Pelmadulla","Rakwana"
 ]
 },
 
 "Kegalle":{
 fee:650,
 areas:[
-"Kegalle",
-"Dehiowita",
-"Deraniyagala",
-"Galigamuwa",
-"Hemmathagama",
-"Karawanella",
-"Kitulgala",
-"Mawanella",
-"Rambukkana",
-"Ruwanwella",
-"Thoolhiriya",
-"Warakapola",
-"Yatiyanthota"
+"Kegalle","Dehiowita","Deraniyagala","Galigamuwa",
+"Hemmathagama","Karawanella","Kitulgala","Mawanella",
+"Rambukkana","Ruwanwella","Thoolhiriya",
+"Warakapola","Yatiyanthota"
 ]
 },
 
 "Store Pickup":{
 fee:0,
-areas:[
-"Store Pickup"
-]
+areas:["Store Pickup"]
 }
 
 };
 
-function openWhatsApp(phone, text){
-var waUrl = "whatsapp://send?phone=" + phone + "&text=" + encodeURIComponent(text);
-var fallbackUrl = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text);
+function openWhatsApp(phone,text){
 
-window.location.href = waUrl;
+var waUrl=
+"whatsapp://send?phone="+phone+
+"&text="+encodeURIComponent(text);
+
+var fallbackUrl=
+"https://api.whatsapp.com/send?phone="+phone+
+"&text="+encodeURIComponent(text);
+
+window.location.href=waUrl;
+
 setTimeout(function(){
-window.location.href = fallbackUrl;
-}, 500);
+window.location.href=fallbackUrl;
+},500);
+
 }
 
 Object.keys(DATA).forEach(function(x){
+
 var o=document.createElement("option");
+
 o.value=x;
 o.textContent=x;
+
 district.appendChild(o);
+
 });
 
 function setQty(n){
+
 n=parseInt(n)||1;
+
 if(n<1)n=1;
 if(n>999)n=999;
+
 qty.value=n;
+
 calculate();
+
 }
 
 $("#minus").addEventListener("click",function(){
+
 setQty((parseInt(qty.value)||1)-1);
+
 });
 
 $("#plus").addEventListener("click",function(){
+
 setQty((parseInt(qty.value)||1)+1);
+
 });
 
-/* Allow deleting the number and typing a new one (e.g. 200) */
 qty.addEventListener("input",function(){
-var v=String(qty.value).replace(/\D/g,"").slice(0,3);
-if(v!==""&&parseInt(v,10)>999)v="999";
-if(qty.value!==v)qty.value=v;
+
+var v=String(qty.value)
+.replace(/\D/g,"")
+.slice(0,3);
+
+if(v!=="" && parseInt(v,10)>999){
+v="999";
+}
+
+if(qty.value!==v){
+qty.value=v;
+}
+
 calculate();
+
 });
 
 qty.addEventListener("blur",function(){
+
 setQty(qty.value);
+
 });
 
 district.addEventListener("change",function(){
+
 area.innerHTML='<option value="">Select Area</option>';
+
 var d=DATA[district.value];
+
 if(d){
+
 d.areas.forEach(function(x){
+
 var o=document.createElement("option");
+
 o.value=x;
 o.textContent=x;
+
 area.appendChild(o);
+
 });
+
 }
+
 paymentUpdate();
 calculate();
+
 });
 
 $$('input[name="payment"]').forEach(function(r){
+
 r.addEventListener("change",function(){
+
 if(this.value==="COD"){
+
 var d=district.value;
+
 if(d!=="Colombo"){
+
 alert("Cash on Delivery is available only for Colombo.");
-document.querySelector('input[name="payment"][value="BANK"]').checked=true;
+
+document.querySelector(
+'input[name="payment"][value="BANK"]'
+).checked=true;
+
 }
+
 }
+
 paymentUpdate();
+
 });
+
 });
 
 function paymentUpdate(){
+
 var d=district.value;
+
 var codAllowed=d==="Colombo";
-var cod=document.querySelector('input[name="payment"][value="COD"]');
+
+var cod=document.querySelector(
+'input[name="payment"][value="COD"]'
+);
+
 var codBox=$("#codOption");
+
 var warning=$("#codWarning");
 
 cod.disabled=!codAllowed;
 
 if(!codAllowed){
+
 codBox.classList.add("disabled");
+
 warning.style.display="block";
-warning.textContent="Cash on Delivery is available only for Colombo.";
+
+warning.textContent=
+"Cash on Delivery is available only for Colombo.";
+
 if(cod.checked){
-document.querySelector('input[name="payment"][value="BANK"]').checked=true;
-}
-}else{
-codBox.classList.remove("disabled");
-warning.style.display="none";
+
+document.querySelector(
+'input[name="payment"][value="BANK"]'
+).checked=true;
+
 }
 
-var selected=document.querySelector('input[name="payment"]:checked');
-$("#bankBox").style.display=selected && selected.value==="BANK"?"block":"none";
+}else{
+
+codBox.classList.remove("disabled");
+
+warning.style.display="none";
+
+}
+
+var selected=
+document.querySelector(
+'input[name="payment"]:checked'
+);
+
+$("#bankBox").style.display=
+selected && selected.value==="BANK"
+?"block"
+:"none";
+
 }
 
 function calculate(){
+
 var n=parseInt(qty.value)||1;
+
 var d=DATA[district.value];
+
 var fee=d?d.fee:300;
+
 var productTotal=n*X.p;
+
 var total=productTotal+fee;
 
 $("#billQty").textContent=n;
+
 var orderBtn=$("#orderBtn");
 
 if(n>10){
-$("#billProduct").textContent="Price discuss on WhatsApp";
-$("#totalPrice").textContent="Price discuss on WhatsApp";
-orderBtn.textContent="Discuss Price on WhatsApp";
+
+$("#billProduct").textContent=
+"Price discuss on WhatsApp";
+
+$("#totalPrice").textContent=
+"Price discuss on WhatsApp";
+
+orderBtn.textContent=
+"Discuss Price on WhatsApp";
+
 }else{
-$("#billProduct").textContent="Rs. "+productTotal.toLocaleString();
-$("#totalPrice").textContent="Rs. "+total.toLocaleString();
-orderBtn.textContent="Order via WhatsApp";
+
+$("#billProduct").textContent=
+"Rs. "+productTotal.toLocaleString();
+
+$("#totalPrice").textContent=
+"Rs. "+total.toLocaleString();
+
+orderBtn.textContent=
+"Order via WhatsApp";
+
 }
 
-$("#deliveryPrice").textContent="Rs. "+fee.toLocaleString();
+$("#deliveryPrice").textContent=
+"Rs. "+fee.toLocaleString();
+
 }
 
 $("#copyBank").addEventListener("click",async function(){
+
 try{
+
 await navigator.clipboard.writeText(X.a);
+
 this.textContent="Copied ✓";
+
 var b=this;
+
 setTimeout(function(){
 b.textContent="Copy Account Number";
 },1800);
+
 }catch(e){
+
 prompt("Copy account number:",X.a);
+
 }
+
 });
 
 function clean(v){
-return String(v||"").replace(/[<>]/g,"").trim();
+
+return String(v||"")
+.replace(/[<>]/g,"")
+.trim();
+
 }
 
 $("#orderBtn").addEventListener("click",function(){
+
 var name=clean($("#name").value);
 var phone=clean($("#phone").value);
 var address=clean($("#address").value);
 var d=clean(district.value);
 var ar=clean(area.value);
 
-var selected=document.querySelector('input[name="payment"]:checked');
+var selected=
+document.querySelector(
+'input[name="payment"]:checked'
+);
+
 var pm=selected?selected.value:"BANK";
+
 var n=parseInt(qty.value)||1;
 
 if(!name||!phone||!address||!d||!ar){
+
 alert("Please fill all required details.");
+
 return;
+
 }
 
 if(pm==="COD" && d!=="Colombo"){
+
 alert("Cash on Delivery is available only for Colombo.");
+
 return;
+
 }
 
 var fee=DATA[d]?DATA[d].fee:300;
+
 var productTotal=n*X.p;
+
 var total=productTotal+fee;
+
 var message="";
 
 if(n>10){
+
 message=
 "SN Mehendi Bulk Order Request\n\n"+
 "Name: "+name+"\n"+
@@ -1732,7 +1714,9 @@ message=
 "Product: Bridal Cone\n"+
 "Quantity: "+n+" Cones\n"+
 "Note: I want to discuss price for bulk order.";
+
 }else{
+
 message=
 "SN Mehendi Order\n\n"+
 "Name: "+name+"\n"+
@@ -1742,183 +1726,424 @@ message=
 "Area: "+ar+"\n"+
 "Product: Bridal Cone\n"+
 "Quantity: "+n+"\n"+
-"Product Total: Rs. "+productTotal.toLocaleString()+"\n"+
-"Delivery: Rs. "+fee.toLocaleString()+"\n"+
-"Payment: "+(pm==="COD"?"Cash on Delivery":"Bank Transfer")+"\n"+
-"Total: Rs. "+total.toLocaleString();
+"Product Total: Rs. "+
+productTotal.toLocaleString()+"\n"+
+"Delivery: Rs. "+
+fee.toLocaleString()+"\n"+
+"Payment: "+
+(pm==="COD"?"Cash on Delivery":"Bank Transfer")+"\n"+
+"Total: Rs. "+
+total.toLocaleString();
+
 }
 
-openWhatsApp(X.o, message);
+openWhatsApp(X.o,message);
+
 });
 
 function openVerify(){
+
 $("#verifyOverlay").style.display="flex";
+
 $("#verifyCode").value="";
+
 $("#verifyResult").textContent="";
+
 }
 
 $("#verifyBtn").addEventListener("click",openVerify);
 $("#verifyTop").addEventListener("click",openVerify);
 
 $("#verifyClose").addEventListener("click",function(){
+
 $("#verifyOverlay").style.display="none";
+
 });
 
 $("#verifyOverlay").addEventListener("click",function(e){
+
 if(e.target===this){
 this.style.display="none";
 }
+
 });
 
 $("#verifySubmit").addEventListener("click",function(){
-var code=clean($("#verifyCode").value).toUpperCase().replace(/\s+/g,"");
+
+var code=
+clean($("#verifyCode").value)
+.toUpperCase()
+.replace(/\s+/g,"");
+
 if(!code){
-$("#verifyResult").textContent="Please enter your verification code.";
+
+$("#verifyResult").textContent=
+"Please enter your verification code.";
+
 return;
+
 }
-var message="SN Mehendi Product Verification Request\n\nVerification Code: "+code;
-openWhatsApp(X.v, message);
+
+var message=
+"SN Mehendi Product Verification Request\n\n"+
+"Verification Code: "+code;
+
+openWhatsApp(X.v,message);
+
 });
 
 $("#deliveryMenu").addEventListener("click",function(e){
+
 e.preventDefault();
+
 $("#sideMenu").classList.remove("open");
+
 $("#deliveryOverlay").style.display="flex";
+
 });
 
 $("#deliveryClose").addEventListener("click",function(){
+
 $("#deliveryOverlay").style.display="none";
+
 });
 
 $("#deliveryOverlay").addEventListener("click",function(e){
+
 if(e.target===this){
 this.style.display="none";
 }
+
 });
 
 $("#contactBtn").addEventListener("click",function(){
-openWhatsApp(X.o, "Hello SN Mehendi, I have an enquiry.");
+
+openWhatsApp(
+X.o,
+"Hello SN Mehendi, I have an enquiry."
+);
+
 });
 
 $("#menuBtn").addEventListener("click",function(){
+
 $("#sideMenu").classList.add("open");
+
 });
 
 $("#sideClose").addEventListener("click",function(){
+
 $("#sideMenu").classList.remove("open");
+
 });
 
 $$("[data-close]").forEach(function(x){
+
 x.addEventListener("click",function(){
+
 $("#sideMenu").classList.remove("open");
+
 });
+
 });
 
 if("IntersectionObserver" in window){
-var observer=new IntersectionObserver(function(entries){
+
+var observer=new IntersectionObserver(
+function(entries){
+
 entries.forEach(function(e){
+
 if(e.isIntersecting){
+
 e.target.classList.add("show");
+
 }
+
 });
-},{threshold:.08});
+
+},
+{threshold:.08}
+);
 
 $$(".reveal").forEach(function(x){
+
 observer.observe(x);
+
 });
+
 }else{
+
 $$(".reveal").forEach(function(x){
+
 x.classList.add("show");
+
 });
+
 }
+
+/* =========================================================
+   SERVICE WORKER
+   ========================================================= */
 
 if("serviceWorker" in navigator){
+
 window.addEventListener("load",function(){
-navigator.serviceWorker.register("sw.js").catch(function(){});
+
+navigator.serviceWorker
+.register("/SN-Mehendi/sw.js")
+.catch(function(error){
+
+console.log(
+"Service Worker registration failed:",
+error
+);
+
 });
+
+});
+
 }
 
-/* AUTO INSTALL POPUP (Android + iPhone) - shows as soon as the link opens */
+/* =========================================================
+   SMART INSTALL POPUP
+   ========================================================= */
+
 (function(){
 
 var ua=navigator.userAgent||"";
 
-var standalone=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;
-if(standalone)return;
-
-var isIOS=/iphone|ipad|ipod/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-var isAndroid=/android/i.test(ua);
-if(!isIOS&&!isAndroid)return;
-
 var overlay=$("#installPopup");
 var intro=$("#installIntro");
 var stepsBox=$("#installSteps");
-var nowBtn=$("#installNowBtn");
+var installBtn=$("#installNowBtn");
+var laterBtn=$("#installLater");
+
+if(!overlay)return;
+
+function isStandalone(){
+
+return (
+window.matchMedia &&
+window.matchMedia(
+"(display-mode: standalone)"
+).matches
+) ||
+window.navigator.standalone===true;
+
+}
+
+function isIOS(){
+
+return /iphone|ipad|ipod/i.test(ua) ||
+(
+navigator.platform==="MacIntel" &&
+navigator.maxTouchPoints>1
+);
+
+}
+
+function isAndroid(){
+
+return /android/i.test(ua);
+
+}
+
+if(isStandalone())return;
+
+if(!isIOS()&&!isAndroid())return;
+
 var deferredPrompt=window.__bip||null;
 
-var shareSvg='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
-
 function list(items){
-return '<ul class="install-steps"><li>'+items.join("</li><li>")+'</li></ul>';
-}
 
-function render(){
-nowBtn.style.display="none";
-stepsBox.innerHTML="";
+return '<ul class="install-steps">'+
+items.map(function(item){
 
-if(isIOS){
-intro.textContent="Add SN Mehendi to your Home Screen for quick and easy ordering.";
-stepsBox.innerHTML=list([
-"Tap the <strong>Share</strong> button "+shareSvg+" in your browser",
-"Scroll down and tap <strong>Add to Home Screen</strong>",
-"Tap <strong>Add</strong>"
-]);
-}else{
-intro.textContent="Tap the button below to install SN Mehendi on your phone.";
-nowBtn.style.display="block";
-}
+return "<li>"+item+"</li>";
+
+}).join("")+
+"</ul>";
+
 }
 
 function closePopup(){
+
 overlay.style.display="none";
+
 }
 
-window.addEventListener("beforeinstallprompt",function(e){
-e.preventDefault();
-deferredPrompt=e;
-});
+function renderIOS(){
 
-nowBtn.addEventListener("click",async function(){
-if(deferredPrompt){
-deferredPrompt.prompt();
-try{
-await deferredPrompt.userChoice;
-}catch(err){}
-deferredPrompt=null;
-closePopup();
-}else{
-nowBtn.style.display="none";
-intro.textContent="Follow these steps to install the app:";
+intro.textContent=
+"Add SN Mehendi to your iPhone Home Screen for quick and easy ordering.";
+
+installBtn.style.display="none";
+
 stepsBox.innerHTML=list([
-"Tap the <strong>⋮ (3 dots)</strong> menu at the top right of Chrome",
-"Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>",
-"Tap <strong>Install</strong>"
+
+"Open this website in <strong>Safari</strong>.",
+
+"Tap the <strong>Share</strong> button ↑ at the bottom of Safari.",
+
+"Scroll down and tap <strong>Add to Home Screen</strong>.",
+
+"Tap <strong>Add</strong>."
+
 ]);
+
 }
+
+function renderAndroid(){
+
+intro.textContent=
+"Install the official SN Mehendi app on your Android phone.";
+
+if(deferredPrompt){
+
+installBtn.style.display="block";
+
+installBtn.textContent="Install App";
+
+stepsBox.innerHTML="";
+
+}else{
+
+installBtn.style.display="none";
+
+stepsBox.innerHTML=list([
+
+"Tap the <strong>⋮</strong> menu in Chrome.",
+
+"Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.",
+
+"Tap <strong>Install</strong>."
+
+]);
+
+}
+
+}
+
+if(isIOS()){
+
+renderIOS();
+
+}else{
+
+renderAndroid();
+
+}
+
+window.addEventListener(
+"beforeinstallprompt",
+function(e){
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+window.__bip=e;
+
+if(isAndroid()){
+
+installBtn.style.display="block";
+
+installBtn.textContent="Install App";
+
+stepsBox.innerHTML="";
+
+intro.textContent=
+"Tap Install App to install SN Mehendi on your Android phone.";
+
+}
+
 });
 
-$("#installPopupClose").addEventListener("click",closePopup);
-$("#installLater").addEventListener("click",closePopup);
+installBtn.addEventListener(
+"click",
+async function(){
 
-overlay.addEventListener("click",function(e){
-if(e.target===this){
+if(!deferredPrompt){
+
+installBtn.style.display="none";
+
+intro.textContent=
+"Please install SN Mehendi from your Chrome menu.";
+
+stepsBox.innerHTML=list([
+
+"Tap the <strong>⋮</strong> menu in Chrome.",
+
+"Tap <strong>Install app</strong>.",
+
+"If you see <strong>Add to Home screen</strong>, select it.",
+
+"Tap <strong>Install</strong> or <strong>Add</strong>."
+
+]);
+
+return;
+
+}
+
+try{
+
+deferredPrompt.prompt();
+
+var result=
+await deferredPrompt.userChoice;
+
+if(result &&
+result.outcome==="accepted"){
+
+closePopup();
+
+}
+
+}catch(error){
+
+console.log(
+"PWA installation error:",
+error
+);
+
+}
+
+deferredPrompt=null;
+window.__bip=null;
+
+});
+
+$("#installPopupClose")
+.addEventListener("click",closePopup);
+
+laterBtn.addEventListener(
+"click",
+closePopup
+);
+
+overlay.addEventListener(
+"click",
+function(e){
+
+if(e.target===overlay){
 closePopup();
 }
+
 });
 
-window.addEventListener("appinstalled",closePopup);
+window.addEventListener(
+"appinstalled",
+function(){
 
-render();
+closePopup();
+
+deferredPrompt=null;
+window.__bip=null;
+
+});
+
 overlay.style.display="flex";
 
 })();
@@ -1930,4 +2155,4 @@ calculate();
 </script>
 
 </body>
-  </html>
+</html>

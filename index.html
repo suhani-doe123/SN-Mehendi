@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="description" content="SN Mehendi - 100% Natural — Deep Stain — Signature Fragrance">
 
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="SN Mehendi">
@@ -35,7 +36,6 @@ document.documentElement.innerHTML=
 '<div><h2>Access Denied</h2><p>This application is domain locked.</p></div></body>';
 
 throw new Error("DOMAIN_LOCK");
-
 }
 })();
 </script>
@@ -129,12 +129,8 @@ animation:coin 5s linear infinite;
 }
 
 @keyframes coin{
-0%,100%{
-transform:rotateY(0deg);
-}
-50%{
-transform:rotateY(180deg);
-}
+0%,100%{transform:rotateY(0deg);}
+50%{transform:rotateY(180deg);}
 }
 
 .brand span{
@@ -189,12 +185,8 @@ animation:float 3s ease-in-out infinite;
 }
 
 @keyframes float{
-0%,100%{
-transform:translateY(0);
-}
-50%{
-transform:translateY(-7px);
-}
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-7px);}
 }
 
 .hero h1{
@@ -289,7 +281,8 @@ font-size:14px;
 font-weight:700;
 }
 
-input,select{
+input,
+select{
 width:100%;
 height:46px;
 border-radius:10px;
@@ -303,6 +296,95 @@ outline:none;
 input:focus,
 select:focus{
 border-color:#fff;
+}
+
+/* =====================================================
+   SEARCHABLE DISTRICT / AREA
+   ===================================================== */
+
+.search-select{
+position:relative;
+width:100%;
+}
+
+.search-select-input{
+width:100%;
+height:46px;
+border-radius:10px;
+border:1px solid #444;
+background:#111;
+color:#fff;
+padding:0 42px 0 12px;
+outline:none;
+}
+
+.search-select-input:focus{
+border-color:#fff;
+}
+
+.search-select-input::placeholder{
+color:#888;
+}
+
+.search-arrow{
+position:absolute;
+right:13px;
+top:50%;
+transform:translateY(-50%);
+color:#aaa;
+pointer-events:none;
+font-size:15px;
+}
+
+.search-options{
+display:none;
+position:absolute;
+left:0;
+right:0;
+top:51px;
+z-index:1500;
+background:#0a0a0a;
+border:1px solid #444;
+border-radius:10px;
+max-height:230px;
+overflow-y:auto;
+box-shadow:0 15px 40px rgba(0,0,0,.65);
+}
+
+.search-options.open{
+display:block;
+}
+
+.search-option{
+padding:12px;
+border-bottom:1px solid #222;
+color:#ddd;
+font-size:14px;
+cursor:pointer;
+}
+
+.search-option:last-child{
+border-bottom:0;
+}
+
+.search-option:hover,
+.search-option.active{
+background:#1b1b1b;
+color:#fff;
+}
+
+.search-empty{
+padding:14px;
+text-align:center;
+color:#777;
+font-size:13px;
+}
+
+.selected-location{
+font-size:12px;
+color:#888;
+margin-top:6px;
+min-height:15px;
 }
 
 .delivery-grid{
@@ -530,6 +612,80 @@ background:#111;
 color:#fff;
 font-weight:800;
 font-size:13px;
+}
+
+/* =====================================================
+   SINHALA → ENGLISH IMPORTANT INFORMATION
+   MOVING RED BORDER
+   ===================================================== */
+
+.language-info{
+position:relative;
+border-radius:15px;
+padding:2px;
+margin-top:5px;
+overflow:hidden;
+}
+
+.language-info::before{
+content:"";
+position:absolute;
+inset:-120%;
+background:conic-gradient(
+transparent 0deg,
+transparent 315deg,
+#ff1a1a 345deg,
+#ff4b4b 355deg,
+transparent 360deg
+);
+animation:redBorder 3.2s linear infinite;
+}
+
+.language-info::after{
+content:"";
+position:absolute;
+inset:1px;
+background:#050505;
+border-radius:14px;
+z-index:0;
+}
+
+.language-info-content{
+position:relative;
+z-index:1;
+padding:18px;
+}
+
+@keyframes redBorder{
+to{
+transform:rotate(360deg);
+}
+}
+
+.language-title{
+font-size:16px;
+font-weight:800;
+margin-bottom:12px;
+text-align:center;
+letter-spacing:.4px;
+}
+
+.language-divider{
+height:1px;
+background:#333;
+margin:16px 0;
+}
+
+@media(prefers-reduced-motion:reduce){
+
+.language-info::before{
+animation:none;
+}
+
+.reveal{
+transition:none;
+}
+
 }
 
 /* INSTALL POPUP */
@@ -777,27 +933,72 @@ autocomplete="street-address">
 
 <div class="delivery-grid">
 
-<div>
-
-<label for="district">District</label>
-
-<select id="district">
-<option value="">Select District</option>
-</select>
-
-</div>
+<!-- DISTRICT SEARCH -->
 
 <div>
 
-<label for="area">Area / City</label>
+<label for="districtSearch">District</label>
 
-<select id="area">
-<option value="">Select Area</option>
-</select>
+<div class="search-select" id="districtBox">
+
+<input
+id="districtSearch"
+class="search-select-input"
+type="text"
+placeholder="Search District..."
+autocomplete="off"
+inputmode="search"
+aria-label="Search District">
+
+<span class="search-arrow">⌄</span>
+
+<div
+class="search-options"
+id="districtOptions">
+</div>
+
+</div>
+
+<div class="selected-location" id="districtSelected"></div>
+
+</div>
+
+<!-- AREA SEARCH -->
+
+<div>
+
+<label for="areaSearch">Area / City</label>
+
+<div class="search-select" id="areaBox">
+
+<input
+id="areaSearch"
+class="search-select-input"
+type="text"
+placeholder="Select District First"
+autocomplete="off"
+inputmode="search"
+aria-label="Search Area or City"
+disabled>
+
+<span class="search-arrow">⌄</span>
+
+<div
+class="search-options"
+id="areaOptions">
+</div>
+
+</div>
+
+<div class="selected-location" id="areaSelected"></div>
 
 </div>
 
 </div>
+
+<!-- Hidden values used by existing order logic -->
+<input type="hidden" id="district">
+<input type="hidden" id="area">
 
 <label>Payment Method</label>
 
@@ -874,11 +1075,17 @@ Order via WhatsApp
 
 </section>
 
+<!-- SINHALA / ENGLISH INFORMATION -->
+
 <section class="card reveal">
 
-<h2>වැදගත් තොරතුරු</h2>
+<div class="language-info">
 
-<div class="info">
+<div class="language-info-content">
+
+<div class="language-title">
+වැදගත් තොරතුරු — Important Information
+</div>
 
 <p>
 🌿 100% ස්වාභාවික අමුද්‍රව්‍ය භාවිතයෙන් නැවුම්ව අතින් සකස් කරන ලද මෙහෙන්දි කෝන් වේ.
@@ -892,7 +1099,7 @@ Order via WhatsApp
 🚚 ඔබගේ ස්ථානය අනුව භාරදීමට වැඩ කරන දින 2–4ක් ගත වේ.
 </p>
 
-<hr style="border:0;border-top:1px solid #333;margin:18px 0">
+<div class="language-divider"></div>
 
 <p>
 <strong>Important Information</strong>
@@ -910,6 +1117,7 @@ Store in normal fridge cool (below freezer) for long-lasting quality.
 Delivery takes 2 to 4 working days based on your location.
 </p>
 
+</div>
 </div>
 
 </section>
@@ -996,11 +1204,8 @@ rel="noopener">
 <div class="info">
 
 <p><strong>Colombo:</strong> Rs. 300</p>
-
 <p><strong>Gampaha / Kalutara:</strong> Rs. 450</p>
-
 <p><strong>Other Districts:</strong> Rs. 650</p>
-
 <p><strong>Store Pickup:</strong> Free</p>
 
 <p>
@@ -1119,8 +1324,18 @@ return document.querySelectorAll(x);
 };
 
 var qty=$("#qty");
-var district=$("#district");
-var area=$("#area");
+
+var districtValue=$("#district");
+var areaValue=$("#area");
+
+var districtSearch=$("#districtSearch");
+var areaSearch=$("#areaSearch");
+
+var districtOptions=$("#districtOptions");
+var areaOptions=$("#areaOptions");
+
+var districtSelected=$("#districtSelected");
+var areaSelected=$("#areaSelected");
 
 var DATA={
 
@@ -1403,6 +1618,262 @@ areas:["Store Pickup"]
 
 };
 
+/* =====================================================
+   SEARCHABLE DISTRICT
+   ===================================================== */
+
+var districtNames=Object.keys(DATA);
+
+function normalizeSearch(value){
+return String(value||"")
+.toLowerCase()
+.trim();
+}
+
+function renderDistrictOptions(query){
+
+var q=normalizeSearch(query);
+
+districtOptions.innerHTML="";
+
+var matches=districtNames.filter(function(name){
+return name.toLowerCase().indexOf(q)!==-1;
+});
+
+if(!matches.length){
+
+districtOptions.innerHTML=
+'<div class="search-empty">No district found</div>';
+
+return;
+}
+
+matches.forEach(function(name){
+
+var item=document.createElement("div");
+
+item.className="search-option";
+item.textContent=name;
+
+item.addEventListener("click",function(){
+
+selectDistrict(name);
+
+});
+
+districtOptions.appendChild(item);
+
+});
+
+}
+
+function selectDistrict(name){
+
+if(!DATA[name])return;
+
+districtValue.value=name;
+
+districtSearch.value=name;
+
+districtSelected.textContent=
+"Selected: "+name;
+
+districtOptions.classList.remove("open");
+
+areaValue.value="";
+areaSearch.value="";
+areaSearch.placeholder="Search Area / City...";
+areaSearch.disabled=false;
+
+areaSelected.textContent="";
+
+renderAreaOptions("");
+
+paymentUpdate();
+calculate();
+
+}
+
+function renderAreaOptions(query){
+
+areaOptions.innerHTML="";
+
+var d=DATA[districtValue.value];
+
+if(!d){
+
+areaOptions.innerHTML=
+'<div class="search-empty">Select a district first</div>';
+
+return;
+}
+
+var q=normalizeSearch(query);
+
+var matches=d.areas.filter(function(name){
+
+return name.toLowerCase().indexOf(q)!==-1;
+
+});
+
+if(!matches.length){
+
+areaOptions.innerHTML=
+'<div class="search-empty">No area / city found</div>';
+
+return;
+}
+
+matches.forEach(function(name){
+
+var item=document.createElement("div");
+
+item.className="search-option";
+item.textContent=name;
+
+item.addEventListener("click",function(){
+
+selectArea(name);
+
+});
+
+areaOptions.appendChild(item);
+
+});
+
+}
+
+function selectArea(name){
+
+areaValue.value=name;
+
+areaSearch.value=name;
+
+areaSelected.textContent=
+"Selected: "+name;
+
+areaOptions.classList.remove("open");
+
+calculate();
+
+}
+
+/* District open/search */
+
+districtSearch.addEventListener("focus",function(){
+
+renderDistrictOptions(this.value);
+
+districtOptions.classList.add("open");
+
+});
+
+districtSearch.addEventListener("input",function(){
+
+renderDistrictOptions(this.value);
+
+districtOptions.classList.add("open");
+
+});
+
+districtSearch.addEventListener("click",function(){
+
+renderDistrictOptions(this.value);
+
+districtOptions.classList.add("open");
+
+});
+
+/* Area open/search */
+
+areaSearch.addEventListener("focus",function(){
+
+if(areaSearch.disabled)return;
+
+renderAreaOptions(this.value);
+
+areaOptions.classList.add("open");
+
+});
+
+areaSearch.addEventListener("input",function(){
+
+if(areaSearch.disabled)return;
+
+renderAreaOptions(this.value);
+
+areaOptions.classList.add("open");
+
+});
+
+areaSearch.addEventListener("click",function(){
+
+if(areaSearch.disabled)return;
+
+renderAreaOptions(this.value);
+
+areaOptions.classList.add("open");
+
+});
+
+/* Prevent invalid free typing */
+
+districtSearch.addEventListener("blur",function(){
+
+setTimeout(function(){
+
+if(
+districtValue.value &&
+districtSearch.value!==districtValue.value
+){
+
+districtSearch.value=districtValue.value;
+
+}
+
+districtOptions.classList.remove("open");
+
+},180);
+
+});
+
+areaSearch.addEventListener("blur",function(){
+
+setTimeout(function(){
+
+if(
+areaValue.value &&
+areaSearch.value!==areaValue.value
+){
+
+areaSearch.value=areaValue.value;
+
+}
+
+areaOptions.classList.remove("open");
+
+},180);
+
+});
+
+/* Close dropdowns outside */
+
+document.addEventListener("click",function(e){
+
+if(!$("#districtBox").contains(e.target)){
+districtOptions.classList.remove("open");
+}
+
+if(!$("#areaBox").contains(e.target)){
+areaOptions.classList.remove("open");
+}
+
+});
+
+/* =====================================================
+   WHATSAPP
+   ===================================================== */
+
 function openWhatsApp(phone,text){
 
 var waUrl=
@@ -1416,21 +1887,18 @@ var fallbackUrl=
 window.location.href=waUrl;
 
 setTimeout(function(){
+
+if(document.visibilityState==="visible"){
 window.location.href=fallbackUrl;
-},500);
+}
+
+},700);
 
 }
 
-Object.keys(DATA).forEach(function(x){
-
-var o=document.createElement("option");
-
-o.value=x;
-o.textContent=x;
-
-district.appendChild(o);
-
-});
+/* =====================================================
+   QUANTITY
+   ===================================================== */
 
 function setQty(n){
 
@@ -1481,31 +1949,9 @@ setQty(qty.value);
 
 });
 
-district.addEventListener("change",function(){
-
-area.innerHTML='<option value="">Select Area</option>';
-
-var d=DATA[district.value];
-
-if(d){
-
-d.areas.forEach(function(x){
-
-var o=document.createElement("option");
-
-o.value=x;
-o.textContent=x;
-
-area.appendChild(o);
-
-});
-
-}
-
-paymentUpdate();
-calculate();
-
-});
+/* =====================================================
+   PAYMENT
+   ===================================================== */
 
 $$('input[name="payment"]').forEach(function(r){
 
@@ -1513,11 +1959,13 @@ r.addEventListener("change",function(){
 
 if(this.value==="COD"){
 
-var d=district.value;
+var d=districtValue.value;
 
 if(d!=="Colombo"){
 
-alert("Cash on Delivery is available only for Colombo.");
+alert(
+"Cash on Delivery is available only for Colombo."
+);
 
 document.querySelector(
 'input[name="payment"][value="BANK"]'
@@ -1535,7 +1983,7 @@ paymentUpdate();
 
 function paymentUpdate(){
 
-var d=district.value;
+var d=districtValue.value;
 
 var codAllowed=d==="Colombo";
 
@@ -1586,11 +2034,15 @@ selected && selected.value==="BANK"
 
 }
 
+/* =====================================================
+   BILL
+   ===================================================== */
+
 function calculate(){
 
 var n=parseInt(qty.value)||1;
 
-var d=DATA[district.value];
+var d=DATA[districtValue.value];
 
 var fee=d?d.fee:300;
 
@@ -1631,6 +2083,10 @@ $("#deliveryPrice").textContent=
 
 }
 
+/* =====================================================
+   COPY BANK
+   ===================================================== */
+
 $("#copyBank").addEventListener("click",async function(){
 
 try{
@@ -1642,7 +2098,9 @@ this.textContent="Copied ✓";
 var b=this;
 
 setTimeout(function(){
+
 b.textContent="Copy Account Number";
+
 },1800);
 
 }catch(e){
@@ -1652,6 +2110,10 @@ prompt("Copy account number:",X.a);
 }
 
 });
+
+/* =====================================================
+   ORDER
+   ===================================================== */
 
 function clean(v){
 
@@ -1666,8 +2128,9 @@ $("#orderBtn").addEventListener("click",function(){
 var name=clean($("#name").value);
 var phone=clean($("#phone").value);
 var address=clean($("#address").value);
-var d=clean(district.value);
-var ar=clean(area.value);
+
+var d=clean(districtValue.value);
+var ar=clean(areaValue.value);
 
 var selected=
 document.querySelector(
@@ -1688,7 +2151,9 @@ return;
 
 if(pm==="COD" && d!=="Colombo"){
 
-alert("Cash on Delivery is available only for Colombo.");
+alert(
+"Cash on Delivery is available only for Colombo."
+);
 
 return;
 
@@ -1741,6 +2206,10 @@ openWhatsApp(X.o,message);
 
 });
 
+/* =====================================================
+   VERIFICATION
+   ===================================================== */
+
 function openVerify(){
 
 $("#verifyOverlay").style.display="flex";
@@ -1763,7 +2232,9 @@ $("#verifyOverlay").style.display="none";
 $("#verifyOverlay").addEventListener("click",function(e){
 
 if(e.target===this){
+
 this.style.display="none";
+
 }
 
 });
@@ -1792,6 +2263,10 @@ openWhatsApp(X.v,message);
 
 });
 
+/* =====================================================
+   DELIVERY
+   ===================================================== */
+
 $("#deliveryMenu").addEventListener("click",function(e){
 
 e.preventDefault();
@@ -1811,10 +2286,16 @@ $("#deliveryOverlay").style.display="none";
 $("#deliveryOverlay").addEventListener("click",function(e){
 
 if(e.target===this){
+
 this.style.display="none";
+
 }
 
 });
+
+/* =====================================================
+   CONTACT
+   ===================================================== */
 
 $("#contactBtn").addEventListener("click",function(){
 
@@ -1824,6 +2305,10 @@ X.o,
 );
 
 });
+
+/* =====================================================
+   MENU
+   ===================================================== */
 
 $("#menuBtn").addEventListener("click",function(){
 
@@ -1846,6 +2331,10 @@ $("#sideMenu").classList.remove("open");
 });
 
 });
+
+/* =====================================================
+   SCROLL ANIMATION
+   ===================================================== */
 
 if("IntersectionObserver" in window){
 
@@ -1882,9 +2371,9 @@ x.classList.add("show");
 
 }
 
-/* =========================================================
+/* =====================================================
    SERVICE WORKER
-   ========================================================= */
+   ===================================================== */
 
 if("serviceWorker" in navigator){
 
@@ -1905,9 +2394,9 @@ error
 
 }
 
-/* =========================================================
-   SMART INSTALL POPUP
-   ========================================================= */
+/* =====================================================
+   SMART PWA INSTALL POPUP
+   ===================================================== */
 
 (function(){
 
@@ -2009,7 +2498,28 @@ stepsBox.innerHTML="";
 
 }else{
 
-installBtn.style.display="none";
+installBtn.style.display="block";
+
+installBtn.textContent="Checking Install…";
+
+stepsBox.innerHTML=list([
+
+"Please wait a moment while Chrome checks whether SN Mehendi can be installed."
+
+]);
+
+/*
+If Chrome does not provide beforeinstallprompt,
+we will automatically show manual instructions.
+*/
+
+setTimeout(function(){
+
+if(!deferredPrompt && overlay.style.display==="flex"){
+
+installBtn.style.display="block";
+
+installBtn.textContent="Install App";
 
 stepsBox.innerHTML=list([
 
@@ -2017,9 +2527,16 @@ stepsBox.innerHTML=list([
 
 "Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.",
 
-"Tap <strong>Install</strong>."
+"Tap <strong>Install</strong> or <strong>Add</strong>."
 
 ]);
+
+intro.textContent=
+"Chrome did not provide automatic installation on this device. Use the Chrome menu to install SN Mehendi.";
+
+}
+
+},1800);
 
 }
 
@@ -2034,6 +2551,12 @@ renderIOS();
 renderAndroid();
 
 }
+
+/*
+Listen for the real browser install event.
+This is what allows Android Chrome to show
+the actual native installation dialog.
+*/
 
 window.addEventListener(
 "beforeinstallprompt",
@@ -2066,22 +2589,20 @@ async function(){
 
 if(!deferredPrompt){
 
-installBtn.style.display="none";
-
-intro.textContent=
-"Please install SN Mehendi from your Chrome menu.";
-
 stepsBox.innerHTML=list([
 
-"Tap the <strong>⋮</strong> menu in Chrome.",
+"Open the <strong>Chrome</strong> browser menu ⋮.",
 
-"Tap <strong>Install app</strong>.",
+"Tap <strong>Install app</strong> if available.",
 
-"If you see <strong>Add to Home screen</strong>, select it.",
+"If you see <strong>Add to Home screen</strong>, tap it.",
 
 "Tap <strong>Install</strong> or <strong>Add</strong>."
 
 ]);
+
+intro.textContent=
+"Automatic installation is not available from this browser. Please use Chrome's Install app option.";
 
 return;
 
@@ -2108,6 +2629,16 @@ console.log(
 error
 );
 
+stepsBox.innerHTML=list([
+
+"Chrome could not open the automatic installer.",
+
+"Open Chrome's <strong>⋮</strong> menu.",
+
+"Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>."
+
+]);
+
 }
 
 deferredPrompt=null;
@@ -2128,7 +2659,9 @@ overlay.addEventListener(
 function(e){
 
 if(e.target===overlay){
+
 closePopup();
+
 }
 
 });
